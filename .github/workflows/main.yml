@@ -1,0 +1,17 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - deploy
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        with:
+          heroku_api_key: ${{77732b0f-8b54-454c-b418-74a9beb7413d}}
+          heroku_app_name: "awesomechatappbeta" #Must be unique in Heroku
+          heroku_email: "jonilaukkanen1@gmail.com"
