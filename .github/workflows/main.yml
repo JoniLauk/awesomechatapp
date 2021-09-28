@@ -12,6 +12,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
-          heroku_api_key: ${{77732b0f-8b54-454c-b418-74a9beb7413d}}
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "awesomechatappbeta" #Must be unique in Heroku
           heroku_email: "jonilaukkanen1@gmail.com"
