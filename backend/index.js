@@ -1,11 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const morgan = require('morgan');
 require('dotenv').config();
 const messageRouter = require('./routes/messageRouter');
 const userRouter = require('./routes/messageRouter');
 
 const app = express();
 const PORT = 4000;
+
+app.use(morgan('tiny'));
+app.use(express.json());
 
 /**
  * Set up mongoose connection.
@@ -17,7 +21,6 @@ mongoose
   })
   .catch((err) => console.log(err));
 
-app.use(express.json());
 app.use('/api/messages', messageRouter);
 app.use('/api/users', userRouter);
 
