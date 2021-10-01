@@ -10,13 +10,13 @@ const messageRouter = express.Router();
  * @example router.get('/',
  */
 messageRouter.get('/', async (req, res, next) => {
-  Message.find({}, (err, message) => {
-    res.status(200).json(message);
-  });
+  const messages = await Message.find({}).exec();
+  res.status(200).json(messages);
 });
 
-messageRouter.post('/', async (req, res) => {
-  await Message.create(req.body, (err, post) => {
+messageRouter.post('/', (req, res, next) => {
+  Message.create(req.body, (err, post) => {
+    if (err) return next(err);
     res.json(post);
   });
 });
