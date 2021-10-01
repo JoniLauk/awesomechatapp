@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 // const uniqueValidator = require('mongoose-unique-validator');
 
 /**
@@ -12,10 +12,13 @@ const messageSchema = new mongoose.Schema({
   roomId: String,
   content: String,
   date: { type: String, default: Date.now },
-  user: String,
+  user: {
+    type: String,
+    required: true,
+  },
 });
 
-messageSchema.set('toJSON', {
+messageSchema.set("toJSON", {
   transform: (doc, object) => {
     const returnableObject = object;
     delete returnableObject.__v;
@@ -27,5 +30,5 @@ messageSchema.set('toJSON', {
 
 // messageSchema.plugin(uniqueValidator);
 
-const Message = mongoose.model('Message', messageSchema);
+const Message = mongoose.model("Message", messageSchema);
 module.exports = Message;
