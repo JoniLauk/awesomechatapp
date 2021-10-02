@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as useParams } from 'react-router-dom';
-import { getAll } from '../services/api';
+import { getAll } from '../services/messageService';
 
 function Room({ roomName, socket }) {
   const [messages, setMessages] = useState([]);

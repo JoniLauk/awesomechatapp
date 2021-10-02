@@ -4,8 +4,9 @@ const morgan = require('morgan');
 const http = require('http');
 const cors = require('cors');
 const { Server } = require('socket.io');
-const messageRouter = require('./routes/messageRouter');
-const userRouter = require('./routes/messageRouter');
+const messageRouter = require('./routes/message');
+const loginRouter = require('./routes/login');
+const userRouter = require('./routes/user');
 const Message = require('./models/message');
 require('dotenv').config();
 
@@ -51,6 +52,7 @@ mongoose
   .catch((err) => console.log(err));
 
 app.use('/api/messages', messageRouter);
+app.use('/api/login', loginRouter);
 app.use('/api/users', userRouter);
 
 server.listen(PORT, () => {
