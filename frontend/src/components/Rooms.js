@@ -17,7 +17,7 @@ function Rooms(props) {
 
   const getRoutes = rooms.map((x) => (
     <Route key={x.id} path={`${match.url}/${x.id}`}>
-      <Room roomName={x.name} />
+      <Room roomName={x.name} socket={props.socket} />
     </Route>
   ));
 
