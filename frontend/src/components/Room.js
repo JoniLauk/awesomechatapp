@@ -6,6 +6,10 @@ function Room({ roomName, socket }) {
   const [messages, setMessages] = useState([]);
   const [messageContent, setMessageContent] = useState('');
 
+  /**
+   * Async wrapper for getAll function which retrieves messages from
+   * the API. Adds messages to messages state.
+   */
   const getMessages = async () => {
     const response = await getAll();
     setMessages(response);
@@ -47,6 +51,10 @@ function Room({ roomName, socket }) {
     });
   }
 
+  /**
+   * Handles form input. Adds form input target value to messageContent state.
+   * @param {event} event
+   */
   const handleMessageContent = (event) => {
     event.preventDefault();
     setMessageContent(event.target.value);
