@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as useParams } from 'react-router-dom';
 import { getAll } from '../services/messageService';
+import './stylesheets/room.css';
 
 function Room({ roomName, socket }) {
   const [messages, setMessages] = useState([]);
@@ -60,7 +61,7 @@ function Room({ roomName, socket }) {
     setMessageContent(event.target.value);
   };
   return (
-    <div>
+    <div className="room">
       <h2>Tää on huone {roomName}</h2>
       <ul>{messageItems}</ul>
       <form onSubmit={emitMessage}>
