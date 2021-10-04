@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as useParams } from 'react-router-dom';
-import { getAll } from '../services/messageService';
+import { getAll, getAllMessagesForRoom } from '../services/messageService';
 
 function Room({ roomName, socket }) {
   const [messages, setMessages] = useState([]);
@@ -11,7 +11,7 @@ function Room({ roomName, socket }) {
    * the API. Adds messages to messages state.
    */
   const getMessages = async () => {
-    const response = await getAll();
+    const response = await getAllMessagesForRoom(roomName);
     setMessages(response);
   };
 
@@ -19,9 +19,7 @@ function Room({ roomName, socket }) {
     getMessages();
   }, []);
 
-  const messageItems = messages
-    .filter((x) => x.roomName === roomName)
-    .map((x) => <li key={x.id}>{x.content}</li>);
+  const messageItems = messages.map((x) => <li key={x.id}>{x.content}</li>);
 
   /**
    * Send message to backend which handles saving to the database.
@@ -46,7 +44,6 @@ function Room({ roomName, socket }) {
    */
   if (socket) {
     socket.on('received', (data) => {
-      console.log(data);
       setMessages([...messages, data]);
     });
   }
@@ -59,6 +56,7 @@ function Room({ roomName, socket }) {
     event.preventDefault();
     setMessageContent(event.target.value);
   };
+
   return (
     <div>
       <h2>Tää on huone {roomName}</h2>

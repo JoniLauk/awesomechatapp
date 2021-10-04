@@ -45,7 +45,11 @@ io.on('connection', (socket) => {
  * Set up mongoose connection.
  */
 mongoose
-  .connect(process.env.MONGODB_URI)
+  .connect(
+    process.env.NODE_ENV === 'development'
+      ? process.env.MONGODB_TEST_URI
+      : process.env.MONGODB_URI
+  )
   .then(() => {
     console.log('connection successful');
   })

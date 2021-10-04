@@ -20,9 +20,9 @@ function Login(props) {
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      const user = await logIn({ username, password });
-      setToken(user);
-      setUser(user);
+      const loginUser = await logIn({ username, password });
+      setToken(loginUser);
+      setUser(loginUser);
     } catch (error) {
       console.log(error.response.data.error);
     }

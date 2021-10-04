@@ -8,14 +8,15 @@ import {
 } from 'react-router-dom';
 import { Home, Settings, Rooms, Room, Login, Signup } from './index';
 import { io } from 'socket.io-client';
+import { getUser } from './utils/utils';
 
 export default function App() {
   const [socket, setSocket] = useState(null);
   const [currentUser, setCurrentUser] = useState('');
 
   useEffect(() => {
-    setCurrentUser(window.localStorage.getItem('currentUser'));
-    // console.log(`current user: ${currentUser}`);
+    setCurrentUser(getUser());
+    console.log(`current user: ${currentUser}`);
   }, [currentUser]);
 
   useEffect(() => {
