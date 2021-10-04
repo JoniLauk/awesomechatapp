@@ -35,8 +35,9 @@ io.on('connection', (socket) => {
     console.log(data);
     socket.broadcast.emit('received', data);
     // User needs to be changed
-    Message.create(data, (err) => {
+    Message.create(data, (err, result) => {
       if (err) console.log(err);
+      console.log(result);
     });
   });
 });
