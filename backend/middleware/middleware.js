@@ -8,9 +8,9 @@ const jwt = require('jsonwebtoken');
  * @param {*} next
  */
 const tokenExtractor = (req, res, next) => {
-  const auth = req.body('authorization');
+  const auth = req.headers.authorization;
   if (auth && auth.toLowerCase().startsWith('bearer ')) {
-    req.token = authorization.substring(7);
+    req.token = auth.substring(7);
   }
   next();
 };
@@ -26,13 +26,16 @@ const authenticator = (req, res, next) => {
     jwt.verify(req.token, process.env.SECRET, (err, user) => {
       if (err) {
         return res.status(401).json({
-          error: 'Token missing',
+          error: 'Invalid token',
         });
       }
       req.user = user;
+      next();
     });
-    next();
   } else {
+    res.status(401).json({
+      error: 'Token missing',
+    });
     next();
   }
 };

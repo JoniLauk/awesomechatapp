@@ -49,7 +49,7 @@ io.on('connection', (socket) => {
  */
 mongoose
   .connect(
-    process.env.NODE_ENV === 'development'
+    process.env.NODE_ENV === 'dev'
       ? process.env.MONGODB_TEST_URI
       : process.env.MONGODB_URI
   )
@@ -58,10 +58,10 @@ mongoose
   })
   .catch((err) => console.log(err));
 
-app.use(tokenExtractor);
-app.use(authenticator);
-app.use('/api/messages', messageRouter);
 app.use('/api/login', loginRouter);
+// app.use(tokenExtractor);
+// app.use(authenticator);
+app.use('/api/messages', messageRouter);
 app.use('/api/users', userRouter);
 
 server.listen(PORT, () => {

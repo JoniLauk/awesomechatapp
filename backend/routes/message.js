@@ -10,6 +10,7 @@ const messageRouter = express.Router();
  * @example router.get('/',
  */
 messageRouter.get('/', async (req, res, next) => {
+  console.log(req.query.roomName);
   const messages = await Message.find({ roomName: req.query.roomName }).exec();
   res.status(200).json(messages);
 });

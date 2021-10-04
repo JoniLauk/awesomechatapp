@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getToken } from '../utils/utils';
 
 const url = 'http://localhost:4000/api/messages';
 
@@ -8,7 +9,10 @@ export const getAll = async () => {
 };
 
 export const getAllMessagesForRoom = async (roomName) => {
-  const response = await axios.get(url, { params: { roomName } });
+  const response = await axios.get(url, {
+    params: { roomName },
+    headers: { authorization: `bearer ${getToken()}` },
+  });
   return response.data;
 };
 

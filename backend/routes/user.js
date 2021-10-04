@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const usersRouter = require('express').Router();
 const User = require('../models/user');
 // const bodyParser = require('body-parser');
@@ -65,11 +66,25 @@ usersRouter.post(
       passwordHash,
     });
 
-    const savedUser = await user.save((err) => {
+    const userForToken = {
+      username: user.username,
+      id: user._id,
+    };
+
+    const token = jwt.sign(userForToken, process.env.SECRET);
+
+    User.create(user, (err, post) => {
       if (err) {
-        res.status(400).json(err.message).end();
+        res.status(400).json({
+          error: 'Username already in use.',
+        });
       } else {
-        res.status(200).json(savedUser);
+        const user = {
+          username: post.username,
+          token,
+          id: post._id,
+        };
+        res.status(200).json(user);
       }
     });
   }

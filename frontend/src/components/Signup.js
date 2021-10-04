@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { signUp } from '../services/userService';
+import { logIn, signUp } from '../services/userService';
+import { setToken } from '../utils/utils';
 
 function Signup(props) {
   const [username, setUsername] = useState('');
@@ -15,9 +16,14 @@ function Signup(props) {
     setPassword(event.target.value);
   };
 
-  const handleSignup = (event) => {
+  const handleSignup = async (event) => {
     event.preventDefault();
-    signUp({ username, password });
+    try {
+      const user = await signUp({ username, password });
+      setToken(user);
+    } catch (err) {
+      console.log(err.response.data.error);
+    }
   };
 
   return (
