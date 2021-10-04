@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as useParams } from 'react-router-dom';
 import { ObjectId } from 'bson';
-import { getAll, getAllMessagesForRoom } from '../services/messageService';
+import { getAllMessagesForRoom } from '../services/messageService';
+import { getUser } from '../utils/utils';
 
 function Room({ roomName, socket }) {
   const [messages, setMessages] = useState([]);
@@ -21,7 +22,7 @@ function Room({ roomName, socket }) {
   }, []);
 
   const messageItems = messages.map((x) => (
-    <li onClick={() => console.log(x._id)} key={x._id}>
+    <li onClick={() => console.log(x)} key={x._id}>
       {x.content}
     </li>
   ));
@@ -34,10 +35,11 @@ function Room({ roomName, socket }) {
     const newMessage = {
       _id: new ObjectId().toString(),
       roomName: roomName,
-      user: 'batman',
+      user: getUser(),
       content: messageContent,
     };
 
+    setMessageContent('');
     socket.emit('change', newMessage);
     setMessages([...messages, newMessage]);
   };
@@ -66,8 +68,8 @@ function Room({ roomName, socket }) {
       <h2>Tää on huone {roomName}</h2>
       <ul>{messageItems}</ul>
       <form onSubmit={emitMessage}>
-        <input onChange={handleMessageContent}></input>
-        <button type="submit">Event</button>
+        <input onChange={handleMessageContent} value={messageContent}></input>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
