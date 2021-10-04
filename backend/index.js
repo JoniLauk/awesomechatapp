@@ -8,6 +8,8 @@ const messageRouter = require('./routes/message');
 const loginRouter = require('./routes/login');
 const userRouter = require('./routes/user');
 const Message = require('./models/message');
+const { tokenExtractor, authenticator } = require('./middleware/middleware');
+const { token } = require('morgan');
 require('dotenv').config();
 
 const app = express();
@@ -56,6 +58,8 @@ mongoose
   })
   .catch((err) => console.log(err));
 
+app.use(tokenExtractor);
+app.use(authenticator);
 app.use('/api/messages', messageRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/users', userRouter);
