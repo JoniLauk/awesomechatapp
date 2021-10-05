@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { logIn, signUp } from '../services/userService';
+import { signUp } from '../services/userService';
 import { setToken } from '../utils/utils';
 
 function Signup(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const { handleNotification } = props;
 
   const handleUsername = (event) => {
     event.preventDefault();
@@ -23,6 +24,7 @@ function Signup(props) {
       setToken(user);
     } catch (err) {
       console.log(err.response.data.errors);
+      handleNotification(err.response.data.errors);
     }
   };
 
