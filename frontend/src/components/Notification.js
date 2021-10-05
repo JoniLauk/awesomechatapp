@@ -6,9 +6,13 @@ export const Notification = (props) => {
 
   const m = message.map((x) => <li key={x.msg}>{x.msg}</li>);
 
+  const styles = {
+    color: 'red',
+  };
+
   return (
     <div>
-      <ul>{m}</ul>
+      <ul style={styles}>{m}</ul>
     </div>
   );
 };
