@@ -22,7 +22,7 @@ function Signup({ handleNotification }) {
       const user = await signUp({ username, password });
       setToken(user);
       handleNotification({
-        message: [{ msg: `${username} created successfully.` }],
+        message: `${username} created successfully.`,
         type: 'success',
       });
       setUsername('');
