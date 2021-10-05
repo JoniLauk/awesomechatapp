@@ -31,7 +31,7 @@ export default function App() {
     setNotContent(props);
     setTimeout(() => {
       setNotContent('');
-    }, 2000);
+    }, 3000);
   };
 
   return (

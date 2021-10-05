@@ -62,7 +62,7 @@ mongoose
 app.use('/api/login', loginRouter);
 app.use('/api/messages', tokenExtractor, authenticator, messageRouter);
 app.use('/api/users', userRouter);
-app.use('/api/rooms', tokenExtractor, authenticator, roomRouter);
+app.use('/api/rooms', [tokenExtractor, authenticator], roomRouter);
 
 server.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
