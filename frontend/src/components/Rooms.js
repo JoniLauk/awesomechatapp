@@ -9,10 +9,13 @@ import {
 import Room from './Room';
 import { getUser } from '../utils/utils';
 import { getAll } from '../services/roomService';
+import { useHistory } from 'react-router-dom';
+import { FaChevronLeft, FaInfoCircle } from 'react-icons/fa';
 
 function Rooms(props) {
   const [rooms, setRooms] = useState([]);
   const match = useRouteMatch();
+  const history = useHistory();
 
   const getRooms = async () => {
     const newRooms = await getAll();
@@ -23,6 +26,10 @@ function Rooms(props) {
   useEffect(() => {
     getRooms();
   }, []);
+
+  const goBack = () => {
+    history.push('/rooms');
+  };
 
   const getRoutes = rooms.map((x) => (
     <Route key={x.id} path={`${match.url}/${x.id}`}>
@@ -35,15 +42,29 @@ function Rooms(props) {
       return (
         <Router>
           <div>
-            <h2>Rooms</h2>
-
-            <ul>
-              {rooms.map((room) => (
-                <li key={room.id}>
-                  <Link to={`${match.url}/${room.id}`}>{room.name}</Link>
-                </li>
-              ))}
-            </ul>
+            <div className="viewContainer">
+              <div className="topBar">
+                <div onClick={goBack}>
+                  <FaChevronLeft />
+                </div>
+                <div>AWESOMECHATAPP</div>
+                <div className="rightIcon">
+                  <FaInfoCircle />
+                </div>
+              </div>
+              <ul className="roomList">
+                {rooms.map((room) => (
+                  <li className="roomListItem" key={room.id}>
+                    <Link className="roomLink" to={`${match.url}/${room.id}`}>
+                      {room.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <div className="newRoomButton">
+                <button>New Room</button>
+              </div>
+            </div>
 
             <Switch>{getRoutes}</Switch>
           </div>

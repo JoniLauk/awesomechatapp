@@ -14,12 +14,12 @@ body {
   overflow: auto;
 }
 .viewContainer .topBar {
-  background-color: #434F66;
+  background-color: #242e42;
   font-family: Bevan;
   font-size: 1.5em;
   font-style: normal;
   font-weight: 700;
-  color: #8BB7CA;
+  color: #8bb7ca;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -97,6 +97,47 @@ body {
   max-width: 2.625em;
   max-height: 2.625em;
   background-color: #958bca;
+}
+
+.roomList {
+  background-color: #958bca;
+  margin: 0 0.4375em;
+  border-radius: 0.25em;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  height: 80vh;
+  overflow: hidden;
+}
+.roomList .roomListItem {
+  background-color: #242e42;
+  border-radius: 0.25em;
+  padding: 0.5em 0.5em 0.25em 0;
+  margin-top: 0.5em;
+  min-height: 2em;
+  min-width: 90%;
+  height: fit-content;
+  align-self: center;
+}
+.roomList .roomListItem .roomLink {
+  text-decoration: none;
+  color: #958bca;
+  font-family: Bevan;
+  font-size: 1em;
+}
+.roomList .roomListItem .roomList:visited {
+  text-decoration: none;
+  color: #958bca;
+  font-family: Bevan;
+  font-size: 1em;
+}
+
+.newRoomButton {
+  display: flex;
+  height: 20%;
+  justify-content: center;
+  align-items: center;
 }
 
 /*# sourceMappingURL=room.css.map */

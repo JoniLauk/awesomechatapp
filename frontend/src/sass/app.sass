@@ -1,19 +1,18 @@
-$background-color: #242e42
-$user-message-color: #958bca
-$received-message-color: #434f66
+$primary: #242e42
+$secondary: #958bca
+$primary-accent: #434f66
+$secondary-accent: #8bb7ca
 $font-color: #fff
 $font-family-message: Roboto Slab
 $font-size-message: 1em
-$font-color-sender: #8bb7ca
-$message-inputfield-color: #434f66
 
 @mixin topBar()
-    background-color: #434F66
+    background-color: $primary
     font-family: Bevan
     font-size: 1.5em
     font-style: normal
     font-weight: 700
-    color: #8BB7CA
+    color: $secondary-accent
     display: flex
     flex-direction: row
     justify-content: space-between
@@ -22,3 +21,24 @@ $message-inputfield-color: #434f66
 @mixin viewContainer()
     display: flex
     flex-direction: column
+
+@mixin roomList()
+    background-color: $secondary
+    margin: 0 0.4375em
+    border-radius: 0.25em
+    list-style-type: none
+    display: flex
+    flex-direction: column
+    padding: 0
+    height: 80vh
+    overflow: hidden
+
+@mixin roomListItem()
+    background-color: $primary
+    border-radius: 0.25em
+    padding: 0.5em 0.5em 0.25em 0
+    margin-top: 0.5em
+    min-height: 2em
+    min-width: 90%
+    height: fit-content
+    align-self: center

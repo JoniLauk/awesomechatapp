@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { IconName } from 'react-icons/fa';
+
 
 export { default as Home } from './components/Home';
 export { default as Settings } from './components/Settings';
