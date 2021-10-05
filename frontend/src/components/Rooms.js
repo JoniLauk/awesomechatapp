@@ -5,17 +5,20 @@ import {
   Route,
   Link,
   useRouteMatch,
+  useHistory,
+  useLocation,
 } from 'react-router-dom';
+import { unmountComponentAtNode } from 'react-dom';
 import Room from './Room';
 import { getUser } from '../utils/utils';
 import { getAll } from '../services/roomService';
-import { useHistory } from 'react-router-dom';
 import { FaChevronLeft, FaInfoCircle } from 'react-icons/fa';
 
 function Rooms(props) {
   const [rooms, setRooms] = useState([]);
   const match = useRouteMatch();
   const history = useHistory();
+  const location = useLocation();
 
   const getRooms = async () => {
     const newRooms = await getAll();
@@ -31,6 +34,10 @@ function Rooms(props) {
     history.push('/rooms');
   };
 
+  const handleClick = () => {
+    unmountComponentAtNode(document.getElementById('root'));
+  };
+
   const getRoutes = rooms.map((x) => (
     <Route key={x.id} path={`${match.url}/${x.id}`}>
       <Room roomName={x.name} socket={props.socket} />
@@ -40,35 +47,33 @@ function Rooms(props) {
   const conditionalRender = () => {
     if (getUser()) {
       return (
-        <Router>
-          <div>
-            <div className="viewContainer">
-              <div className="topBar">
-                <div onClick={goBack}>
-                  <FaChevronLeft />
-                </div>
-                <div>AWESOMECHATAPP</div>
-                <div className="rightIcon">
-                  <FaInfoCircle />
-                </div>
+        <div id="roomList">
+          <div className="viewContainer">
+            <div className="topBar">
+              <div onClick={goBack}>
+                <FaChevronLeft />
               </div>
-              <ul className="roomList">
-                {rooms.map((room) => (
-                  <li className="roomListItem" key={room.id}>
-                    <Link className="roomLink" to={`${match.url}/${room.id}`}>
-                      {room.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-              <div className="newRoomButton">
-                <button>New Room</button>
+              <div>AWESOMECHATAPP</div>
+              <div className="rightIcon">
+                <FaInfoCircle />
               </div>
             </div>
-
-            <Switch>{getRoutes}</Switch>
+            <ul className="roomList">
+              {rooms.map((room) => (
+                <li className="roomListItem" key={room.id}>
+                  <Link className="roomLink" to={`${match.url}/${room.id}`}>
+                    {room.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <div className="newRoomButton">
+              <button>New Room</button>
+            </div>
           </div>
-        </Router>
+
+          <Switch>{getRoutes}</Switch>
+        </div>
       );
     } else {
       return (
