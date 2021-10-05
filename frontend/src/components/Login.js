@@ -6,6 +6,7 @@ function Login(props) {
   const [user, setUser] = useState(getUser());
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const { handleNotification } = props;
 
   const handleUsername = (event) => {
     event.preventDefault();
@@ -25,6 +26,7 @@ function Login(props) {
       setUser(loginUser);
     } catch (error) {
       console.log(error.response.data.error);
+      handleNotification([{ msg: error.response.data.error }]);
     }
   };
 

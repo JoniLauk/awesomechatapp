@@ -20,7 +20,7 @@ function Room({ roomName, socket }) {
 
   useEffect(() => {
     getMessages();
-  }, []);
+  });
 
   const messageItems = messages.map((x) => (
     <li onClick={() => console.log(x)} key={x._id}>
