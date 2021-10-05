@@ -7,6 +7,7 @@ const { Server } = require('socket.io');
 const messageRouter = require('./routes/message');
 const loginRouter = require('./routes/login');
 const userRouter = require('./routes/user');
+const roomRouter = require('./routes/room');
 const Message = require('./models/message');
 const { tokenExtractor, authenticator } = require('./middleware/middleware');
 const { token } = require('morgan');
@@ -63,6 +64,7 @@ app.use('/api/login', loginRouter);
 // app.use(authenticator);
 app.use('/api/messages', messageRouter);
 app.use('/api/users', userRouter);
+app.use('/api/rooms', roomRouter);
 
 server.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);

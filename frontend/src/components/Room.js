@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as useParams } from 'react-router-dom';
+// import { BrowserRouter as useParams } from 'react-router-dom';
 import { ObjectId } from 'bson';
 import { getAllMessagesForRoom } from '../services/messageService';
 import { getUser } from '../utils/utils';
@@ -32,16 +32,18 @@ function Room({ roomName, socket }) {
    */
   const emitMessage = (event) => {
     event.preventDefault();
-    const newMessage = {
-      _id: new ObjectId().toString(),
-      roomName: roomName,
-      user: getUser(),
-      content: messageContent,
-    };
+    if (messageContent !== '') {
+      const newMessage = {
+        _id: new ObjectId().toString(),
+        roomName: roomName,
+        user: getUser(),
+        content: messageContent,
+      };
 
-    setMessageContent('');
-    socket.emit('change', newMessage);
-    setMessages([...messages, newMessage]);
+      setMessageContent('');
+      socket.emit('change', newMessage);
+      setMessages([...messages, newMessage]);
+    }
   };
 
   /**
