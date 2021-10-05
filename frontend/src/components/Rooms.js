@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -8,13 +8,21 @@ import {
 } from 'react-router-dom';
 import Room from './Room';
 import { getUser } from '../utils/utils';
+import { getAll } from '../services/roomService';
 
 function Rooms(props) {
-  const [rooms, setRooms] = useState([
-    { name: 'HAIPPIRINKI', id: 1 },
-    { name: 'Batcave', id: 2 },
-  ]);
+  const [rooms, setRooms] = useState([]);
   const match = useRouteMatch();
+
+  const getRooms = async () => {
+    const newRooms = await getAll();
+    console.log(newRooms);
+    setRooms(newRooms);
+  };
+
+  useEffect(() => {
+    getRooms();
+  }, []);
 
   const getRoutes = rooms.map((x) => (
     <Route key={x.id} path={`${match.url}/${x.id}`}>

@@ -1,0 +1,95 @@
+@use 'app'
+
+body
+  background-color: app.$background-color
+
+.viewContainer
+  display: flex
+  flex-direction: column
+  position: absolute
+  top: 0
+  right: 0
+  left: 0
+  bottom: 0
+  min-height: 100vh
+  overflow: auto
+
+  .topBar
+    @include app.topBar()
+
+  .room
+    display: flex
+    flex-direction: column
+    margin: 0 0.4375em 0 0.4375em
+    height: 100vh
+    overflow: hidden
+
+    h2
+      color: app.$font-color
+
+    .chat
+      color: app.$font-color
+      list-style-type: none
+      display: flex
+      flex-direction: column
+      height: 100%
+      overflow-y: scroll
+      padding: 0.1em 0
+      margin: 0
+
+  .sentMessage
+
+    background-color: app.$user-message-color
+    border-radius: 1em 1em 0.25em 1em
+    padding: 0.5em 0.5em 0.25em 0.5em
+    margin-top: 0.8125em
+    margin-right: 1.125em
+    min-height: 2em
+    min-width: 3em
+    height: fit-content
+    align-self: flex-end
+
+  .receivedMessage
+    background-color: app.$received-message-color
+    border-radius: 1em 1em 1em 0.25em
+    padding: 0.5em 0.5em 0.25em 0.5em
+    margin-top: 0.8125em
+    margin-left: 1.125em
+    min-height: 2em
+    width: fit-content
+    min-height: fit-content
+    align-self: flex-start
+
+  .fromUser
+    color: app.$font-color-sender
+
+  .message
+    font-family: app.$font-family-message
+    font-size: app.$font-size-message
+
+  .submitMessageForm
+
+    display: flex
+    flex-direction: row
+    padding-bottom: 0.5em
+    padding-top: 0.3em
+
+    input
+
+      background-color: app.$message-inputfield-color
+      margin-left: 1.125em
+      margin-right: 1.125em
+      height: 2.625em
+      border: none
+      border-radius: 1.25em
+      flex: 1
+
+    button
+
+      margin-right: 1.125em
+      flex: 1
+      border: none
+      border-radius: 2.5em 2.5em 0.9375em 2.5em
+      max-width: 2.625em
+      max-height: 2.625em
+      background-color: app.$user-message-color

@@ -11,11 +11,13 @@ const Room = require('../models/room.js');
  * @example roomRouter.get('/',
  */
 roomRouter.get('/', async (req, res, next) => {
-  const rooms = await Room.find({}).populate('users', {
-    room: 0,
-  });
-
-  res.json(rooms.map((room) => room.toJSON()));
+  try {
+    const rooms = await Room.find({});
+    res.json(rooms.map((room) => room.toJSON()));
+  } catch (err) {
+    // TODO err handling
+    console.log(err);
+  }
 });
 
 /* GET SINGLE ROOM BY ID */

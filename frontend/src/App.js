@@ -8,14 +8,15 @@ import {
 } from 'react-router-dom';
 import { Home, Settings, Rooms, Room, Login, Signup } from './index';
 import { io } from 'socket.io-client';
+import { getUser } from './utils/utils';
 
 export default function App() {
   const [socket, setSocket] = useState(null);
   const [currentUser, setCurrentUser] = useState('');
 
   useEffect(() => {
-    setCurrentUser(window.localStorage.getItem('currentUser'));
-    // console.log(`current user: ${currentUser}`);
+    setCurrentUser(getUser());
+    console.log(`current user: ${currentUser}`);
   }, [currentUser]);
 
   useEffect(() => {
@@ -27,26 +28,6 @@ export default function App() {
   return (
     <Router>
       <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/settings">Settings</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/signup">Sign up</Link>
-            </li>
-            <li>
-              <Link to="/rooms">Rooms</Link>
-            </li>
-          </ul>
-        </nav>
-
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>

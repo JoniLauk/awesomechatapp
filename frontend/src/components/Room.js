@@ -1,44 +1,67 @@
-import React, { useEffect, useState } from 'react';
-import { BrowserRouter as useParams } from 'react-router-dom';
-import { getAll } from '../services/messageService';
+import React, { useEffect, useState, useRef } from 'react';
+// import { BrowserRouter as useParams } from 'react-router-dom';
+import { ObjectId } from 'bson';
+import { getAllMessagesForRoom } from '../services/messageService';
+import { getUser } from '../utils/utils';
 import './stylesheets/room.css';
+import { render } from 'react-dom';
+import { FaChevronLeft, FaInfoCircle } from 'react-icons/fa';
+import { useHistory } from 'react-router-dom';
 
 function Room({ roomName, socket }) {
   const [messages, setMessages] = useState([]);
   const [messageContent, setMessageContent] = useState('');
+  const messageClassName = 'receivedMessage';
+  const history = useHistory();
 
   /**
    * Async wrapper for getAll function which retrieves messages from
    * the API. Adds messages to messages state.
    */
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current.scrollIntoView({ behavior: 'auto' });
+  };
+
   const getMessages = async () => {
-    const response = await getAll();
+    const response = await getAllMessagesForRoom(roomName);
     setMessages(response);
+    scrollToBottom();
   };
 
   useEffect(() => {
     getMessages();
   }, []);
 
-  const messageItems = messages
-    .filter((x) => x.roomName === roomName)
-    .map((x) => <li key={x.id}>{x.content}</li>);
+  const messageItems = messages.map((x) => (
+    <li
+      className={x.user === getUser() ? 'sentMessage' : 'receivedMessage'}
+      onClick={() => console.log(x)}
+      key={x._id}
+    >
+      <div className="fromUser">{x.user === getUser() ? '' : x.user}</div>
+      <div>{x.content}</div>
+    </li>
+  ));
 
   /**
    * Send message to backend which handles saving to the database.
    */
   const emitMessage = (event) => {
     event.preventDefault();
-    const newMessage = {
-      // TODO
-      // Should change this id thing here.
-      id: Math.floor(Math.random() * 1000000000),
-      roomName: roomName,
-      user: 'batman',
-      content: messageContent,
-    };
-    socket.emit('change', newMessage);
-    setMessages([...messages, newMessage]);
+    if (messageContent !== '') {
+      const newMessage = {
+        _id: new ObjectId().toString(),
+        roomName: roomName,
+        user: getUser(),
+        content: messageContent,
+      };
+
+      setMessageContent('');
+      socket.emit('change', newMessage);
+      setMessages([...messages, newMessage]);
+    }
   };
 
   /**
@@ -47,7 +70,6 @@ function Room({ roomName, socket }) {
    */
   if (socket) {
     socket.on('received', (data) => {
-      console.log(data);
       setMessages([...messages, data]);
     });
   }
@@ -60,14 +82,34 @@ function Room({ roomName, socket }) {
     event.preventDefault();
     setMessageContent(event.target.value);
   };
+
+  const goBack = () => {
+    history.push('/rooms');
+  };
+
   return (
-    <div className="room">
-      <h2>Tää on huone {roomName}</h2>
-      <ul>{messageItems}</ul>
-      <form onSubmit={emitMessage}>
-        <input onChange={handleMessageContent}></input>
-        <button type="submit">Event</button>
-      </form>
+    <div className="viewContainer">
+      <div className="topBar">
+        <div onClick={goBack}>
+          <FaChevronLeft />
+        </div>
+        <div className="roomName">{roomName}</div>
+        <div className="rightIcon">
+          <FaInfoCircle />
+        </div>
+      </div>
+      <div className="room">
+        <ul className="chat">
+          {messageItems}
+          <div ref={messagesEndRef} />
+        </ul>
+        <form className="submitMessageForm" onSubmit={emitMessage}>
+          <input onChange={handleMessageContent} value={messageContent}></input>
+          <button className="submitMessage" type="submit">
+            +
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

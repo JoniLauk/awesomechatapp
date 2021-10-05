@@ -7,7 +7,10 @@ const { Server } = require('socket.io');
 const messageRouter = require('./routes/message');
 const loginRouter = require('./routes/login');
 const userRouter = require('./routes/user');
+const roomRouter = require('./routes/room');
 const Message = require('./models/message');
+const { tokenExtractor, authenticator } = require('./middleware/middleware');
+const { token } = require('morgan');
 require('dotenv').config();
 
 const app = express();
@@ -35,8 +38,9 @@ io.on('connection', (socket) => {
     console.log(data);
     socket.broadcast.emit('received', data);
     // User needs to be changed
-    Message.create(data, (err) => {
+    Message.create(data, (err, result) => {
       if (err) console.log(err);
+      console.log(result);
     });
   });
 });
@@ -45,15 +49,20 @@ io.on('connection', (socket) => {
  * Set up mongoose connection.
  */
 mongoose
-  .connect(process.env.MONGODB_TEST_URI)
+  .connect(
+    process.env.NODE_ENV === 'dev'
+      ? process.env.MONGODB_TEST_URI
+      : process.env.MONGODB_URI
+  )
   .then(() => {
     console.log('connection successful');
   })
   .catch((err) => console.log(err));
 
-app.use('/api/messages', messageRouter);
 app.use('/api/login', loginRouter);
-app.use('/api/users', userRouter);
+app.use('/api/messages', tokenExtractor, authenticator, messageRouter);
+app.use('/api/users', tokenExtractor, authenticator, userRouter);
+app.use('/api/rooms', roomRouter);
 
 server.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
