@@ -1,14 +1,19 @@
 .room {
-  background-color: #242e42; }
-  .room h2 {
-    color: #fff; }
-  .room ul {
-    color: #fff; }
-  .room li {
-    background-color: #958bca;
-    border-radius: 16px 16px 4px 16px;
-    padding: 4px 4px 4px 8px;
-    margin-top: 5px;
-    margin-right: 18px; }
+  margin: 7px;
+  background-color: #242e42;
+}
+.room h2 {
+  color: #fff;
+}
+.room ul {
+  color: #fff;
+}
+.room li {
+  background-color: #958bca;
+  border-radius: 16px 16px 4px 16px;
+  padding: 4px 4px 4px 8px;
+  margin-top: 5px;
+  margin-right: 18px;
+}
 
 /*# sourceMappingURL=room.css.map */
