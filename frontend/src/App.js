@@ -28,6 +28,8 @@ export default function App() {
   }, []);
 
   const handleNotification = (props) => {
+    const { msg } = props;
+    console.log(msg);
     setNotContent(props);
     setTimeout(() => {
       setNotContent('');
@@ -35,7 +37,7 @@ export default function App() {
   };
 
   return (
-    <div>
+    <nav>
       <Router>
         <div>
           <nav>
@@ -72,7 +74,7 @@ export default function App() {
               <Settings />
             </Route>
             <Route path="/rooms">
-              <Rooms socket={socket} />
+              <Rooms socket={socket} handleNotification={handleNotification} />
             </Route>
             <Route path="/room">
               <Room />
@@ -90,6 +92,6 @@ export default function App() {
         </div>
       </Router>
       {notContent === '' ? '' : <Notification message={notContent} />}
-    </div>
+    </nav>
   );
 }

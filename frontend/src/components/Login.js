@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import { logIn } from '../services/userService';
 import { setToken, getUser, removeToken } from '../utils/utils';
 
-function Login(props) {
+function Login({ handleNotification }) {
   const [user, setUser] = useState(getUser());
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const { handleNotification } = props;
 
   const handleUsername = (event) => {
     event.preventDefault();
@@ -24,15 +23,30 @@ function Login(props) {
       const loginUser = await logIn({ username, password });
       setToken(loginUser);
       setUser(loginUser);
+      handleNotification({
+        message: `${loginUser.username} logged in!`,
+        type: 'success',
+      });
+      resetCreds();
     } catch (error) {
-      console.log(error.response.data.error);
-      handleNotification([{ msg: error.response.data.error }]);
+      console.log(error);
+      handleNotification({
+        message: error.response.data.error,
+        type: 'error',
+      });
+      resetCreds();
     }
   };
 
   const logout = () => {
     setUser(null);
+    resetCreds();
     removeToken();
+  };
+
+  const resetCreds = () => {
+    setPassword('');
+    setUsername('');
   };
 
   const conditionalRender = () => {

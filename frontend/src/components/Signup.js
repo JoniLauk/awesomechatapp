@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { signUp } from '../services/userService';
 import { setToken } from '../utils/utils';
 
-function Signup(props) {
+function Signup({ handleNotification }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const { handleNotification } = props;
 
   const handleUsername = (event) => {
     event.preventDefault();
@@ -22,9 +21,26 @@ function Signup(props) {
     try {
       const user = await signUp({ username, password });
       setToken(user);
+      handleNotification({
+        message: [{ msg: `${username} created successfully.` }],
+        type: 'success',
+      });
+      setUsername('');
+      setPassword('');
     } catch (err) {
-      console.log(err.response.data.errors);
-      handleNotification(err.response.data.errors);
+      if (err.response.data.error) {
+        handleNotification({
+          message: err.response.data.error,
+          type: 'error',
+        });
+        setPassword('');
+      } else {
+        handleNotification({
+          message: err.response.data.errors,
+          type: 'error',
+        });
+        setPassword('');
+      }
     }
   };
 
@@ -33,11 +49,21 @@ function Signup(props) {
       <form onSubmit={handleSignup}>
         <label>
           Name:
-          <input type="text" name="name" onChange={handleUsername} />
+          <input
+            type="text"
+            name="name"
+            value={username}
+            onChange={handleUsername}
+          />
         </label>
         <label>
           Password:
-          <input type="password" name="password" onChange={handlePassword} />
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={handlePassword}
+          />
         </label>
         <input type="submit" value="Submit" />
       </form>

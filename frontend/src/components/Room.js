@@ -5,7 +5,7 @@ import { getAllMessagesForRoom } from '../services/messageService';
 import { getUser } from '../utils/utils';
 import './stylesheets/room.css';
 
-function Room({ roomName, socket }) {
+function Room({ roomName, socket, handleNotification }) {
   const [messages, setMessages] = useState([]);
   const [messageContent, setMessageContent] = useState('');
 
@@ -23,8 +23,13 @@ function Room({ roomName, socket }) {
   });
 
   const messageItems = messages.map((x) => (
-    <li onClick={() => console.log(x)} key={x._id}>
-      {x.content}
+    <li
+      onClick={() => console.log(x)}
+      key={x._id}
+      className={x.user === getUser() ? 'fooo' : 'bar'}
+    >
+      <div>{x.content}</div>
+      <div>{x.user === getUser() ? '' : x.user}</div>
     </li>
   ));
 
@@ -44,6 +49,11 @@ function Room({ roomName, socket }) {
       setMessageContent('');
       socket.emit('change', newMessage);
       setMessages([...messages, newMessage]);
+    } else {
+      handleNotification({
+        message: [{ msg: 'Message cannot be empty.' }],
+        type: 'error',
+      });
     }
   };
 

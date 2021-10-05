@@ -2,17 +2,24 @@ import React from 'react';
 
 export const Notification = (props) => {
   const { message } = props;
-  console.log(message);
-
-  const m = message.map((x) => <li key={x.msg}>{x.msg}</li>);
 
   const styles = {
-    color: 'red',
+    color: message.type === 'success' ? 'green' : 'red',
+    listStyle: 'none',
   };
 
-  return (
-    <div>
-      <ul style={styles}>{m}</ul>
-    </div>
-  );
+  const render = () => {
+    if (typeof message.message === 'string') {
+      return (
+        <ul style={styles}>
+          <li>{message.message}</li>
+        </ul>
+      );
+    } else if (typeof message.message === 'object') {
+      const m = message.message.map((x) => <li key={x.msg}>{x.msg}</li>);
+      return <ul style={styles}>{m}</ul>;
+    }
+  };
+
+  return render();
 };

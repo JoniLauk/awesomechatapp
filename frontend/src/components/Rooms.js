@@ -10,7 +10,7 @@ import Room from './Room';
 import { getUser } from '../utils/utils';
 import { getAll } from '../services/roomService';
 
-function Rooms(props) {
+function Rooms({ socket, handleNotification }) {
   const [rooms, setRooms] = useState([]);
   const match = useRouteMatch();
 
@@ -26,7 +26,11 @@ function Rooms(props) {
 
   const getRoutes = rooms.map((x) => (
     <Route key={x.id} path={`${match.url}/${x.id}`}>
-      <Room roomName={x.name} socket={props.socket} />
+      <Room
+        roomName={x.name}
+        socket={socket}
+        handleNotification={handleNotification}
+      />
     </Route>
   ));
 
