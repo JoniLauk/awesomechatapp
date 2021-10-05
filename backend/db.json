@@ -1,0 +1,14 @@
+{
+  "messages": [
+    {
+      "id": 1,
+      "user": "Batman",
+      "content": "I'm batman"
+    },
+    {
+      "user": "Hulk",
+      "content": "Hulk smash!",
+      "id": 2
+    }
+  ]
+}

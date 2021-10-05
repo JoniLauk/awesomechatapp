@@ -1,20 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link,
   Redirect,
-} from "react-router-dom";
-import { Home, Settings, Rooms, Room, Login, Signup } from "./index";
+} from 'react-router-dom';
+import { Home, Settings, Rooms, Room, Login, Signup } from './index';
+import { io } from 'socket.io-client';
 
 export default function App() {
-  const [currentUser, setCurrentUser] = useState("");
+  const [socket, setSocket] = useState(null);
+  const [currentUser, setCurrentUser] = useState('');
 
   useEffect(() => {
-    setCurrentUser(window.localStorage.getItem("currentUser"));
-    console.log(currentUser);
+    setCurrentUser(window.localStorage.getItem('currentUser'));
+    // console.log(`current user: ${currentUser}`);
   }, [currentUser]);
+
+  useEffect(() => {
+    const newSocket = io('http://localhost:4000');
+    setSocket(newSocket);
+    return () => newSocket.close();
+  }, []);
 
   return (
     <Router>
@@ -43,13 +51,13 @@ export default function App() {
             renders the first one that matches the current URL. */}
         <Switch>
           <Route exact path="/">
-            {currentUser ? <Redirect to="/rooms" /> : <Home />}
+            {currentUser ? <Redirect to="/rooms" /> : <Home socket={socket} />}
           </Route>
           <Route path="/settings">
             <Settings />
           </Route>
           <Route path="/rooms">
-            <Rooms />
+            <Rooms socket={socket} />
           </Route>
           <Route path="/room">
             <Room />
