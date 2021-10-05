@@ -51,7 +51,7 @@ function Room({ roomName, socket, handleNotification }) {
       setMessages([...messages, newMessage]);
     } else {
       handleNotification({
-        message: [{ msg: 'Message cannot be empty.' }],
+        message: 'Message cannot be empty.',
         type: 'error',
       });
     }

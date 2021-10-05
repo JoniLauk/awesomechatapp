@@ -8,6 +8,11 @@ export const Notification = (props) => {
     listStyle: 'none',
   };
 
+  /**
+   * Handles how notifications are displayed. Notification message can be of type
+   * string and a object.
+   * @returns unordered list containing notification message content.
+   */
   const render = () => {
     if (typeof message.message === 'string') {
       return (
