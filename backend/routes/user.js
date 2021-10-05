@@ -18,13 +18,15 @@ const { response } = require('express');
  * @example usersRouter.get('/',
  */
 usersRouter.get('/', async (req, res) => {
-  // const token = req.get('authorization');
-
-  // if (!token) {
-  //   res.status(401).json({ error: 'not authorized' });
-  // }
-  const users = await User.find({}).populate('room', { users: 0 });
-  res.json(users);
+  // Todennäköisesti ei ole järkevää päästää käyttäjää hakemaan kaikkien muiden
+  // käyttäjien käyttäjänimet x)
+  try {
+    const users = await User.find({}).populate('room', { users: 0 });
+    res.json(users);
+  } catch (err) {
+    // TODO err handling
+    console.log(err);
+  }
 });
 
 /**
