@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { ObjectId } from 'bson';
 import { getAllMessagesForRoom } from '../services/messageService';
 import { getUser } from '../utils/utils';
+import './stylesheets/room.css';
 
 function Room({ roomName, socket }) {
   const [messages, setMessages] = useState([]);
@@ -66,7 +67,7 @@ function Room({ roomName, socket }) {
   };
 
   return (
-    <div>
+    <div className="room">
       <h2>Tää on huone {roomName}</h2>
       <ul>{messageItems}</ul>
       <form onSubmit={emitMessage}>
