@@ -1,0 +1,73 @@
+@use 'app'
+
+.viewContainer
+    @include app.viewContainer()
+
+.topBar
+    @include app.topBar()
+
+.loginForm
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    height: 80vh
+    color: app.$font-color
+    font-size: 1.5em
+    margin-top: 1.5em
+
+    h3
+        margin: 0
+        padding: 0
+
+    .loginFormDiv
+        margin-top: 2em
+        max-width: 100%
+        display: flex
+        flex-direction: column
+        justify-content: center
+        margin-left: 2.5em
+
+        input[type="text"]
+            @include app.formTextInput()
+
+        input[type="password"]
+            @include app.formTextInput()
+
+    .loginFormSubmit
+        display: flex
+        flex-direction: column
+        position: relative
+        top: 4em
+        align-items: center
+        justify-content: center
+
+        input[type='submit']
+            background-color: app.$secondary
+            color: app.$font-color
+            font-size: 1em
+            border-radius: 0.125em
+            border: none
+            padding: 0.3em 1em
+            max-width: 90%
+
+    .formInstructions
+        display: flex
+        flex-direction: column
+        position: relative
+        align-items: center
+        justify-content: center
+        font-size: 0.6em
+
+        .formLink
+            color: app.$secondary-accent
+            text-decoration: none
+
+.newRoom
+    background-color: app.$secondary
+    color: app.$font-color
+    font-size: 1em
+    border-radius: 0.125em
+    border: none
+    padding: 0.3em 1em
+    max-width: 90%

@@ -7,7 +7,7 @@ $font-family-message: Roboto Slab
 $font-size-message: 1em
 
 @mixin topBar()
-    background-color: $primary
+    background-color: $primary-accent
     font-family: Bevan
     font-size: 1.5em
     font-style: normal
@@ -42,3 +42,11 @@ $font-size-message: 1em
     min-width: 90%
     height: fit-content
     align-self: center
+
+@mixin formTextInput()
+    font-size: 1.5em
+    max-width: 85%
+    background-color: $secondary
+    border-radius: 0.125em
+    border: none
+    margin-top: 0.25em

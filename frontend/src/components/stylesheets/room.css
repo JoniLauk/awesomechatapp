@@ -14,7 +14,7 @@ body {
   overflow: auto;
 }
 .viewContainer .topBar {
-  background-color: #242e42;
+  background-color: #434f66;
   font-family: Bevan;
   font-size: 1.5em;
   font-style: normal;
@@ -139,6 +139,15 @@ body {
   height: 20%;
   justify-content: center;
   align-items: center;
+}
+.newRoomButton .newRoom {
+  background-color: #958bca;
+  color: #fff;
+  font-size: 1em;
+  border-radius: 0.125em;
+  border: none;
+  padding: 0.3em 1em;
+  max-width: 90%;
 }
 
 /*# sourceMappingURL=room.css.map */

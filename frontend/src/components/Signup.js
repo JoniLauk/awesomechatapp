@@ -27,18 +27,33 @@ function Signup(props) {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSignup}>
-        <label>
-          Name:
-          <input type="text" name="name" onChange={handleUsername} />
-        </label>
-        <label>
-          Password:
-          <input type="password" name="password" onChange={handlePassword} />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
+    <div className="viewContainer">
+      <div className="topBar">
+        <div></div>
+        <div>AWESOMECHATAPP</div>
+        <div className="rightIcon"></div>
+      </div>
+      <div>
+        <form className="loginForm" onSubmit={handleSignup}>
+          <div className="loginFormDiv">
+            <h3>Name</h3>
+            <input type="text" name="name" onChange={handleUsername} />
+          </div>
+          <div className="loginFormDiv">
+            <h3>Password</h3>
+            <input type="password" name="password" onChange={handlePassword} />
+          </div>
+          <div className="loginFormSubmit">
+            <input type="submit" value="SIGNUP" />
+            <div className="formInstructions">
+              <p>Already have an account?</p>
+              <a className="formLink" href="/login">
+                Log in!
+              </a>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

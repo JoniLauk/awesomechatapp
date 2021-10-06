@@ -68,7 +68,7 @@ function Rooms(props) {
               ))}
             </ul>
             <div className="newRoomButton">
-              <button>New Room</button>
+              <button className="newRoom">New Room</button>
             </div>
           </div>
 
