@@ -60,11 +60,20 @@ function Rooms(props) {
             </div>
             <ul className="roomList">
               {rooms.map((room) => (
-                <li className="roomListItem" key={room.id}>
-                  <Link className="roomLink" to={`${match.url}/${room.id}`}>
-                    {room.name}
-                  </Link>
-                </li>
+                <div className="roomListItem">
+                  <div className="nameMessage">
+                    <li key={room.id}>
+                      <Link className="roomLink" to={`${match.url}/${room.id}`}>
+                        {room.name}
+                      </Link>
+                    </li>
+                    <p className="lastMessage">joni: asdf</p>
+                  </div>
+                  <div className="iconTime">
+                    <FaChevronLeft />
+                    <p>13:24</p>
+                  </div>
+                </div>
               ))}
             </ul>
             <div className="newRoomButton">

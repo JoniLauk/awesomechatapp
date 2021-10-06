@@ -1,0 +1,38 @@
+@use 'app'
+
+.roomList
+    @include app.roomList()
+
+    .roomListItem
+        @include app.roomListItem()
+
+        .roomLink
+            text-decoration: none
+            color: app.$secondary
+            font-family: Bevan
+            font-size: 1em
+
+        .roomList:visited
+            text-decoration: none
+            color: app.$secondary
+            font-family: Bevan
+            font-size: 1em
+
+.newRoomButton
+    display: flex
+    height: 20%
+    justify-content: center
+    align-items: center
+    font-family: Bevan
+    font-size: 1.5em
+    font-style: normal
+    font-weight: 700
+
+.newRoom
+    background-color: app.$secondary
+    color: app.$font-color
+    font-size: 1em
+    border-radius: 0.125em
+    border: none
+    padding: 0.3em 1em
+    max-width: 90%

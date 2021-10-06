@@ -24,12 +24,12 @@ $font-size-message: 1em
 
 @mixin roomList()
     background-color: $secondary
-    margin: 0 0.4375em
+    margin: 2em
     border-radius: 0.25em
     list-style-type: none
     display: flex
     flex-direction: column
-    padding: 0
+    padding: 1em 0 0 0
     height: 80vh
     overflow: hidden
 
@@ -42,6 +42,8 @@ $font-size-message: 1em
     min-width: 90%
     height: fit-content
     align-self: center
+    display: flex
+    flex-direction: row
 
 @mixin formTextInput()
     font-size: 1.5em

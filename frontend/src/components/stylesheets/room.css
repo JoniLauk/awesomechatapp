@@ -49,24 +49,28 @@ body {
 .viewContainer .sentMessage {
   background-color: #958bca;
   border-radius: 1em 1em 0.25em 1em;
-  padding: 0.5em 0.5em 0.25em 0.5em;
+  padding: 0.5em 1em 0.5em 1em;
   margin-top: 0.8125em;
   margin-right: 1.125em;
+  margin-left: 1.125em;
   min-height: 2em;
   min-width: 3em;
   height: fit-content;
   align-self: flex-end;
+  font-family: Roboto Slab;
 }
 .viewContainer .receivedMessage {
   background-color: #434f66;
   border-radius: 1em 1em 1em 0.25em;
-  padding: 0.5em 0.5em 0.25em 0.5em;
+  padding: 0.5em 1em 0.5em 1em;
   margin-top: 0.8125em;
   margin-left: 1.125em;
+  margin-right: 1.125em;
   min-height: 2em;
   width: fit-content;
   min-height: fit-content;
   align-self: flex-start;
+  font-family: Roboto Slab;
 }
 .viewContainer .fromUser {
   color: #8bb7ca;
@@ -102,12 +106,12 @@ body {
 
 .roomList {
   background-color: #958bca;
-  margin: 0 0.4375em;
+  margin: 2em;
   border-radius: 0.25em;
   list-style-type: none;
   display: flex;
   flex-direction: column;
-  padding: 0;
+  padding: 1em 0 0 0;
   height: 80vh;
   overflow: hidden;
 }
@@ -120,6 +124,9 @@ body {
   min-width: 90%;
   height: fit-content;
   align-self: center;
+  display: flex;
+  flex-direction: row;
+  padding-left: 1em;
 }
 .roomList .roomListItem .roomLink {
   text-decoration: none;
@@ -133,21 +140,44 @@ body {
   font-family: Bevan;
   font-size: 1em;
 }
+.roomList .roomListItem .lastMessage {
+  color: #8bb7ca;
+  font-family: Bevan;
+  font-size: 1em;
+  margin: 0;
+}
+.roomList .iconTime {
+  color: #958bca;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-family: Bevan;
+  font-size: 1em;
+  align-items: center;
+  width: 20%;
+}
+.roomList .nameMessage {
+  width: 75%;
+}
 
 .newRoomButton {
   display: flex;
-  height: 20%;
+  height: 25%;
   justify-content: center;
   align-items: center;
 }
 .newRoomButton .newRoom {
-  background-color: #958bca;
+  background-color: Bevan;
   color: #fff;
   font-size: 1em;
   border-radius: 0.125em;
   border: none;
   padding: 0.3em 1em;
   max-width: 90%;
+  font-family: Bevan;
+  font-size: 1.5em;
+  font-style: normal;
+  font-weight: 400;
 }
 
 /*# sourceMappingURL=room.css.map */
