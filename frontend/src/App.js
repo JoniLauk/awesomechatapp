@@ -37,11 +37,18 @@ export default function App() {
   };
 
   return (
-    <nav>
+    <div>
       <Router>
         <div>
           <nav>
-            <ul>
+            <ul
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-evenly',
+                listStyle: 'none',
+              }}
+            >
               <li>
                 <Link to="/">Home</Link>
               </li>
@@ -64,11 +71,7 @@ export default function App() {
             renders the first one that matches the current URL. */}
           <Switch>
             <Route exact path="/">
-              {currentUser ? (
-                <Redirect to="/rooms" />
-              ) : (
-                <Home socket={socket} />
-              )}
+              {currentUser ? <Redirect to="/rooms" /> : <Login />}
             </Route>
             <Route path="/settings">
               <Settings />
@@ -92,6 +95,6 @@ export default function App() {
         </div>
       </Router>
       {notContent === '' ? '' : <Notification message={notContent} />}
-    </nav>
+    </div>
   );
 }

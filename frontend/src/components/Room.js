@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-// import { BrowserRouter as useParams } from 'react-router-dom';
+import { BrowserRouter as useParams } from 'react-router-dom';
 import { ObjectId } from 'bson';
 import { getAllMessagesForRoom } from '../services/messageService';
 import { getUser } from '../utils/utils';
 import './stylesheets/room.css';
 
-function Room({ roomName, socket, handleNotification }) {
+function Room({ roomName, socket, handleNotification, roomId }) {
+  console.log(roomId);
   const [messages, setMessages] = useState([]);
   const [messageContent, setMessageContent] = useState('');
 
@@ -20,7 +21,7 @@ function Room({ roomName, socket, handleNotification }) {
 
   useEffect(() => {
     getMessages();
-  });
+  }, []);
 
   const messageItems = messages.map((x) => (
     <li
@@ -42,6 +43,7 @@ function Room({ roomName, socket, handleNotification }) {
       const newMessage = {
         _id: new ObjectId().toString(),
         roomName: roomName,
+        room: roomId,
         user: getUser(),
         content: messageContent,
       };

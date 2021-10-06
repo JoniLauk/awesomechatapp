@@ -9,8 +9,9 @@ const mongoose = require('mongoose');
  * @param {string} user User who sent the message
  */
 const messageSchema = new mongoose.Schema({
-  roomId: String,
+  // roomId: mongoose.Types.ObjectId,
   roomName: String,
+  room: { type: mongoose.Schema.Types.ObjectId, ref: 'Room' },
   content: String,
   date: { type: String, default: Date.now },
   user: {
@@ -23,7 +24,7 @@ messageSchema.set('toJSON', {
   transform: (doc, object) => {
     const returnableObject = object;
     delete returnableObject.__v;
-    // returnableObject.id = object._id.toString();
+    returnableObject.id = object._id.toString();
     // delete returnableObject._id;
     return returnableObject;
   },

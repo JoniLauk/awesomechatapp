@@ -9,6 +9,7 @@ const loginRouter = require('./routes/login');
 const userRouter = require('./routes/user');
 const roomRouter = require('./routes/room');
 const Message = require('./models/message');
+const Room = require('./models/room');
 const { tokenExtractor, authenticator } = require('./middleware/middleware');
 const { token } = require('morgan');
 require('dotenv').config();
@@ -34,14 +35,13 @@ app.use(cors());
  * @param {socket} Socket.io socket which connects client to this backend.
  */
 io.on('connection', (socket) => {
-  socket.on('change', (data) => {
-    console.log(data);
+  socket.on('change', async (data) => {
     socket.broadcast.emit('received', data);
-    // User needs to be changed
     Message.create(data, (err, result) => {
       if (err) console.log(err);
-      console.log(result);
     });
+    // Append message id to rooms messages array.
+    await Room.updateOne({ _id: data.room }, { $push: { messages: data._id } });
   });
 });
 
@@ -60,9 +60,9 @@ mongoose
   .catch((err) => console.log(err));
 
 app.use('/api/login', loginRouter);
+app.use('/api/rooms', [tokenExtractor, authenticator], roomRouter);
 app.use('/api/messages', tokenExtractor, authenticator, messageRouter);
 app.use('/api/users', userRouter);
-app.use('/api/rooms', [tokenExtractor, authenticator], roomRouter);
 
 server.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);

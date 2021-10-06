@@ -16,7 +16,6 @@ function Rooms({ socket, handleNotification }) {
 
   const getRooms = async () => {
     const newRooms = await getAll();
-    console.log(newRooms);
     setRooms(newRooms);
   };
 
@@ -24,15 +23,26 @@ function Rooms({ socket, handleNotification }) {
     getRooms();
   }, []);
 
+  console.log(rooms);
+
   const getRoutes = rooms.map((x) => (
     <Route key={x.id} path={`${match.url}/${x.id}`}>
       <Room
         roomName={x.name}
         socket={socket}
         handleNotification={handleNotification}
+        roomId={x.id}
       />
     </Route>
   ));
+
+  // WIP
+  const getNewestMessageForRoom = () => {
+    const msg = rooms[0].messages[0].date;
+    console.log('msg', msg);
+  };
+
+  getNewestMessageForRoom();
 
   const conditionalRender = () => {
     if (getUser()) {
@@ -45,6 +55,7 @@ function Rooms({ socket, handleNotification }) {
               {rooms.map((room) => (
                 <li key={room.id}>
                   <Link to={`${match.url}/${room.id}`}>{room.name}</Link>
+                  {}
                 </li>
               ))}
             </ul>
