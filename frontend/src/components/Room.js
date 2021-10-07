@@ -1,13 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext, useCallback } from 'react';
 import { BrowserRouter as useParams } from 'react-router-dom';
 import { ObjectId } from 'bson';
 import { getAllMessagesForRoom } from '../services/messageService';
+import { SocketContext } from '../context/socket';
 import { getUser } from '../utils/utils';
 import './stylesheets/room.css';
 
-function Room({ roomName, socket, handleNotification, roomId }) {
+function Room({ roomName, handleNotification, roomId }) {
   const [messages, setMessages] = useState([]);
   const [messageContent, setMessageContent] = useState('');
+  const socket = useContext(SocketContext);
+
+  const handleNewMessages = useCallback(
+    (data) => {
+      setMessages([...messages, data]);
+    },
+    [messages]
+  );
+
+  const handleMessageDelete = useCallback(
+    (data) => {
+      setMessages(messages.filter((m) => m._id !== data._id));
+    },
+    [messages]
+  );
 
   /**
    * Async wrapper for getAll function which retrieves messages from
@@ -18,11 +34,22 @@ function Room({ roomName, socket, handleNotification, roomId }) {
       const response = await getAllMessagesForRoom(roomName);
       setMessages(response);
     };
+
     getMessages();
   }, [roomName]);
 
+  useEffect(() => {
+    socket.once('message:received', (data) => handleNewMessages(data));
+    socket.once('message:removed', (data) => handleMessageDelete(data));
+    return () => {
+      socket.off('message:received', handleNewMessages);
+      socket.off('message:removed', handleMessageDelete);
+    };
+  }, [socket, messages, handleNewMessages, handleMessageDelete]);
+
   const emitMessageDel = (x) => {
     socket.emit('message:delete', x);
+    setMessages(messages.filter((m) => m._id !== x._id));
   };
 
   /**
@@ -65,17 +92,17 @@ function Room({ roomName, socket, handleNotification, roomId }) {
    * Listen for broadcast message. When new messages are received add them
    * to messages state.
    */
-  if (socket) {
-    socket.on('message:received', (data) => {
-      setMessages([...messages, data]);
-    });
+  // if (socket) {
+  //   socket.once('message:received', (data) => {
+  //     console.log('msgrec');
+  //     setMessages([...messages, data]);
+  //   });
 
-    socket.on('message:removed', (data) => {
-      const newMessages = messages.filter((x) => x._id !== data._id);
-      setMessages(newMessages);
-      console.log('msg remove');
-    });
-  }
+  //   socket.once('message:removed', (data) => {
+  //     const newMessages = messages.filter((x) => x._id !== data._id);
+  //     setMessages(newMessages);
+  //   });
+  // }
 
   /**
    * Handles form input. Adds form input target value to messageContent state.

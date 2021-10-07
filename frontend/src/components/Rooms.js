@@ -23,8 +23,6 @@ function Rooms({ socket, handleNotification }) {
     getRooms();
   }, []);
 
-  console.log(rooms);
-
   const getRoutes = rooms.map((x) => (
     <Route key={x.id} path={`${match.url}/${x.id}`}>
       <Room
