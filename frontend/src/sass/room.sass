@@ -4,15 +4,7 @@ body
   background-color: app.$primary
 
 .viewContainer
-  display: flex
-  flex-direction: column
-  position: absolute
-  top: 0
-  right: 0
-  left: 0
-  bottom: 0
-  min-height: 100vh
-  overflow: auto
+  @include app.viewContainer()
 
   .topBar
     @include app.topBar()
@@ -46,9 +38,8 @@ body
     margin-top: 0.8125em
     margin-right: 1.125em
     margin-left: 1.125em
-    min-height: 2em
-    min-width: 3em
-    height: fit-content
+    min-height: fit-content
+    width: fit-content
     align-self: flex-end
     font-family: app.$font-family-message
 
@@ -59,7 +50,6 @@ body
     margin-top: 0.8125em
     margin-left: 1.125em
     margin-right: 1.125em
-    min-height: 2em
     width: fit-content
     min-height: fit-content
     align-self: flex-start
@@ -98,62 +88,3 @@ body
       max-width: 2.625em
       max-height: 2.625em
       background-color: app.$secondary
-
-.roomList
-  @include app.roomList()
-
-  .roomListItem
-    @include app.roomListItem()
-    padding-left: 1em
-
-    .roomLink
-      text-decoration: none
-      color: app.$secondary
-      font-family: Bevan
-      font-size: 1em
-
-    .roomList:visited
-      text-decoration: none
-      color: app.$secondary
-      font-family: Bevan
-      font-size: 1em
-
-    .lastMessage
-      color: app.$secondary-accent
-      font-family: Bevan
-      font-size: 1em
-      margin: 0
-
-  .iconTime
-    color: app.$secondary
-    display: flex
-    flex-direction: row
-    justify-content: center
-    font-family: Bevan
-    font-size: 1em
-    align-items: center
-    width: 20%
-
-    p
-
-  .nameMessage
-    width: 75%
-
-.newRoomButton
-  display: flex
-  height: 25%
-  justify-content: center
-  align-items: center
-
-  .newRoom
-    background-color: Bevan
-    color: app.$font-color
-    font-size: 1em
-    border-radius: 0.125em
-    border: none
-    padding: 0.3em 1em
-    max-width: 90%
-    font-family: Bevan
-    font-size: 1.5em
-    font-style: normal
-    font-weight: 400

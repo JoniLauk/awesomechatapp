@@ -1,11 +1,5 @@
 @use 'app'
 
-.viewContainer
-    @include app.viewContainer()
-
-.topBar
-    @include app.topBar()
-
 .loginForm
     display: flex
     flex-direction: column
@@ -62,12 +56,3 @@
         .formLink
             color: app.$secondary-accent
             text-decoration: none
-
-.newRoom
-    background-color: app.$secondary
-    color: app.$font-color
-    font-size: 1em
-    border-radius: 0.125em
-    border: none
-    padding: 0.3em 1em
-    max-width: 90%

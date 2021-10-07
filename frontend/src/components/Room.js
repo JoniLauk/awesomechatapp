@@ -61,6 +61,9 @@ function Room({ roomName, socket }) {
       setMessageContent('');
       socket.emit('change', newMessage);
       setMessages([...messages, newMessage]);
+      setTimeout(() => {
+        scrollToBottom();
+      }, 1);
     }
   };
 

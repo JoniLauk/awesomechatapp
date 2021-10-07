@@ -40,7 +40,7 @@ export default function App() {
           <Route path="/rooms">
             <Rooms socket={socket} />
           </Route>
-          <Route path="/room">
+          <Route path="/rooms:">
             <Room />
           </Route>
           <Route path="/login">

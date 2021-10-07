@@ -7,12 +7,14 @@ import {
   useRouteMatch,
   useHistory,
   useLocation,
+  Redirect,
 } from 'react-router-dom';
 import { unmountComponentAtNode } from 'react-dom';
 import Room from './Room';
 import { getUser } from '../utils/utils';
 import { getAll } from '../services/roomService';
 import { FaChevronLeft, FaInfoCircle } from 'react-icons/fa';
+import './stylesheets/rooms.css';
 
 function Rooms(props) {
   const [rooms, setRooms] = useState([]);
@@ -35,7 +37,7 @@ function Rooms(props) {
   };
 
   const handleClick = () => {
-    unmountComponentAtNode(document.getElementById('root'));
+    unmountComponentAtNode(document.getElementById('roomList'));
   };
 
   const getRoutes = rooms.map((x) => (
@@ -47,42 +49,48 @@ function Rooms(props) {
   const conditionalRender = () => {
     if (getUser()) {
       return (
-        <div id="roomList">
-          <div className="viewContainer">
-            <div className="topBar">
-              <div onClick={goBack}>
-                <FaChevronLeft />
-              </div>
-              <div>AWESOMECHATAPP</div>
-              <div className="rightIcon">
-                <FaInfoCircle />
-              </div>
-            </div>
-            <ul className="roomList">
-              {rooms.map((room) => (
-                <div className="roomListItem">
-                  <div className="nameMessage">
-                    <li key={room.id}>
-                      <Link className="roomLink" to={`${match.url}/${room.id}`}>
-                        {room.name}
-                      </Link>
-                    </li>
-                    <p className="lastMessage">joni: asdf</p>
-                  </div>
-                  <div className="iconTime">
-                    <FaChevronLeft />
-                    <p>13:24</p>
-                  </div>
+        <Router>
+          <div id="roomList">
+            <div className="viewContainer">
+              <div className="topBar">
+                <div onClick={goBack}>
+                  <FaChevronLeft />
                 </div>
-              ))}
-            </ul>
-            <div className="newRoomButton">
-              <button className="newRoom">New Room</button>
+                <div>AWESOMECHATAPP</div>
+                <div className="rightIcon">
+                  <FaInfoCircle />
+                </div>
+              </div>
+              <ul className="roomList">
+                {rooms.map((room) => (
+                  <div className="roomListItem">
+                    <div className="nameMessage">
+                      <li key={room.id} onClick={handleClick}>
+                        <Link
+                          className="roomLink"
+                          to={`${match.url}/${room.id}`}
+                        >
+                          {room.name}
+                        </Link>
+                      </li>
+                      <p className="lastMessage">joni: asdf</p>
+                    </div>
+                    <div className="iconTime">
+                      <FaChevronLeft />
+                      <p>13:24</p>
+                    </div>
+                  </div>
+                ))}
+              </ul>
+              <div className="newRoomButton">
+                <button className="newRoom">New Room</button>
+              </div>
             </div>
           </div>
-
-          <Switch>{getRoutes}</Switch>
-        </div>
+          <div>
+            <Switch>{getRoutes}</Switch>
+          </div>
+        </Router>
       );
     } else {
       return (

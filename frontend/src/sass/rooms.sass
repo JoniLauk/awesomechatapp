@@ -1,38 +1,54 @@
 @use 'app'
 
-.roomList
-    @include app.roomList()
+.viewContainer	
+	.roomList
+		@include app.roomList()
+	.roomListItem
+		@include app.roomListItem()
+		padding-left: 1em
 
-    .roomListItem
-        @include app.roomListItem()
+	.nameMessage
+		width: 75%
 
-        .roomLink
-            text-decoration: none
-            color: app.$secondary
-            font-family: Bevan
-            font-size: 1em
+	.roomLink
+		text-decoration: none
+		color: app.$secondary
+		font-family: Bevan
+		font-size: 1em
 
-        .roomList:visited
-            text-decoration: none
-            color: app.$secondary
-            font-family: Bevan
-            font-size: 1em
+	.roomList:visited
+		text-decoration: none
+		color: app.$secondary
+		font-family: Bevan
+		font-size: 1em
 
-.newRoomButton
-    display: flex
-    height: 20%
-    justify-content: center
-    align-items: center
-    font-family: Bevan
-    font-size: 1.5em
-    font-style: normal
-    font-weight: 700
+	.lastMessage
+		color: app.$secondary-accent
+		font-family: Bevan
+		font-size: 1em
+		margin: 0
 
-.newRoom
-    background-color: app.$secondary
-    color: app.$font-color
-    font-size: 1em
-    border-radius: 0.125em
-    border: none
-    padding: 0.3em 1em
-    max-width: 90%
+	.iconTime
+		color: app.$secondary
+		display: flex
+		flex-direction: row
+		justify-content: center
+		font-family: Bevan
+		font-size: 1em
+		align-items: center
+		width: 20%
+
+	.newRoomButton
+		display: flex
+		height: 25%
+		justify-content: center
+		align-items: center
+
+	.newRoom
+		background-color: app.$secondary
+		color: app.$font-color
+		font-size: 1em
+		border-radius: 0.125em
+		border: none
+		padding: 0.3em 1em
+		max-width: 90%

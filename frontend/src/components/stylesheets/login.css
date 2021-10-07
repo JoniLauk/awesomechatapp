@@ -1,21 +1,3 @@
-.viewContainer {
-  display: flex;
-  flex-direction: column;
-}
-
-.topBar {
-  background-color: #434f66;
-  font-family: Bevan;
-  font-size: 1.5em;
-  font-style: normal;
-  font-weight: 700;
-  color: #8bb7ca;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 0.5em;
-}
-
 .loginForm {
   display: flex;
   flex-direction: column;
@@ -82,16 +64,6 @@
 .loginForm .formInstructions .formLink {
   color: #8bb7ca;
   text-decoration: none;
-}
-
-.newRoom {
-  background-color: #958bca;
-  color: #fff;
-  font-size: 1em;
-  border-radius: 0.125em;
-  border: none;
-  padding: 0.3em 1em;
-  max-width: 90%;
 }
 
 /*# sourceMappingURL=login.css.map */
