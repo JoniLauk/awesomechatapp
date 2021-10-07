@@ -45,16 +45,18 @@ io.on('connection', (socket) => {
  * @param {message} data
  */
 const createMessage = async (socket, data) => {
-  Message.create(data, (err, result) => {
-    if (err) console.log(err);
-  });
-  await Room.updateOne({ _id: data.room }, { $push: { messages: data._id } });
-  socket.broadcast.emit('message:received', data);
+  try {
+    Message.create(data);
+    await Room.updateOne({ _id: data.room }, { $push: { messages: data._id } });
+    socket.broadcast.emit('message:received', data);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 const deleteMessage = async (socket, data) => {
   try {
-    await Message.deleteOne({ _id: data.id });
+    await Message.findByIdAndDelete(data._id);
     socket.broadcast.emit('message:removed', data);
   } catch (err) {
     console.log(err);
