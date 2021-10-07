@@ -29,21 +29,37 @@ app.use(express.json());
 app.use(cors());
 
 /**
- * Main magic happens here. Connect client socket to backend and listen for
- * 'change' event. On change broadcast the event to another clients and add
- * message to the database.
+ * Socket listens for incoming events from the client. Data sent between client and server
+ * is handled based on the event type.
  * @param {socket} Socket.io socket which connects client to this backend.
  */
 io.on('connection', (socket) => {
-  socket.on('change', async (data) => {
-    socket.broadcast.emit('received', data);
-    Message.create(data, (err, result) => {
-      if (err) console.log(err);
-    });
-    // Append message id to rooms messages array.
-    await Room.updateOne({ _id: data.room }, { $push: { messages: data._id } });
-  });
+  socket.on('message:create', (data) => createMessage(socket, data));
+  socket.on('message:delete', (data) => deleteMessage(socket, data));
 });
+
+/**
+ * Creates new message on the database. Also adds message to the specific rooms messages
+ * array.
+ * @param {socket} socket
+ * @param {message} data
+ */
+const createMessage = async (socket, data) => {
+  Message.create(data, (err, result) => {
+    if (err) console.log(err);
+  });
+  await Room.updateOne({ _id: data.room }, { $push: { messages: data._id } });
+  socket.broadcast.emit('message:received', data);
+};
+
+const deleteMessage = async (socket, data) => {
+  try {
+    await Message.deleteOne({ _id: data.id });
+    socket.broadcast.emit('message:removed', data);
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 /**
  * Set up mongoose connection.
