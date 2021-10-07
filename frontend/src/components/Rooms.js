@@ -38,8 +38,8 @@ function Rooms({ socket, handleNotification }) {
 
   // WIP
   const getNewestMessageForRoom = () => {
-    const msg = rooms[0].messages[0].date;
-    console.log('msg', msg);
+    // const msg = rooms[0].messages[0].date;
+    // console.log('msg', msg);
   };
 
   getNewestMessageForRoom();
