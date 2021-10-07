@@ -6,7 +6,6 @@ import { getUser } from '../utils/utils';
 import './stylesheets/room.css';
 
 function Room({ roomName, socket, handleNotification, roomId }) {
-  console.log(roomId);
   const [messages, setMessages] = useState([]);
   const [messageContent, setMessageContent] = useState('');
 
@@ -14,25 +13,17 @@ function Room({ roomName, socket, handleNotification, roomId }) {
    * Async wrapper for getAll function which retrieves messages from
    * the API. Adds messages to messages state.
    */
-  const getMessages = async () => {
-    const response = await getAllMessagesForRoom(roomName);
-    setMessages(response);
-  };
-
   useEffect(() => {
+    const getMessages = async () => {
+      const response = await getAllMessagesForRoom(roomName);
+      setMessages(response);
+    };
     getMessages();
-  }, []);
+  }, [roomName]);
 
-  const messageItems = messages.map((x) => (
-    <li
-      onClick={() => console.log(x)}
-      key={x._id}
-      className={x.user === getUser() ? 'fooo' : 'bar'}
-    >
-      <div>{x.content}</div>
-      <div>{x.user === getUser() ? '' : x.user}</div>
-    </li>
-  ));
+  const emitMessageDel = (x) => {
+    socket.emit('message:delete', x);
+  };
 
   /**
    * Send message to backend which handles saving to the database.
@@ -49,7 +40,7 @@ function Room({ roomName, socket, handleNotification, roomId }) {
       };
 
       setMessageContent('');
-      socket.emit('change', newMessage);
+      socket.emit('message:create', newMessage);
       setMessages([...messages, newMessage]);
     } else {
       handleNotification({
@@ -59,13 +50,30 @@ function Room({ roomName, socket, handleNotification, roomId }) {
     }
   };
 
+  const messageItems = messages.map((x) => (
+    <li
+      onClick={() => emitMessageDel(x)}
+      key={x._id}
+      className={x.user === getUser() ? 'fooo' : 'bar'}
+    >
+      <div>{x.content}</div>
+      <div>{x.user === getUser() ? '' : x.user}</div>
+    </li>
+  ));
+
   /**
    * Listen for broadcast message. When new messages are received add them
    * to messages state.
    */
   if (socket) {
-    socket.on('received', (data) => {
+    socket.on('message:received', (data) => {
       setMessages([...messages, data]);
+    });
+
+    socket.on('message:removed', (data) => {
+      const newMessages = messages.filter((x) => x._id !== data._id);
+      setMessages(newMessages);
+      console.log('msg remove');
     });
   }
 
