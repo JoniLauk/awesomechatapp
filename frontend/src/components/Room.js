@@ -1,10 +1,19 @@
-import React, { useEffect, useState, useContext, useCallback } from 'react';
+import React, {
+  useEffect,
+  useState,
+  useContext,
+  useCallback,
+  useRef,
+} from 'react';
 import { BrowserRouter as useParams } from 'react-router-dom';
 import { ObjectId } from 'bson';
 import { getAllMessagesForRoom } from '../services/messageService';
 import { SocketContext } from '../context/socket';
 import { getUser } from '../utils/utils';
 import './stylesheets/room.css';
+import { render } from 'react-dom';
+import { FaChevronLeft, FaInfoCircle } from 'react-icons/fa';
+import { useHistory } from 'react-router-dom';
 
 function Room({ roomName, handleNotification, roomId }) {
   const [messages, setMessages] = useState([]);
@@ -24,6 +33,12 @@ function Room({ roomName, handleNotification, roomId }) {
     },
     [messages]
   );
+
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current.scrollIntoView({ behavior: 'auto' });
+  };
 
   /**
    * Async wrapper for getAll function which retrieves messages from
@@ -52,6 +67,17 @@ function Room({ roomName, handleNotification, roomId }) {
     setMessages(messages.filter((m) => m._id !== x._id));
   };
 
+  const messageItems = messages.map((x) => (
+    <li
+      className={x.user === getUser() ? 'sentMessage' : 'receivedMessage'}
+      onClick={() => console.log(x)}
+      key={x._id}
+    >
+      <div className="fromUser">{x.user === getUser() ? '' : x.user}</div>
+      <div>{x.content}</div>
+    </li>
+  ));
+
   /**
    * Send message to backend which handles saving to the database.
    */
@@ -69,6 +95,9 @@ function Room({ roomName, handleNotification, roomId }) {
       setMessageContent('');
       socket.emit('message:create', newMessage);
       setMessages([...messages, newMessage]);
+      setTimeout(() => {
+        scrollToBottom();
+      }, 1);
     } else {
       handleNotification({
         message: 'Message cannot be empty.',
@@ -76,33 +105,6 @@ function Room({ roomName, handleNotification, roomId }) {
       });
     }
   };
-
-  const messageItems = messages.map((x) => (
-    <li
-      onClick={() => emitMessageDel(x)}
-      key={x._id}
-      className={x.user === getUser() ? 'fooo' : 'bar'}
-    >
-      <div>{x.content}</div>
-      <div>{x.user === getUser() ? '' : x.user}</div>
-    </li>
-  ));
-
-  /**
-   * Listen for broadcast message. When new messages are received add them
-   * to messages state.
-   */
-  // if (socket) {
-  //   socket.once('message:received', (data) => {
-  //     console.log('msgrec');
-  //     setMessages([...messages, data]);
-  //   });
-
-  //   socket.once('message:removed', (data) => {
-  //     const newMessages = messages.filter((x) => x._id !== data._id);
-  //     setMessages(newMessages);
-  //   });
-  // }
 
   /**
    * Handles form input. Adds form input target value to messageContent state.
@@ -113,14 +115,31 @@ function Room({ roomName, handleNotification, roomId }) {
     setMessageContent(event.target.value);
   };
 
+  const goBack = () => {};
+
   return (
-    <div className="room">
-      <h2>Tää on huone {roomName}</h2>
-      <ul>{messageItems}</ul>
-      <form onSubmit={emitMessage}>
-        <input onChange={handleMessageContent} value={messageContent}></input>
-        <button type="submit">Submit</button>
-      </form>
+    <div className="viewContainer">
+      <div className="topBar">
+        <div onClick={goBack}>
+          <FaChevronLeft />
+        </div>
+        <div className="roomName">{roomName}</div>
+        <div className="rightIcon">
+          <FaInfoCircle />
+        </div>
+      </div>
+      <div className="room">
+        <ul className="chat">
+          {messageItems}
+          <div ref={messagesEndRef} />
+        </ul>
+        <form className="submitMessageForm" onSubmit={emitMessage}>
+          <input onChange={handleMessageContent} value={messageContent}></input>
+          <button className="submitMessage" type="submit">
+            +
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
