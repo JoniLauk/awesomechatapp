@@ -33,7 +33,7 @@ export default function App() {
     <SocketContext.Provider value={socket}>
       <div>
         {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
+              renders the first one that matches the current URL. */}
         <Router>
           <Switch>
             <Route exact path="/">
@@ -47,7 +47,11 @@ export default function App() {
               <Settings />
             </Route>
             <Route path="/rooms">
-              <Rooms socket={socket} handleNotification={handleNotification} />
+              {currentUser ? (
+                <Rooms handleNotification={handleNotification} />
+              ) : (
+                <Login handleNotification={handleNotification} />
+              )}
             </Route>
             <Route path="/rooms:">
               <Room />
