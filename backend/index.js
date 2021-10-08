@@ -36,7 +36,7 @@ app.use(cors());
 io.on('connection', (socket) => {
   socket.on('message:create', (data) => createMessage(socket, data));
   socket.on('message:delete', (data) => deleteMessage(socket, data));
-  socket.on('user:connected', (data) => userConnected(socket, data));
+  socket.on('user:connect', (data) => userConnected(socket, data));
 });
 
 /**
@@ -67,7 +67,7 @@ const deleteMessage = async (socket, data) => {
 
 const userConnected = (socket, data) => {
   console.log(data);
-  socket.broadcast.emit('user:connect_recieved', data);
+  // socket.broadcast.emit('user:connect:broadcast', data);
 };
 
 /**
@@ -86,8 +86,8 @@ mongoose
 
 app.use('/api/login', loginRouter);
 app.use('/api/rooms', [tokenExtractor, authenticator], roomRouter);
-app.use('/api/messages', tokenExtractor, authenticator, messageRouter);
-app.use('/api/users', tokenExtractor, authenticator, userRouter);
+app.use('/api/messages', [tokenExtractor, authenticator], messageRouter);
+app.use('/api/users', userRouter);
 
 server.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
