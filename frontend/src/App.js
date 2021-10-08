@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom';
 import { Home, Settings, Rooms, Room, Login, Signup } from './index';
 import { SocketContext, socket } from './context/socket';
+import { Notification } from './components/Notification';
 import { getUser } from './utils/utils';
 
 export default function App() {
@@ -20,8 +21,8 @@ export default function App() {
   }, [currentUser]);
 
   const handleNotification = (props) => {
-    const { msg } = props;
-    console.log(msg);
+    const { message } = props;
+    console.log(message);
     setNotContent(props);
     setTimeout(() => {
       setNotContent('');
@@ -62,6 +63,7 @@ export default function App() {
             </Route>
           </Switch>
         </Router>
+        {notContent === '' ? '' : <Notification message={notContent} />}
       </div>
     </SocketContext.Provider>
   );
