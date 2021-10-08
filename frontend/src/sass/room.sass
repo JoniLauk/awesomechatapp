@@ -1,90 +1,81 @@
-@use 'app'
+@import '_mixins'
 
-body
-  background-color: app.$primary
+@mixin room()
+  @include theme-aware('background-color', 'body-background-color')
+  display: flex
+  flex-direction: column
+  margin: 0 0.4375em 0 0.4375em
+  height: 100vh
+  overflow: hidden
 
-.viewContainer
-  @include app.viewContainer()
+  h2
+    @include theme-aware('background-color', 'h2-color')
 
-  .topBar
-    @include app.topBar()
-
-  .room
-    background-color: app.$primary
+  .chat
+    @include theme-aware('color', 'chat-message-color')
+    list-style-type: none
     display: flex
     flex-direction: column
-    margin: 0 0.4375em 0 0.4375em
-    height: 100vh
-    overflow: hidden
+    height: 100%
+    overflow-y: scroll
+    padding: 0.1em 0
+    margin: 0
 
-    h2
-      color: app.$font-color
+.sentMessage
+  @include theme-aware('background-color', 'sent-message-background-color')
+  border-radius: 1em 1em 0.25em 1em
+  padding: 0.5em 1em 0.5em 1em
+  margin-top: 0.8125em
+  margin-right: 1.125em
+  margin-left: 1.125em
+  min-height: 2em
+  min-width: 3em
+  height: fit-content
+  align-self: flex-end
+  font-family: Roboto Slab
 
-    .chat
-      color: app.$font-color
-      list-style-type: none
-      display: flex
-      flex-direction: column
-      height: 100%
-      overflow-y: scroll
-      padding: 0.1em 0
-      margin: 0
+.receivedMessage
+  @include theme-aware('background-color', 'received-message-background-color')
+  border-radius: 1em 1em 1em 0.25em
+  padding: 0.5em 1em 0.5em 1em
+  margin-top: 0.8125em
+  margin-left: 1.125em
+  margin-right: 1.125em
+  min-height: 2em
+  width: fit-content
+  min-height: fit-content
+  align-self: flex-start
+  font-family: Roboto Slab
 
-  .sentMessage
+.fromUser
+  @include theme-aware('color', 'fromUser-font-color')
 
-    background-color: app.$secondary
-    border-radius: 1em 1em 0.25em 1em
-    padding: 0.5em 1em 0.5em 1em
-    margin-top: 0.8125em
-    margin-right: 1.125em
+.message
+  font-family: Roboto Slab
+  font-size: 1em
+
+.submitMessageForm
+
+  display: flex
+  flex-direction: row
+  padding-bottom: 0.5em
+  padding-top: 0.3em
+
+  input
+    @include theme-aware('background-color', 'messageInput-background-color')
     margin-left: 1.125em
-    min-height: fit-content
-    width: fit-content
-    align-self: flex-end
-    font-family: app.$font-family-message
-
-  .receivedMessage
-    background-color: app.$primary-accent
-    border-radius: 1em 1em 1em 0.25em
-    padding: 0.5em 1em 0.5em 1em
-    margin-top: 0.8125em
-    margin-left: 1.125em
     margin-right: 1.125em
-    width: fit-content
-    min-height: fit-content
-    align-self: flex-start
-    font-family: app.$font-family-message
+    height: 2.625em
+    border: none
+    border-radius: 1.25em
+    flex: 1
 
-  .fromUser
-    color: app.$secondary-accent
+  button
+    @include theme-aware('background-color', 'newRoom-button-color')
+    margin-right: 1.125em
+    flex: 1
+    border: none
+    border-radius: 2.5em 2.5em 0.9375em 2.5em
+    max-width: 2.625em
+    max-height: 2.625em
 
-  .message
-    font-family: app.$font-family-message
-    font-size: app.$font-size-message
-
-  .submitMessageForm
-
-    display: flex
-    flex-direction: row
-    padding-bottom: 0.5em
-    padding-top: 0.3em
-
-    input
-
-      background-color: app.$primary-accent
-      margin-left: 1.125em
-      margin-right: 1.125em
-      height: 2.625em
-      border: none
-      border-radius: 1.25em
-      flex: 1
-
-    button
-
-      margin-right: 1.125em
-      flex: 1
-      border: none
-      border-radius: 2.5em 2.5em 0.9375em 2.5em
-      max-width: 2.625em
-      max-height: 2.625em
-      background-color: app.$secondary

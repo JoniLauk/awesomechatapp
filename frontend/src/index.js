@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 
-
 export { default as Home } from './components/Home';
 export { default as Settings } from './components/Settings';
 export { default as Rooms } from './components/Rooms';

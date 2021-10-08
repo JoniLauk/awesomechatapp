@@ -9,10 +9,12 @@ import {
 import { Home, Settings, Rooms, Room, Login, Signup } from './index';
 import { io } from 'socket.io-client';
 import { getUser } from './utils/utils';
+import './components/stylesheets/app.css';
 
 export default function App() {
   const [socket, setSocket] = useState(null);
   const [currentUser, setCurrentUser] = useState('');
+  const myStorage = window.localStorage;
 
   useEffect(() => {
     setCurrentUser(getUser());
@@ -24,6 +26,16 @@ export default function App() {
     setSocket(newSocket);
     return () => newSocket.close();
   }, []);
+
+  useEffect(() => {
+    if (!myStorage.getItem('currentTheme')) {
+      myStorage.setItem('currentTheme', 'nightly');
+    }
+    document.documentElement.className = '';
+    document.documentElement.classList.add(
+      `theme-${myStorage.getItem('currentTheme')}`
+    );
+  });
 
   return (
     <Router>

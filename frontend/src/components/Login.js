@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Link, useHistory } from 'react-router-dom';
 import { logIn } from '../services/userService';
 import { setToken, getUser, removeToken } from '../utils/utils';
 import './stylesheets/login.css';
@@ -8,6 +8,7 @@ function Login(props) {
   const [user, setUser] = useState(getUser());
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const history = useHistory();
 
   const handleUsername = (event) => {
     event.preventDefault();
@@ -25,6 +26,7 @@ function Login(props) {
       const loginUser = await logIn({ username, password });
       setToken(loginUser);
       setUser(loginUser);
+      history.push('/rooms');
     } catch (error) {
       console.log(error.response.data.error);
     }
