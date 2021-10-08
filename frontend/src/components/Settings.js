@@ -26,7 +26,6 @@ function Settings(props) {
 
   const handleTheme = (event) => {
     myStorage.setItem('currentTheme', event.target.value);
-    console.log(currentTheme);
     setCurrentTheme({ value: event.target.value });
     document.documentElement.className = '';
     document.documentElement.classList.add(

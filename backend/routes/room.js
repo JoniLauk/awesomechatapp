@@ -12,8 +12,11 @@ const Room = require('../models/room.js');
  */
 roomRouter.get('/', async (req, res, next) => {
   try {
-    const rooms = await Room.find({});
-    res.json(rooms.map((room) => room.toJSON()));
+    const rooms = await Room.find({}).populate('messages', {
+      content: 1,
+      date: 1,
+    });
+    res.status(200).json(rooms.map((room) => room.toJSON()));
   } catch (err) {
     // TODO err handling
     console.log(err);

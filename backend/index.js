@@ -60,14 +60,9 @@ mongoose
   .catch((err) => console.log(err));
 
 app.use('/api/login', loginRouter);
-app.use('/api/messages', tokenExtractor, authenticator, messageRouter);
-<<<<<<< HEAD
-app.use('/api/users', tokenExtractor, authenticator, userRouter);
-app.use('/api/rooms', roomRouter);
-=======
+app.use('/api/rooms', [tokenExtractor, authenticator], roomRouter);
+app.use('/api/messages', [tokenExtractor, authenticator], messageRouter);
 app.use('/api/users', userRouter);
-app.use('/api/rooms', tokenExtractor, authenticator, roomRouter);
->>>>>>> origin/matias_dev
 
 server.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
