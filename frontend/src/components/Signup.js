@@ -22,7 +22,7 @@ function Signup(props) {
       const user = await signUp({ username, password });
       setToken(user);
     } catch (err) {
-      console.log(err.response.data.error);
+      console.log(err.response.data.errors);
     }
   };
 

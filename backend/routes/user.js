@@ -53,28 +53,27 @@ usersRouter.get('/:id', async (req, res) => {
  * @param {express-validator} validateUser Custom express validator for username and password
  * @example usersRouter.post('/',
  */
-usersRouter.post(
-  '/',
-  /*validateUser,*/ async (req, res) => {
-    const { body } = req;
+usersRouter.post('/', validateUser, async (req, res) => {
+  const { body } = req;
 
-    const usernameLowerCase = JSON.stringify(body.username).toLowerCase();
+  const usernameLowerCase = JSON.stringify(body.username).toLowerCase();
 
-    const saltRounds = 10;
-    const passwordHash = await bcrypt.hash(body.password, saltRounds);
+  const saltRounds = 10;
+  const passwordHash = await bcrypt.hash(body.password, saltRounds);
 
-    const user = new User({
-      username: JSON.parse(usernameLowerCase),
-      passwordHash,
-    });
+  const user = new User({
+    username: JSON.parse(usernameLowerCase),
+    passwordHash,
+  });
 
-    const userForToken = {
-      username: user.username,
-      id: user._id,
-    };
+  const userForToken = {
+    username: user.username,
+    id: user._id,
+  };
 
-    const token = jwt.sign(userForToken, process.env.SECRET);
+  const token = jwt.sign(userForToken, process.env.SECRET);
 
+  try {
     User.create(user, (err, post) => {
       if (err) {
         res.status(400).json({
@@ -89,8 +88,10 @@ usersRouter.post(
         res.status(200).json(user);
       }
     });
+  } catch (err) {
+    console.log(err);
   }
-);
+});
 
 /**
  * Updates user based on data from express put method.
