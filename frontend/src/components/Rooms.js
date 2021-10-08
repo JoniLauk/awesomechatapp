@@ -29,7 +29,7 @@ function Rooms({ socket, handleNotification }) {
 
   useEffect(() => {
     getRooms();
-  }, []);
+  });
 
   const goBack = () => {
     history.push('/rooms');
