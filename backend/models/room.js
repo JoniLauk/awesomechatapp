@@ -5,19 +5,20 @@ const mongoose = require('mongoose');
  * @param {string} roomId Id for room
  * @param {string} roomName Name of the room
  */
-const RoomSchema = new mongoose.Schema({
-  roomId: String,
+const roomSchema = new mongoose.Schema({
+  room: String,
   roomName: String,
+  messages: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Message' }],
 });
 
-RoomSchema.set('toJSON', {
+roomSchema.set('toJSON', {
   transform: (doc, object) => {
     const returnableObject = object;
     delete returnableObject.__v;
-    returnableObject.id = object._id;
+    returnableObject.id = object._id.toString();
     delete returnableObject._id;
     return returnableObject;
   },
 });
 
-module.exports = mongoose.model('Room', RoomSchema);
+module.exports = mongoose.model('Room', roomSchema);

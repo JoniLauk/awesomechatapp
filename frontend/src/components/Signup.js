@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { logIn, signUp } from '../services/userService';
+import { signUp } from '../services/userService';
 import { setToken } from '../utils/utils';
 
-function Signup(props) {
+function Signup({ handleNotification }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -21,8 +21,26 @@ function Signup(props) {
     try {
       const user = await signUp({ username, password });
       setToken(user);
+      handleNotification({
+        message: `${username} created successfully.`,
+        type: 'success',
+      });
+      setUsername('');
+      setPassword('');
     } catch (err) {
-      console.log(err.response.data.errors);
+      if (err.response.data.error) {
+        handleNotification({
+          message: err.response.data.error,
+          type: 'error',
+        });
+        setPassword('');
+      } else {
+        handleNotification({
+          message: err.response.data.errors,
+          type: 'error',
+        });
+        setPassword('');
+      }
     }
   };
 

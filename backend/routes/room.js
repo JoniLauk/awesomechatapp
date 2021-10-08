@@ -1,6 +1,6 @@
 const express = require('express');
 const roomRouter = express.Router();
-const Room = require('../models/room.js');
+const Room = require('../models/room');
 
 /* GET ALL ROOMS */
 /**
@@ -32,7 +32,7 @@ roomRouter.get('/', async (req, res, next) => {
  * @example roomRouter.get('/:id',
  */
 roomRouter.get('/:id', async (req, res, next) => {
-  const rooms = await Room.findById(req.params.id).populate('users');
+  const rooms = await Room.findById(req.params.id);
 
   res.json(rooms);
 });

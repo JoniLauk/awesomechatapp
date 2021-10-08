@@ -1,43 +1,87 @@
-import React, { useEffect, useState, useRef } from 'react';
-// import { BrowserRouter as useParams } from 'react-router-dom';
+import React, {
+  useEffect,
+  useState,
+  useContext,
+  useCallback,
+  useRef,
+} from 'react';
+import {
+  BrowserRouter as useParams,
+  Link,
+  Router,
+  Route,
+} from 'react-router-dom';
 import { ObjectId } from 'bson';
 import { getAllMessagesForRoom } from '../services/messageService';
+import { SocketContext } from '../context/socket';
 import { getUser } from '../utils/utils';
 import './stylesheets/room.css';
 import { render } from 'react-dom';
 import { FaChevronLeft, FaInfoCircle } from 'react-icons/fa';
 import { useHistory } from 'react-router-dom';
+import Rooms from './Rooms';
 
-function Room({ roomName, socket }) {
+function Room({ roomName, handleNotification, roomId }) {
   const [messages, setMessages] = useState([]);
   const [messageContent, setMessageContent] = useState('');
-  const messageClassName = 'receivedMessage';
+  const socket = useContext(SocketContext);
   const history = useHistory();
 
-  /**
-   * Async wrapper for getAll function which retrieves messages from
-   * the API. Adds messages to messages state.
-   */
+  const handleNewMessages = useCallback(
+    (data) => {
+      setMessages([...messages, data]);
+    },
+    [messages]
+  );
+
+  const handleMessageDelete = useCallback(
+    (data) => {
+      setMessages(messages.filter((m) => m._id !== data._id));
+    },
+    [messages]
+  );
+
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current.scrollIntoView({ behavior: 'auto' });
   };
 
-  const getMessages = async () => {
-    const response = await getAllMessagesForRoom(roomName);
-    setMessages(response);
-    scrollToBottom();
-  };
+  /**
+   * Async wrapper for getAll function which retrieves messages from
+   * the API. Adds messages to messages state.
+   */
+  useEffect(() => {
+    const getMessages = async () => {
+      const response = await getAllMessagesForRoom(roomName);
+      setMessages(response);
+    };
+
+    getMessages();
+  }, [roomName]);
 
   useEffect(() => {
-    getMessages();
-  }, []);
+    socket.once('message:received', (data) => handleNewMessages(data));
+    socket.once('message:removed', (data) => handleMessageDelete(data));
+    return () => {
+      socket.off('message:received', handleNewMessages);
+      socket.off('message:removed', handleMessageDelete);
+    };
+  }, [socket, messages, handleNewMessages, handleMessageDelete]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  const emitMessageDel = (x) => {
+    socket.emit('message:delete', x);
+    setMessages(messages.filter((m) => m._id !== x._id));
+  };
 
   const messageItems = messages.map((x) => (
     <li
       className={x.user === getUser() ? 'sentMessage' : 'receivedMessage'}
-      onClick={() => console.log(x)}
+      onClick={() => emitMessageDel(x)}
       key={x._id}
     >
       <div className="fromUser">{x.user === getUser() ? '' : x.user}</div>
@@ -54,28 +98,21 @@ function Room({ roomName, socket }) {
       const newMessage = {
         _id: new ObjectId().toString(),
         roomName: roomName,
+        room: roomId,
         user: getUser(),
         content: messageContent,
       };
 
       setMessageContent('');
-      socket.emit('change', newMessage);
+      socket.emit('message:create', newMessage);
       setMessages([...messages, newMessage]);
-      setTimeout(() => {
-        scrollToBottom();
-      }, 1);
+    } else {
+      handleNotification({
+        message: 'Message cannot be empty.',
+        type: 'error',
+      });
     }
   };
-
-  /**
-   * Listen for broadcast message. When new messages are received add them
-   * to messages state.
-   */
-  if (socket) {
-    socket.on('received', (data) => {
-      setMessages([...messages, data]);
-    });
-  }
 
   /**
    * Handles form input. Adds form input target value to messageContent state.

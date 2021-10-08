@@ -15,7 +15,7 @@ import { getUser } from '../utils/utils';
 import { getAll } from '../services/roomService';
 import { FaChevronLeft, FaInfoCircle, FaWrench } from 'react-icons/fa';
 
-function Rooms(props) {
+function Rooms({ socket, handleNotification }) {
   const [rooms, setRooms] = useState([]);
   const match = useRouteMatch();
   const history = useHistory();
@@ -24,7 +24,6 @@ function Rooms(props) {
 
   const getRooms = async () => {
     const newRooms = await getAll();
-    console.log(newRooms);
     setRooms(newRooms);
   };
 
@@ -46,9 +45,27 @@ function Rooms(props) {
 
   const getRoutes = rooms.map((x) => (
     <Route key={x.id} path={`${match.url}/${x.id}`}>
-      <Room roomName={x.name} socket={props.socket} />
+      <Room
+        roomName={x.name}
+        socket={socket}
+        handleNotification={handleNotification}
+        roomId={x.id}
+      />
     </Route>
   ));
+
+  const getNewestMessageForRoom = (room) => {
+    if (room.messages.length > 0)
+      return room.messages[room.messages.length - 1].content;
+    else return '';
+  };
+
+  const getNewesMessagesDateForRoom = (room) => {
+    if (room.messages.length > 0) {
+      const date = new Date(room.messages[room.messages.length - 1].date);
+      return date.toLocaleString();
+    } else return '';
+  };
 
   const conditionalRender = () => {
     if (getUser()) {
@@ -77,11 +94,13 @@ function Rooms(props) {
                           {room.name}
                         </Link>
                       </li>
-                      <p className="lastMessage">joni: asdf</p>
+                      <p className="lastMessage">
+                        {getNewestMessageForRoom(room)}
+                      </p>
                     </div>
                     <div className="iconTime">
                       <FaChevronLeft />
-                      <p>13:24</p>
+                      <p>{getNewesMessagesDateForRoom(room)}</p>
                     </div>
                   </div>
                 ))}
@@ -91,9 +110,7 @@ function Rooms(props) {
               </div>
             </div>
           </div>
-          <div>
-            <Switch>{getRoutes}</Switch>
-          </div>
+          <Switch>{getRoutes}</Switch>
         </Router>
       );
     } else {

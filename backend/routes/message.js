@@ -13,7 +13,7 @@ messageRouter.get('/', async (req, res, next) => {
   try {
     const messages = await Message.find({
       roomName: req.query.roomName,
-    }).exec();
+    }).populate('room', { name: 1 });
     res.status(200).json(messages);
   } catch (err) {
     // TODO err handling

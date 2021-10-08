@@ -4,7 +4,7 @@ import { logIn } from '../services/userService';
 import { setToken, getUser, removeToken } from '../utils/utils';
 import './stylesheets/login.css';
 
-function Login(props) {
+function Login({ handleNotification }) {
   const [user, setUser] = useState(getUser());
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -26,15 +26,34 @@ function Login(props) {
       const loginUser = await logIn({ username, password });
       setToken(loginUser);
       setUser(loginUser);
+<<<<<<< HEAD
       history.push('/rooms');
+=======
+      handleNotification({
+        message: `${loginUser.username} logged in!`,
+        type: 'success',
+      });
+      resetCreds();
+>>>>>>> matias_dev
     } catch (error) {
-      console.log(error.response.data.error);
+      console.log(error);
+      handleNotification({
+        message: error.response.data.error,
+        type: 'error',
+      });
+      resetCreds();
     }
   };
 
   const logout = () => {
     setUser(null);
+    resetCreds();
     removeToken();
+  };
+
+  const resetCreds = () => {
+    setPassword('');
+    setUsername('');
   };
 
   const conditionalRender = () => {

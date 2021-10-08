@@ -7,25 +7,31 @@ import {
   Redirect,
 } from 'react-router-dom';
 import { Home, Settings, Rooms, Room, Login, Signup } from './index';
-import { io } from 'socket.io-client';
+import { SocketContext, socket } from './context/socket';
 import { getUser } from './utils/utils';
 import './components/stylesheets/app.css';
 
 export default function App() {
-  const [socket, setSocket] = useState(null);
   const [currentUser, setCurrentUser] = useState('');
+<<<<<<< HEAD
   const myStorage = window.localStorage;
+=======
+  const [notContent, setNotContent] = useState('');
+>>>>>>> matias_dev
 
   useEffect(() => {
     setCurrentUser(getUser());
     console.log(`current user: ${currentUser}`);
   }, [currentUser]);
 
-  useEffect(() => {
-    const newSocket = io('http://localhost:4000');
-    setSocket(newSocket);
-    return () => newSocket.close();
-  }, []);
+  const handleNotification = (props) => {
+    const { msg } = props;
+    console.log(msg);
+    setNotContent(props);
+    setTimeout(() => {
+      setNotContent('');
+    }, 3000);
+  };
 
   useEffect(() => {
     if (!myStorage.getItem('currentTheme')) {
@@ -38,34 +44,40 @@ export default function App() {
   });
 
   return (
-    <Router>
+    <SocketContext.Provider value={socket}>
       <div>
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
-        <Switch>
-          <Route exact path="/">
-            {currentUser ? <Redirect to="/rooms" /> : <Home socket={socket} />}
-          </Route>
-          <Route path="/settings">
-            <Settings />
-          </Route>
-          <Route path="/rooms">
-            <Rooms socket={socket} />
-          </Route>
-          <Route path="/rooms:">
-            <Room />
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/signup">
-            <Signup />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
+        <Router>
+          <Switch>
+            <Route exact path="/">
+              {currentUser ? (
+                <Redirect to="/rooms" />
+              ) : (
+                <Home socket={socket} />
+              )}
+            </Route>
+            <Route path="/settings">
+              <Settings />
+            </Route>
+            <Route path="/rooms">
+              <Rooms socket={socket} handleNotification={handleNotification} />
+            </Route>
+            <Route path="/rooms:">
+              <Room />
+            </Route>
+            <Route path="/login">
+              <Login handleNotification={handleNotification} />
+            </Route>
+            <Route path="/signup">
+              <Signup handleNotification={handleNotification} />
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </Router>
       </div>
-    </Router>
+    </SocketContext.Provider>
   );
 }
