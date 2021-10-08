@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { logIn } from '../services/userService';
 import { setToken, getUser, removeToken } from '../utils/utils';
 import './stylesheets/login.css';
@@ -8,6 +8,7 @@ function Login({ handleNotification }) {
   const [user, setUser] = useState(getUser());
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const history = useHistory();
 
   const handleUsername = (event) => {
     event.preventDefault();
@@ -21,7 +22,6 @@ function Login({ handleNotification }) {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-    console.log(username, password);
     try {
       const loginUser = await logIn({ username, password });
       setToken(loginUser);
@@ -31,6 +31,7 @@ function Login({ handleNotification }) {
         type: 'success',
       });
       resetCreds();
+      history.push('/rooms');
     } catch (error) {
       handleNotification({
         message: error.response.data.error,
