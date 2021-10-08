@@ -50,13 +50,18 @@ function Rooms({ socket, handleNotification }) {
     </Route>
   ));
 
-  // WIP
-  const getNewestMessageForRoom = () => {
-    // const msg = rooms[0].messages[0].date;
-    // console.log('msg', msg);
+  const getNewestMessageForRoom = (room) => {
+    if (room.messages.length > 0)
+      return room.messages[room.messages.length - 1].content;
+    else return '';
   };
 
-  getNewestMessageForRoom();
+  const getNewesMessagesDateForRoom = (room) => {
+    if (room.messages.length > 0) {
+      const date = new Date(room.messages[room.messages.length - 1].date);
+      return date.toLocaleString();
+    } else return '';
+  };
 
   const conditionalRender = () => {
     if (getUser()) {
@@ -85,11 +90,13 @@ function Rooms({ socket, handleNotification }) {
                           {room.name}
                         </Link>
                       </li>
-                      <p className="lastMessage">joni: asdf</p>
+                      <p className="lastMessage">
+                        {getNewestMessageForRoom(room)}
+                      </p>
                     </div>
                     <div className="iconTime">
                       <FaChevronLeft />
-                      <p>13:24</p>
+                      <p>{getNewesMessagesDateForRoom(room)}</p>
                     </div>
                   </div>
                 ))}
@@ -99,20 +106,6 @@ function Rooms({ socket, handleNotification }) {
               </div>
             </div>
           </div>
-          {/* <div>
-            <h2>Rooms</h2>
-
-            <ul>
-              {rooms.map((room) => (
-                <li key={room.id}>
-                  <Link to={`${match.url}/${room.id}`}>{room.name}</Link>
-                  {}
-                </li>
-              ))}
-            </ul>
-
-            <Switch>{getRoutes}</Switch>
-          </div> */}
           <Switch>{getRoutes}</Switch>
         </Router>
       );

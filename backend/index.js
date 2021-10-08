@@ -46,7 +46,8 @@ io.on('connection', (socket) => {
  */
 const createMessage = async (socket, data) => {
   try {
-    Message.create(data);
+    const newMessage = { ...data, date: new Date() };
+    Message.create(newMessage);
     await Room.updateOne({ _id: data.room }, { $push: { messages: data._id } });
     socket.broadcast.emit('message:received', data);
   } catch (err) {

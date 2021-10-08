@@ -5,7 +5,12 @@ import React, {
   useCallback,
   useRef,
 } from 'react';
-import { BrowserRouter as useParams } from 'react-router-dom';
+import {
+  BrowserRouter as useParams,
+  Link,
+  Router,
+  Route,
+} from 'react-router-dom';
 import { ObjectId } from 'bson';
 import { getAllMessagesForRoom } from '../services/messageService';
 import { SocketContext } from '../context/socket';
@@ -14,11 +19,13 @@ import './stylesheets/room.css';
 import { render } from 'react-dom';
 import { FaChevronLeft, FaInfoCircle } from 'react-icons/fa';
 import { useHistory } from 'react-router-dom';
+import Rooms from './Rooms';
 
 function Room({ roomName, handleNotification, roomId }) {
   const [messages, setMessages] = useState([]);
   const [messageContent, setMessageContent] = useState('');
   const socket = useContext(SocketContext);
+  const history = useHistory();
 
   const handleNewMessages = useCallback(
     (data) => {
@@ -62,6 +69,10 @@ function Room({ roomName, handleNotification, roomId }) {
     };
   }, [socket, messages, handleNewMessages, handleMessageDelete]);
 
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
   const emitMessageDel = (x) => {
     socket.emit('message:delete', x);
     setMessages(messages.filter((m) => m._id !== x._id));
@@ -70,7 +81,7 @@ function Room({ roomName, handleNotification, roomId }) {
   const messageItems = messages.map((x) => (
     <li
       className={x.user === getUser() ? 'sentMessage' : 'receivedMessage'}
-      onClick={() => console.log(x)}
+      onClick={() => emitMessageDel(x)}
       key={x._id}
     >
       <div className="fromUser">{x.user === getUser() ? '' : x.user}</div>
@@ -95,9 +106,6 @@ function Room({ roomName, handleNotification, roomId }) {
       setMessageContent('');
       socket.emit('message:create', newMessage);
       setMessages([...messages, newMessage]);
-      setTimeout(() => {
-        scrollToBottom();
-      }, 1);
     } else {
       handleNotification({
         message: 'Message cannot be empty.',
@@ -115,7 +123,9 @@ function Room({ roomName, handleNotification, roomId }) {
     setMessageContent(event.target.value);
   };
 
-  const goBack = () => {};
+  const goBack = () => {
+    history.push('/rooms');
+  };
 
   return (
     <div className="viewContainer">
