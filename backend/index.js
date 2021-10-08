@@ -36,6 +36,7 @@ app.use(cors());
 io.on('connection', (socket) => {
   socket.on('message:create', (data) => createMessage(socket, data));
   socket.on('message:delete', (data) => deleteMessage(socket, data));
+  socket.on('user:connected', (data) => userConnected(socket, data));
 });
 
 /**
@@ -62,6 +63,11 @@ const deleteMessage = async (socket, data) => {
   } catch (err) {
     console.log(err);
   }
+};
+
+const userConnected = (socket, data) => {
+  console.log(data);
+  socket.broadcast.emit('user:connect_recieved', data);
 };
 
 /**

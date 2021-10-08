@@ -7,7 +7,6 @@ import {
   useRouteMatch,
   useHistory,
   useLocation,
-  Redirect,
 } from 'react-router-dom';
 import { unmountComponentAtNode } from 'react-dom';
 import Room from './Room';
@@ -27,9 +26,11 @@ function Rooms({ socket, handleNotification }) {
     setRooms(newRooms);
   };
 
+  console.log(location);
+
   useEffect(() => {
     getRooms();
-  });
+  }, [location]);
 
   const goBack = () => {
     history.push('/rooms');

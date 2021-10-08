@@ -5,24 +5,17 @@ import React, {
   useCallback,
   useRef,
 } from 'react';
-import {
-  BrowserRouter as useParams,
-  Link,
-  Router,
-  Route,
-} from 'react-router-dom';
 import { ObjectId } from 'bson';
 import { getAllMessagesForRoom } from '../services/messageService';
 import { SocketContext } from '../context/socket';
 import { getUser } from '../utils/utils';
 import './stylesheets/room.css';
-import { render } from 'react-dom';
 import { FaChevronLeft, FaInfoCircle } from 'react-icons/fa';
 import { useHistory } from 'react-router-dom';
-import Rooms from './Rooms';
 
 function Room({ roomName, handleNotification, roomId }) {
   const [messages, setMessages] = useState([]);
+  const [connectedUsers, setConnectedUsers] = useState([]);
   const [messageContent, setMessageContent] = useState('');
   const socket = useContext(SocketContext);
   const history = useHistory();
@@ -39,6 +32,13 @@ function Room({ roomName, handleNotification, roomId }) {
       setMessages(messages.filter((m) => m._id !== data._id));
     },
     [messages]
+  );
+
+  const handleConnectedUsers = useCallback(
+    (data) => {
+      setConnectedUsers([...connectedUsers, data]);
+    },
+    [setConnectedUsers, connectedUsers]
   );
 
   const messagesEndRef = useRef(null);
@@ -63,15 +63,30 @@ function Room({ roomName, handleNotification, roomId }) {
   useEffect(() => {
     socket.once('message:received', (data) => handleNewMessages(data));
     socket.once('message:removed', (data) => handleMessageDelete(data));
+    socket.once('user:connect_received', (data) => handleConnectedUsers(data));
     return () => {
       socket.off('message:received', handleNewMessages);
       socket.off('message:removed', handleMessageDelete);
+      socket.off('user:connection_received', handleConnectedUsers);
     };
-  }, [socket, messages, handleNewMessages, handleMessageDelete]);
+  }, [
+    socket,
+    messages,
+    handleNewMessages,
+    handleMessageDelete,
+    handleConnectedUsers,
+  ]);
 
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  useEffect(() => {
+    socket.emit(
+      'user:connected',
+      JSON.parse(window.localStorage.getItem('token')).username
+    );
+  });
 
   const emitMessageDel = (x) => {
     socket.emit('message:delete', x);
