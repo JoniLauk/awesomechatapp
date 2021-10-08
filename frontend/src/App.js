@@ -13,11 +13,8 @@ import './components/stylesheets/app.css';
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState('');
-<<<<<<< HEAD
   const myStorage = window.localStorage;
-=======
   const [notContent, setNotContent] = useState('');
->>>>>>> matias_dev
 
   useEffect(() => {
     setCurrentUser(getUser());

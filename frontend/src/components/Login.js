@@ -26,15 +26,11 @@ function Login({ handleNotification }) {
       const loginUser = await logIn({ username, password });
       setToken(loginUser);
       setUser(loginUser);
-<<<<<<< HEAD
-      history.push('/rooms');
-=======
       handleNotification({
         message: `${loginUser.username} logged in!`,
         type: 'success',
       });
       resetCreds();
->>>>>>> matias_dev
     } catch (error) {
       console.log(error);
       handleNotification({
