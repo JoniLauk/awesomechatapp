@@ -54,8 +54,22 @@ body .topBar {
 body .topBar :nth-child(1) {
   padding-left: 1em;
 }
+body .topBar :nth-child(1) svg {
+  padding: 0;
+}
+body .topBar :nth-child(1):hover {
+  cursor: pointer;
+  filter: brightness(1.2);
+}
 body .topBar :nth-child(3) {
   padding-right: 1em;
+}
+body .topBar :nth-child(3) svg {
+  padding: 0;
+}
+body .topBar :nth-child(3):hover {
+  cursor: pointer;
+  filter: brightness(1.2);
 }
 body .notification {
   font-family: Roboto Slab;
@@ -100,17 +114,13 @@ body .viewContainer {
   bottom: 0;
   min-height: 100vh;
   overflow: auto;
+  align-items: center;
 }
 .theme-nightly body .viewContainer {
   background-color: #242e42;
 }
 .theme-brome body .viewContainer {
   background-color: #f7ede2;
-}
-@media (min-width: 800px) {
-  body .viewContainer {
-    align-items: center;
-  }
 }
 body .viewContainer .roomList {
   margin: 1.5em 2em;
@@ -137,13 +147,17 @@ body .viewContainer .roomList {
 }
 body .viewContainer .roomList .roomListItem {
   border-radius: 0.25em;
-  padding: 0.5em 0.5em 0.25em 0;
+  padding: 0.5em;
   margin-top: 1em;
   min-height: 5em;
-  width: 70vw;
+  width: 80vw;
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 90%;
   box-shadow: 12.5px 12.5px 12.5px rgba(0, 0, 0, 0.15), 100px 100px 100px rgba(0, 0, 0, 0.075);
+  overflow: hidden;
 }
 .theme-nightly body .viewContainer .roomList .roomListItem {
   background-color: #242e42;
@@ -151,62 +165,51 @@ body .viewContainer .roomList .roomListItem {
 .theme-brome body .viewContainer .roomList .roomListItem {
   background-color: #2c5784;
 }
-@media (min-width: 800px) {
-  body .viewContainer .roomList .roomListItem {
-    max-width: 70%;
-  }
+body .viewContainer .roomList .roomListItem:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
 }
 body .viewContainer .roomList .nameMessage {
-  flex: 2;
-  padding-left: 1rem;
+  padding-left: 0.5rem;
+  text-decoration: none;
+  flex: 60%;
 }
-body .viewContainer .roomList .roomLink {
+body .viewContainer .roomList .nameMessage .roomLink {
   text-decoration: none;
   font-family: Bevan;
   font-size: 1em;
 }
-.theme-nightly body .viewContainer .roomList .roomLink {
+.theme-nightly body .viewContainer .roomList .nameMessage .roomLink {
   color: #958bca;
 }
-.theme-brome body .viewContainer .roomList .roomLink {
+.theme-brome body .viewContainer .roomList .nameMessage .roomLink {
   color: #d77a61;
-}
-body .viewContainer .roomList .roomList:visited {
-  text-decoration: none;
-  font-family: Bevan;
-  font-size: 1em;
-}
-.theme-nightly body .viewContainer .roomList .roomList:visited {
-  color: #958bca;
-}
-.theme-brome body .viewContainer .roomList .roomList:visited {
-  color: #d77a61;
-}
-body .viewContainer .roomList .lastMessage {
-  font-family: Bevan;
-  font-size: 1em;
-  margin: 0;
-}
-.theme-nightly body .viewContainer .roomList .lastMessage {
-  color: #8bb7ca;
-}
-.theme-brome body .viewContainer .roomList .lastMessage {
-  color: #fff;
 }
 body .viewContainer .roomList .iconTime {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
+  align-items: start;
   font-family: Bevan;
   font-size: 0.7rem;
-  align-items: center;
-  flex: 1;
+  flex: 40%;
 }
 .theme-nightly body .viewContainer .roomList .iconTime {
   color: #958bca;
 }
 .theme-brome body .viewContainer .roomList .iconTime {
   color: #d77a61;
+}
+body .viewContainer .roomList .iconTime .lastMessage {
+  font-family: Bevan;
+  font-size: 1em;
+  margin: 0;
+}
+.theme-nightly body .viewContainer .roomList .iconTime .lastMessage {
+  color: #8bb7ca;
+}
+.theme-brome body .viewContainer .roomList .iconTime .lastMessage {
+  color: #fff;
 }
 body .viewContainer .room {
   display: flex;
@@ -220,7 +223,7 @@ body .viewContainer .room {
 .theme-brome body .viewContainer .room {
   background-color: #f7ede2;
 }
-@media (min-width: 800px) {
+@media (min-width: 1100px) {
   body .viewContainer .room {
     display: flex;
     max-width: 1100px;
@@ -244,6 +247,7 @@ body .viewContainer .room .chat {
 }
 body .viewContainer .room .chat::-webkit-scrollbar {
   border-radius: 7em;
+  width: 1rem;
 }
 .theme-nightly body .viewContainer .room .chat::-webkit-scrollbar {
   background: #242e42;
@@ -258,7 +262,9 @@ body .viewContainer .room .chat::-webkit-scrollbar {
   border: 3px solid #d77a61;
 }
 body .viewContainer .room .chat::-webkit-scrollbar-thumb {
+  border: 5px solid transparent;
   border-radius: 7em;
+  background-clip: content-box;
 }
 .theme-nightly body .viewContainer .room .chat::-webkit-scrollbar-thumb {
   background: #958bca;
@@ -266,13 +272,7 @@ body .viewContainer .room .chat::-webkit-scrollbar-thumb {
 .theme-brome body .viewContainer .room .chat::-webkit-scrollbar-thumb {
   background: #d77a61;
 }
-.theme-nightly body .viewContainer .room .chat::-webkit-scrollbar-thumb {
-  border: 3px solid #958bca;
-}
-.theme-brome body .viewContainer .room .chat::-webkit-scrollbar-thumb {
-  border: 3px solid #d77a61;
-}
-@media (min-width: 800px) {
+@media (min-width: 1100px) {
   body .viewContainer .room .chat {
     max-width: 1100px;
   }
@@ -332,6 +332,7 @@ body .viewContainer .room .submitMessageForm {
   padding-top: 0.3em;
   justify-content: center;
   align-items: center;
+  background-color: rgba(0, 0, 0, 0);
 }
 body .viewContainer .room .submitMessageForm input {
   margin-left: 1.125em;
@@ -394,7 +395,7 @@ body .viewContainer .loginForm {
   color: #fff;
 }
 .theme-brome body .viewContainer .loginForm {
-  color: #fff;
+  color: #2c5784;
 }
 body .viewContainer .loginForm h3 {
   margin: 0;
@@ -443,6 +444,7 @@ body .viewContainer .loginForm .loginFormSubmit {
   justify-content: center;
 }
 body .viewContainer .loginForm .loginFormSubmit input[type=submit] {
+  font-family: Bevan;
   font-size: 1em;
   border-radius: 0.125em;
   border: none;
@@ -459,7 +461,7 @@ body .viewContainer .loginForm .loginFormSubmit input[type=submit] {
   color: #fff;
 }
 .theme-brome body .viewContainer .loginForm .loginFormSubmit input[type=submit] {
-  color: #fff;
+  color: #2c5784;
 }
 body .viewContainer .loginForm .formInstructions {
   display: flex;
@@ -520,6 +522,10 @@ body .viewContainer .settings button {
 .theme-brome body .viewContainer .settings button {
   color: #fff;
 }
+body .viewContainer .settings button:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
 body .viewContainer .settings select {
   font-size: 1.5em;
   border-radius: 0.125em;
@@ -546,6 +552,10 @@ body .viewContainer .settings select {
 }
 .theme-brome body .viewContainer .settings select {
   color: #fff;
+}
+body .viewContainer .settings select:hover {
+  transform: scale(1.05);
+  filter: brightness(1.1);
 }
 @media (min-width: 800px) {
   body .viewContainer .settings select {

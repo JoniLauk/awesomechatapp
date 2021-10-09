@@ -9,7 +9,7 @@
     margin-top: 0.25em
 
 @mixin login()
-    @include theme-aware('color', 'message-font-color')
+    @include theme-aware('color', 'loginPage-font-color')
     display: flex
     flex-direction: column
     justify-content: center
@@ -46,7 +46,8 @@
 
         input[type='submit']
             @include theme-aware('background-color', 'sent-message-background-color')
-            @include theme-aware('color', 'message-font-color')
+            @include theme-aware('color', 'loginPage-font-color')
+            font-family: Bevan
             font-size: 1em
             border-radius: 0.125em
             border: none
