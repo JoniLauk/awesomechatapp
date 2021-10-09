@@ -2,28 +2,30 @@
 
 @mixin roomList()
 	@include theme-aware('background-color', 'roomList-background-color')
-	margin: 2em
+	margin: 1.5em 2em
 	border-radius: 0.25em
 	list-style-type: none
 	flex-direction: column
 	padding: 1em 0 0 0
-	height: 80vh
+	height: 75vh
 	overflow: hidden
 	display: flex
 	align-items: center
+	box-shadow: 12.5px 12.5px 12.5px rgba(0, 0, 0, 0.15), 100px 100px 100px rgba(0, 0, 0, 0.075)
 	@media (min-width: 800px)
-		max-width: 70%
-		align-items: center
+		max-width: 1100px
 
 	.roomListItem
 		@include theme-aware('background-color', 'roomListItem-background-color')
 		border-radius: 0.25em
 		padding: 0.5em 0.5em 0.25em 0
-		margin-top: 0.5em
+		margin-top: 1em
 		min-height: 5em
 		width: 70vw
 		display: flex
 		flex-direction: row
+		box-shadow: 12.5px 12.5px 12.5px rgba(0, 0, 0, 0.15), 100px 100px 100px rgba(0, 0, 0, 0.075)
+
 		@media (min-width: 800px)
 			max-width: 70%
 
@@ -31,23 +33,23 @@
 		flex: 2
 		padding-left: 1rem
 
-		.roomLink
-			@include theme-aware('color', 'roomLink-color')
-			text-decoration: none
-			font-family: Bevan
-			font-size: 1em
+	.roomLink
+		@include theme-aware('color', 'roomLink-color')
+		text-decoration: none
+		font-family: Bevan
+		font-size: 1em
 
-		.roomList:visited
-			@include theme-aware('color', 'roomLink-color')
-			text-decoration: none
-			font-family: Bevan
-			font-size: 1em
+	.roomList:visited
+		@include theme-aware('color', 'roomLink-color')
+		text-decoration: none
+		font-family: Bevan
+		font-size: 1em
 
-		.lastMessage
-			@include theme-aware('color', 'roomLink-message-color')
-			font-family: Bevan
-			font-size: 1em
-			margin: 0
+	.lastMessage
+		@include theme-aware('color', 'roomLink-message-color')
+		font-family: Bevan
+		font-size: 1em
+		margin: 0
 
 	.iconTime
 		@include theme-aware('color', 'roomLink-color')
@@ -61,15 +63,14 @@
 
 .newRoomButton
 	display: flex
-	height: 25%
 	justify-content: center
 	align-items: center
 
 	.newRoom
 		@include theme-aware('background-color', 'newRoom-button-color')
 		@include theme-aware('color', 'message-font-color')
-		font-size: 1em
+		font-size: 2em
 		border-radius: 0.125em
 		border: none
 		padding: 0.3em 1em
-		max-width: 90%
+		box-shadow: 12.5px 12.5px 12.5px rgba(0, 0, 0, 0.15), 100px 100px 100px rgba(0, 0, 0, 0.075)

@@ -10,7 +10,7 @@ import { getAllMessagesForRoom } from '../services/messageService';
 import { SocketContext } from '../context/socket';
 import { getUserId, getUser, handleNotification } from '../utils/utils';
 import './stylesheets/room.css';
-import { FaChevronLeft, FaInfoCircle } from 'react-icons/fa';
+import { FaChevronLeft, FaInfoCircle, FaPlus } from 'react-icons/fa';
 import { useHistory } from 'react-router-dom';
 import { InfoComponent } from './InfoComponent';
 import { Notification } from './Notification';
@@ -206,7 +206,7 @@ function Room({ roomName, roomId }) {
         <form className="submitMessageForm" onSubmit={emitMessage}>
           <input onChange={handleMessageContent} value={messageContent}></input>
           <button className="submitMessage" type="submit">
-            +
+            <FaPlus />
           </button>
         </form>
       </div>

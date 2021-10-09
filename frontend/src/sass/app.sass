@@ -13,9 +13,14 @@
   font-size: 1.5em
   display: flex
   flex-direction: row
-  justify-content: space-between
-  padding: 0.5em
+  align-items: center
   width: 100vw
+  min-height: 3em
+  justify-content: space-between
+  :nth-child(1)
+    padding-left: 1em
+  :nth-child(3)
+    padding-right: 1em
 
 @mixin viewContainer()
   display: flex
@@ -28,6 +33,7 @@ body
 
   .topBar
     @include topBar()
+    
 
   .notification
     @include notification.notification()

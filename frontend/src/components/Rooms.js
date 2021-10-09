@@ -12,14 +12,14 @@ import { unmountComponentAtNode } from 'react-dom';
 import Room from './Room';
 import { getUser } from '../utils/utils';
 import { getAll } from '../services/roomService';
-import { FaChevronLeft, FaInfoCircle, FaWrench } from 'react-icons/fa';
+import { FaChevronLeft, FaInfoCircle, FaCog } from 'react-icons/fa';
+import './stylesheets/rooms.css';
 
 function Rooms({ socket, handleNotification }) {
   const [rooms, setRooms] = useState([]);
   const match = useRouteMatch();
   const history = useHistory();
   const location = useLocation();
-  const myStorage = window.localStorage;
 
   const getRooms = async () => {
     const newRooms = await getAll();
@@ -78,7 +78,7 @@ function Rooms({ socket, handleNotification }) {
                 </div>
                 <div>AWESOMECHATAPP</div>
                 <div className="rightIcon" onClick={goSettings}>
-                  <FaWrench />
+                  <FaCog />
                 </div>
               </div>
               <ul className="roomList">
