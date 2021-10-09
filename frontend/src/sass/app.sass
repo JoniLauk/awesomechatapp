@@ -3,6 +3,7 @@
 @use 'login'
 @use 'settings'
 @use 'infocomponent'
+@use 'notification'
 @import '_mixins'
 
 @mixin topBar()
@@ -27,6 +28,9 @@ body
 
   .topBar
     @include topBar()
+
+  .notification
+    @include notification.notification()
 
   .viewContainer
     @include theme-aware('background-color', 'body-background-color')

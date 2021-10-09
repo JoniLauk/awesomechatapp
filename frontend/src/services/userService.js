@@ -8,7 +8,6 @@ export const logIn = async (user) => {
 };
 
 export const signUp = async (user) => {
-  console.log(user);
   const response = await axios.post(`${url}users`, user);
   return response.data;
 };

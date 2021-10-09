@@ -8,11 +8,12 @@ import React, {
 import { ObjectId } from 'bson';
 import { getAllMessagesForRoom } from '../services/messageService';
 import { SocketContext } from '../context/socket';
-import { getUserId, getUser } from '../utils/utils';
+import { getUserId, getUser, handleNotification } from '../utils/utils';
 import './stylesheets/room.css';
 import { FaChevronLeft, FaInfoCircle } from 'react-icons/fa';
 import { useHistory } from 'react-router-dom';
 import { InfoComponent } from './InfoComponent';
+import { Notification } from './Notification';
 
 /**
  * Room where users can join and send messages to each other. All communications with the server
@@ -20,11 +21,13 @@ import { InfoComponent } from './InfoComponent';
  * @param {*} param0
  * @returns Room component
  */
-function Room({ roomName, handleNotification, roomId }) {
+function Room({ roomName, roomId }) {
   const [messages, setMessages] = useState([]);
   const [connectedUsers, setConnectedUsers] = useState([]);
   const [messageContent, setMessageContent] = useState('');
   const [showInfo, setShowInfo] = useState(false);
+  const [not, setNot] = useState(false);
+  const [notContent, setNotContent] = useState('');
   const socket = useContext(SocketContext);
   const history = useHistory();
   const messagesEndRef = useRef(null);
@@ -134,10 +137,14 @@ function Room({ roomName, handleNotification, roomId }) {
       socket.emit('message:create', newMessage);
       // setMessages([...messages, newMessage]);
     } else {
-      handleNotification({
-        message: 'Message cannot be empty.',
-        type: 'error',
-      });
+      handleNotification(
+        {
+          message: 'Message cannot be empty.',
+          type: 'error',
+        },
+        setNot,
+        setNotContent
+      );
     }
   };
 
@@ -181,6 +188,7 @@ function Room({ roomName, handleNotification, roomId }) {
 
   return (
     <div className="viewContainer">
+      {not ? <Notification message={notContent}></Notification> : ''}
       <div className="topBar">
         <div onClick={goBack}>
           <FaChevronLeft />

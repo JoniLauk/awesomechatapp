@@ -10,6 +10,7 @@ import { SocketContext, socket } from './context/socket';
 import { Notification } from './components/Notification';
 import { getUser } from './utils/utils';
 import './components/stylesheets/app.css';
+import './components/stylesheets/notification.css';
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState('');
@@ -18,16 +19,15 @@ export default function App() {
 
   useEffect(() => {
     setCurrentUser(getUser());
-    console.log(`current user: ${currentUser}`);
   }, [currentUser]);
 
   const handleNotification = (props) => {
     const { message } = props;
     console.log(message);
     setNotContent(props);
-    setTimeout(() => {
-      setNotContent('');
-    }, 3000);
+    // setTimeout(() => {
+    //   setNotContent('');
+    // }, 3000);
   };
 
   useEffect(() => {
@@ -45,40 +45,31 @@ export default function App() {
       <div>
         {/* A <Switch> looks through its children <Route>s and
               renders the first one that matches the current URL. */}
+        {notContent === '' ? '' : <Notification message={notContent} />}
         <Router>
           <Switch>
             <Route exact path="/">
               {currentUser ? (
                 <Redirect to="/rooms" />
               ) : (
-                <Login handleNotification={handleNotification} />
+                <Login setCurrentUser={setCurrentUser} />
               )}
             </Route>
             <Route path="/settings">
               <Settings />
             </Route>
-            <Route path="/rooms">
-              {currentUser ? (
-                <Rooms handleNotification={handleNotification} />
-              ) : (
-                <Login handleNotification={handleNotification} />
-              )}
-            </Route>
-            {/* <Route path="/rooms">
-              <Room />
-            </Route> */}
+            <Route path="/rooms">{currentUser ? <Rooms /> : <Login />}</Route>
             <Route path="/login">
-              <Login handleNotification={handleNotification} />
+              <Login setCurrentUser={setCurrentUser} />
             </Route>
             <Route path="/signup">
-              <Signup handleNotification={handleNotification} />
+              <Signup />
             </Route>
             <Route path="/">
               <Home />
             </Route>
           </Switch>
         </Router>
-        {notContent === '' ? '' : <Notification message={notContent} />}
       </div>
     </SocketContext.Provider>
   );

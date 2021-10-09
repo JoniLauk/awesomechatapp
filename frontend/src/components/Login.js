@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Link, useHistory } from 'react-router-dom';
 import { logIn } from '../services/userService';
-import { setToken, getUser, removeToken } from '../utils/utils';
+import {
+  setToken,
+  getUser,
+  removeToken,
+  handleNotification,
+} from '../utils/utils';
+import { Notification } from './Notification';
 import './stylesheets/login.css';
 
-function Login({ handleNotification }) {
+function Login({ setCurrentUser }) {
   const [user, setUser] = useState(getUser());
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [not, setNot] = useState(false);
+  const [notContent, setNotContent] = useState('');
   const history = useHistory();
 
   const handleUsername = (event) => {
@@ -26,17 +34,18 @@ function Login({ handleNotification }) {
       const loginUser = await logIn({ username, password });
       setToken(loginUser);
       setUser(loginUser);
-      handleNotification({
-        message: `${loginUser.username} logged in!`,
-        type: 'success',
-      });
       resetCreds();
-      history.push('/rooms');
     } catch (error) {
-      handleNotification({
-        message: error.response.data.error,
-        type: 'error',
-      });
+      if (error.response) {
+        handleNotification(
+          {
+            message: error.response.data.error,
+            type: 'error',
+          },
+          setNot,
+          setNotContent
+        );
+      }
       resetCreds();
     }
   };
@@ -56,6 +65,7 @@ function Login({ handleNotification }) {
     if (!user) {
       return (
         <div className="viewContainer">
+          {not ? <Notification message={notContent}></Notification> : ''}
           <div className="topBar">
             <div></div>
             <div>AWESOMECHATAPP</div>

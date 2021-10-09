@@ -146,6 +146,39 @@ body .topBar {
 .theme-brome body .topBar {
   color: #d77a61;
 }
+body .notification {
+  font-family: Roboto Slab;
+  display: flex;
+  position: absolute;
+  top: 45vh;
+  justify-content: center;
+  padding: 0;
+  list-style: none;
+}
+.theme-nightly body .notification {
+  color: #fff;
+}
+.theme-brome body .notification {
+  color: #2c5784;
+}
+body .notification li {
+  display: flex;
+  justify-content: center;
+  border-radius: 1em 1em 1em 1em;
+  padding: 0.5em 1em 0.5em 1em;
+  margin-top: 0.8125em;
+  margin-right: 1.125em;
+  margin-left: 1.125em;
+  min-height: 2em;
+  min-width: 3em;
+  height: fit-content;
+}
+.theme-nightly body .notification li {
+  background-color: #434f66;
+}
+.theme-brome body .notification li {
+  background-color: #2c5784;
+}
 body .viewContainer {
   display: flex;
   flex-direction: column;
