@@ -13,13 +13,80 @@ import './stylesheets/room.css';
 import { FaChevronLeft, FaInfoCircle } from 'react-icons/fa';
 import { useHistory } from 'react-router-dom';
 
+/**
+ * Room where users can join and send messages to each other. All communications with the server
+ * are handled via socket.io. Every CRUD-operation is event which is handled on the backend.
+ * @param {*} param0
+ * @returns Room component
+ */
 function Room({ roomName, handleNotification, roomId }) {
   const [messages, setMessages] = useState([]);
   const [connectedUsers, setConnectedUsers] = useState([]);
   const [messageContent, setMessageContent] = useState('');
   const socket = useContext(SocketContext);
   const history = useHistory();
+  const messagesEndRef = useRef(null);
 
+  /**
+   * Appends new messages to the messages state array.
+   */
+  const handleNewMessages = useCallback(
+    (data) => {
+      setMessages([...messages, data]);
+    },
+    [messages]
+  );
+
+  /**
+   * Removes specified message from the messages array.
+   */
+  const handleMessageDelete = useCallback(
+    (data) => {
+      setMessages(messages.filter((m) => m._id !== data._id));
+    },
+    [messages]
+  );
+
+  /**
+   * Async wrapper for getAll function which retrieves messages from
+   * the API. Adds messages to messages state.
+   */
+  useEffect(() => {
+    const getMessages = async () => {
+      const response = await getAllMessagesForRoom(roomName);
+      setMessages(response);
+      return () => {
+        setMessages([]);
+      };
+    };
+
+    getMessages();
+  }, [roomName]);
+
+  /**
+   * Listens for events fired from the server. Calls either handleNewMessage or
+   * handleMessageDelete callback functions based on the event received.
+   */
+  useEffect(() => {
+    socket.once('message:received', (data) => handleNewMessages(data));
+    socket.once('message:removed', (data) => handleMessageDelete(data));
+    return () => {
+      socket.off('message:received', handleNewMessages);
+      socket.off('message:removed', handleMessageDelete);
+    };
+  }, [socket, handleNewMessages, handleMessageDelete]);
+
+  const emitMessageDel = (x) => {
+    socket.emit('message:delete', x);
+    setMessages(messages.filter((m) => m._id !== x._id));
+  };
+
+  /**
+   * When user joins room, fires 'room:join' event which is handled on the server.
+   * On user leaving the room, fires 'room:leave' event. Again handled on the server.
+   * Listens for 'connected:users' event. When event happens, adds received array of users
+   * to connectedUsers state array.
+   */
   useEffect(() => {
     socket.emit('room:join', {
       roomName,
@@ -40,70 +107,12 @@ function Room({ roomName, handleNotification, roomId }) {
     };
   }, [socket, roomName]);
 
-  const handleNewMessages = useCallback(
-    (data) => {
-      setMessages([...messages, data]);
-    },
-    [messages]
-  );
-
-  const handleMessageDelete = useCallback(
-    (data) => {
-      setMessages(messages.filter((m) => m._id !== data._id));
-    },
-    [messages]
-  );
-
-  const messagesEndRef = useRef(null);
-
-  const scrollToBottom = () => {
-    messagesEndRef.current.scrollIntoView({ behavior: 'auto' });
-  };
-
   /**
-   * Async wrapper for getAll function which retrieves messages from
-   * the API. Adds messages to messages state.
+   * When messages array changes, scroll down.
    */
-  useEffect(() => {
-    const getMessages = async () => {
-      const response = await getAllMessagesForRoom(roomName);
-      setMessages(response);
-      return () => {
-        setMessages([]);
-      };
-    };
-
-    getMessages();
-  }, [roomName]);
-
-  useEffect(() => {
-    socket.once('message:received', (data) => handleNewMessages(data));
-    socket.once('message:removed', (data) => handleMessageDelete(data));
-    return () => {
-      socket.off('message:received', handleNewMessages);
-      socket.off('message:removed', handleMessageDelete);
-    };
-  }, [socket, handleNewMessages, handleMessageDelete]);
-
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
-
-  const emitMessageDel = (x) => {
-    socket.emit('message:delete', x);
-    setMessages(messages.filter((m) => m._id !== x._id));
-  };
-
-  const messageItems = messages.map((x) => (
-    <li
-      className={x.user === getUser() ? 'sentMessage' : 'receivedMessage'}
-      onClick={() => emitMessageDel(x)}
-      key={x._id}
-    >
-      <div className="fromUser">{x.user === getUser() ? '' : x.user}</div>
-      <div>{x.content}</div>
-    </li>
-  ));
 
   /**
    * Send message to backend which handles saving to the database.
@@ -139,9 +148,30 @@ function Room({ roomName, handleNotification, roomId }) {
     setMessageContent(event.target.value);
   };
 
+  /**
+   * Handles going back a page.
+   */
   const goBack = () => {
     history.goBack();
   };
+
+  /**
+   * Scrolls to the bottom of the page.
+   */
+  const scrollToBottom = () => {
+    messagesEndRef.current.scrollIntoView({ behavior: 'auto' });
+  };
+
+  const messageItems = messages.map((x) => (
+    <li
+      className={x.user === getUser() ? 'sentMessage' : 'receivedMessage'}
+      onClick={() => emitMessageDel(x)}
+      key={x._id}
+    >
+      <div className="fromUser">{x.user === getUser() ? '' : x.user}</div>
+      <div>{x.content}</div>
+    </li>
+  ));
 
   return (
     <div className="viewContainer">
