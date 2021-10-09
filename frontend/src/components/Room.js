@@ -202,7 +202,15 @@ function Room({ roomName, handleNotification, roomId }) {
           </button>
         </form>
       </div>
-      {showInfo ? <InfoComponent connectedUsers={connectedUsers} /> : ''}
+      {showInfo ? (
+        <InfoComponent
+          roomName={roomName}
+          connectedUsers={connectedUsers}
+          setShowInfo={setShowInfo}
+        />
+      ) : (
+        ''
+      )}
     </div>
   );
 }

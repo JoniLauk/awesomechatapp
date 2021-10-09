@@ -43,7 +43,7 @@ function Rooms({ socket, handleNotification }) {
   };
 
   const getRoutes = rooms.map((x) => (
-    <Route key={x.id} path={`${match.url}/${x.id}`}>
+    <Route key={x.id} exact path={`${match.url}/${x.id}`}>
       <Room
         roomName={x.name}
         socket={socket}
@@ -83,8 +83,12 @@ function Rooms({ socket, handleNotification }) {
               </div>
               <ul className="roomList">
                 {rooms.map((room) => (
-                  <li key={room.id} style={{ margin: '0px 5px 0px 5px' }}>
-                    <div className="roomListItem">
+                  <Link
+                    className="roomListItem"
+                    to={`${match.url}/${room.id}`}
+                    key={room.id}
+                  >
+                    <div>
                       <div className="nameMessage">
                         <Link
                           className="roomLink"
@@ -101,7 +105,7 @@ function Rooms({ socket, handleNotification }) {
                         <p>{getNewesMessagesDateForRoom(room)}</p>
                       </div>
                     </div>
-                  </li>
+                  </Link>
                 ))}
               </ul>
               <div className="newRoomButton">

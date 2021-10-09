@@ -64,9 +64,9 @@ export default function App() {
                 <Login handleNotification={handleNotification} />
               )}
             </Route>
-            <Route path="/rooms:">
+            {/* <Route path="/rooms">
               <Room />
-            </Route>
+            </Route> */}
             <Route path="/login">
               <Login handleNotification={handleNotification} />
             </Route>
