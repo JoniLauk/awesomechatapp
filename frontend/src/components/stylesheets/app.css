@@ -94,6 +94,12 @@
 .theme-brome .submitMessageForm input {
   background-color: #2c5784;
 }
+.theme-nightly .submitMessageForm input:focus {
+  outline-color: #958bca;
+}
+.theme-brome .submitMessageForm input:focus {
+  outline-color: #d77a61;
+}
 .submitMessageForm button {
   margin-right: 1.125em;
   flex: 1;
@@ -101,6 +107,10 @@
   border-radius: 2.5em 2.5em 0.9375em 2.5em;
   max-width: 2.625em;
   max-height: 2.625em;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .theme-nightly .submitMessageForm button {
   background-color: #958bca;
@@ -118,12 +128,11 @@
 body .topBar {
   font-family: Bevan;
   font-size: 1.5em;
-  font-style: normal;
-  font-weight: 700;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   padding: 0.5em;
+  width: 100vw;
 }
 .theme-nightly body .topBar {
   background-color: #434f66;
@@ -154,6 +163,11 @@ body .viewContainer {
 .theme-brome body .viewContainer {
   background-color: #f7ede2;
 }
+@media (min-width: 800px) {
+  body .viewContainer {
+    align-items: center;
+  }
+}
 body .viewContainer .roomList {
   margin: 2em;
   border-radius: 0.25em;
@@ -171,13 +185,18 @@ body .viewContainer .roomList {
 .theme-brome body .viewContainer .roomList {
   background-color: #d77a61;
 }
+@media (min-width: 800px) {
+  body .viewContainer .roomList {
+    max-width: 70%;
+    align-items: center;
+  }
+}
 body .viewContainer .roomList .roomListItem {
   border-radius: 0.25em;
   padding: 0.5em 0.5em 0.25em 0;
   margin-top: 0.5em;
-  min-height: 2em;
-  min-width: 90%;
-  height: fit-content;
+  min-height: 5em;
+  width: 70vw;
   display: flex;
   flex-direction: row;
 }
@@ -188,39 +207,40 @@ body .viewContainer .roomList .roomListItem {
   background-color: #2c5784;
 }
 body .viewContainer .roomList .nameMessage {
-  width: 75%;
+  flex: 2;
+  padding-left: 1rem;
 }
-body .viewContainer .roomList .roomLink {
+body .viewContainer .roomList .nameMessage .roomLink {
   text-decoration: none;
   font-family: Bevan;
   font-size: 1em;
 }
-.theme-nightly body .viewContainer .roomList .roomLink {
+.theme-nightly body .viewContainer .roomList .nameMessage .roomLink {
   color: #958bca;
 }
-.theme-brome body .viewContainer .roomList .roomLink {
+.theme-brome body .viewContainer .roomList .nameMessage .roomLink {
   color: #d77a61;
 }
-body .viewContainer .roomList .roomList:visited {
+body .viewContainer .roomList .nameMessage .roomList:visited {
   text-decoration: none;
   font-family: Bevan;
   font-size: 1em;
 }
-.theme-nightly body .viewContainer .roomList .roomList:visited {
+.theme-nightly body .viewContainer .roomList .nameMessage .roomList:visited {
   color: #958bca;
 }
-.theme-brome body .viewContainer .roomList .roomList:visited {
+.theme-brome body .viewContainer .roomList .nameMessage .roomList:visited {
   color: #d77a61;
 }
-body .viewContainer .roomList .lastMessage {
+body .viewContainer .roomList .nameMessage .lastMessage {
   font-family: Bevan;
   font-size: 1em;
   margin: 0;
 }
-.theme-nightly body .viewContainer .roomList .lastMessage {
+.theme-nightly body .viewContainer .roomList .nameMessage .lastMessage {
   color: #8bb7ca;
 }
-.theme-brome body .viewContainer .roomList .lastMessage {
+.theme-brome body .viewContainer .roomList .nameMessage .lastMessage {
   color: #fff;
 }
 body .viewContainer .roomList .iconTime {
@@ -228,9 +248,9 @@ body .viewContainer .roomList .iconTime {
   flex-direction: row;
   justify-content: center;
   font-family: Bevan;
-  font-size: 1em;
+  font-size: 0.7rem;
   align-items: center;
-  width: 20%;
+  flex: 1;
 }
 .theme-nightly body .viewContainer .roomList .iconTime {
   color: #958bca;

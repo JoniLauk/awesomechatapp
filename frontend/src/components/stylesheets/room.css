@@ -68,6 +68,12 @@
 .theme-brome .submitMessageForm input {
   background-color: #2c5784;
 }
+.theme-nightly .submitMessageForm input:focus {
+  outline-color: #958bca;
+}
+.theme-brome .submitMessageForm input:focus {
+  outline-color: #d77a61;
+}
 .submitMessageForm button {
   margin-right: 1.125em;
   flex: 1;
@@ -75,6 +81,10 @@
   border-radius: 2.5em 2.5em 0.9375em 2.5em;
   max-width: 2.625em;
   max-height: 2.625em;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .theme-nightly .submitMessageForm button {
   background-color: #958bca;

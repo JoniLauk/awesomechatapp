@@ -11,37 +11,41 @@
 	overflow: hidden
 	display: flex
 	align-items: center
+	@media (min-width: 800px)
+		max-width: 70%
+		align-items: center
+
 	.roomListItem
 		@include theme-aware('background-color', 'roomListItem-background-color')
 		border-radius: 0.25em
 		padding: 0.5em 0.5em 0.25em 0
 		margin-top: 0.5em
-		min-height: 2em
-		min-width: 90%
-		height: fit-content
+		min-height: 5em
+		width: 70vw
 		display: flex
 		flex-direction: row
 	
 	.nameMessage
-		width: 75%
+		flex: 2
+		padding-left: 1rem
 
-	.roomLink
-		@include theme-aware('color', 'roomLink-color')
-		text-decoration: none
-		font-family: Bevan
-		font-size: 1em
+		.roomLink
+			@include theme-aware('color', 'roomLink-color')
+			text-decoration: none
+			font-family: Bevan
+			font-size: 1em
 
-	.roomList:visited
-		@include theme-aware('color', 'roomLink-color')
-		text-decoration: none
-		font-family: Bevan
-		font-size: 1em
+		.roomList:visited
+			@include theme-aware('color', 'roomLink-color')
+			text-decoration: none
+			font-family: Bevan
+			font-size: 1em
 
-	.lastMessage
-		@include theme-aware('color', 'roomLink-message-color')
-		font-family: Bevan
-		font-size: 1em
-		margin: 0
+		.lastMessage
+			@include theme-aware('color', 'roomLink-message-color')
+			font-family: Bevan
+			font-size: 1em
+			margin: 0
 
 	.iconTime
 		@include theme-aware('color', 'roomLink-color')
@@ -49,9 +53,9 @@
 		flex-direction: row
 		justify-content: center
 		font-family: Bevan
-		font-size: 1em
+		font-size: 0.7rem
 		align-items: center
-		width: 20%
+		flex: 1
 
 .newRoomButton
 	display: flex

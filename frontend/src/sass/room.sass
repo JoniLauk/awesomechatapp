@@ -63,12 +63,17 @@
 
   input
     @include theme-aware('background-color', 'messageInput-background-color')
+    @include theme-aware('color', 'sendMessage-input-color')
     margin-left: 1.125em
     margin-right: 1.125em
     height: 2.625em
     border: none
     border-radius: 1.25em
     flex: 1
+
+    &:focus
+      @include theme-aware('outline-color', 'newRoom-button-color')
+      
 
   button
     @include theme-aware('background-color', 'newRoom-button-color')
@@ -78,4 +83,8 @@
     border-radius: 2.5em 2.5em 0.9375em 2.5em
     max-width: 2.625em
     max-height: 2.625em
+    padding: 0
+    display: flex
+    justify-content: center
+    align-items: center
 
