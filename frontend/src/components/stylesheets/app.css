@@ -210,9 +210,34 @@ body .viewContainer .room .chat {
   color: #fff;
 }
 body .viewContainer .room .chat::-webkit-scrollbar {
-  border-radius: 100px;
-  background: #8070D4;
-  border: 3px solid rgba(0, 0, 0, 0.2);
+  border-radius: 7em;
+}
+.theme-nightly body .viewContainer .room .chat::-webkit-scrollbar {
+  background: #242e42;
+}
+.theme-brome body .viewContainer .room .chat::-webkit-scrollbar {
+  background: #f7ede2;
+}
+.theme-nightly body .viewContainer .room .chat::-webkit-scrollbar {
+  border: 3px solid #958bca;
+}
+.theme-brome body .viewContainer .room .chat::-webkit-scrollbar {
+  border: 3px solid #d77a61;
+}
+body .viewContainer .room .chat::-webkit-scrollbar-thumb {
+  border-radius: 7em;
+}
+.theme-nightly body .viewContainer .room .chat::-webkit-scrollbar-thumb {
+  background: #958bca;
+}
+.theme-brome body .viewContainer .room .chat::-webkit-scrollbar-thumb {
+  background: #d77a61;
+}
+.theme-nightly body .viewContainer .room .chat::-webkit-scrollbar-thumb {
+  border: 3px solid #958bca;
+}
+.theme-brome body .viewContainer .room .chat::-webkit-scrollbar-thumb {
+  border: 3px solid #d77a61;
 }
 @media (min-width: 800px) {
   body .viewContainer .room .chat {
