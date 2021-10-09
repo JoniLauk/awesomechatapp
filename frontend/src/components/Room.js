@@ -8,7 +8,7 @@ import React, {
 import { ObjectId } from 'bson';
 import { getAllMessagesForRoom } from '../services/messageService';
 import { SocketContext } from '../context/socket';
-import { getUser } from '../utils/utils';
+import { getUserId, getUser } from '../utils/utils';
 import './stylesheets/room.css';
 import { FaChevronLeft, FaInfoCircle } from 'react-icons/fa';
 import { useHistory } from 'react-router-dom';
@@ -19,6 +19,13 @@ function Room({ roomName, handleNotification, roomId }) {
   const [messageContent, setMessageContent] = useState('');
   const socket = useContext(SocketContext);
   const history = useHistory();
+
+  useEffect(() => {
+    socket.emit('room:join', { roomName, user: getUserId() });
+    return () => {
+      socket.emit('room:leave', { roomName, user: getUserId() });
+    };
+  }, [socket, roomName]);
 
   const handleNewMessages = useCallback(
     (data) => {
@@ -32,13 +39,6 @@ function Room({ roomName, handleNotification, roomId }) {
       setMessages(messages.filter((m) => m._id !== data._id));
     },
     [messages]
-  );
-
-  const handleConnectedUsers = useCallback(
-    (data) => {
-      setConnectedUsers([...connectedUsers, data]);
-    },
-    [setConnectedUsers, connectedUsers]
   );
 
   const messagesEndRef = useRef(null);
@@ -55,6 +55,9 @@ function Room({ roomName, handleNotification, roomId }) {
     const getMessages = async () => {
       const response = await getAllMessagesForRoom(roomName);
       setMessages(response);
+      return () => {
+        setMessages([]);
+      };
     };
 
     getMessages();
@@ -63,30 +66,33 @@ function Room({ roomName, handleNotification, roomId }) {
   useEffect(() => {
     socket.once('message:received', (data) => handleNewMessages(data));
     socket.once('message:removed', (data) => handleMessageDelete(data));
-    socket.once('user:connect_received', (data) => handleConnectedUsers(data));
     return () => {
       socket.off('message:received', handleNewMessages);
       socket.off('message:removed', handleMessageDelete);
-      socket.off('user:connection_received', handleConnectedUsers);
     };
-  }, [
-    socket,
-    messages,
-    handleNewMessages,
-    handleMessageDelete,
-    handleConnectedUsers,
-  ]);
+  }, [socket, handleNewMessages, handleMessageDelete]);
+
+  useEffect(() => {
+    socket.emit(
+      'user:connect',
+      JSON.parse(window.localStorage.getItem('token')).username
+    );
+  }, [socket]);
+
+  useEffect(() => {
+    socket.once('user:connect:broadcast', (data) => {
+      console.log(data);
+    });
+    return () => {
+      socket.off('user:connect:broadcast', (data) => {
+        console.log('disconnect');
+      });
+    };
+  }, [socket]);
 
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
-
-  useEffect(() => {
-    socket.emit(
-      'user:connected',
-      JSON.parse(window.localStorage.getItem('token')).username
-    );
-  });
 
   const emitMessageDel = (x) => {
     socket.emit('message:delete', x);
@@ -120,7 +126,7 @@ function Room({ roomName, handleNotification, roomId }) {
 
       setMessageContent('');
       socket.emit('message:create', newMessage);
-      setMessages([...messages, newMessage]);
+      // setMessages([...messages, newMessage]);
     } else {
       handleNotification({
         message: 'Message cannot be empty.',
@@ -139,7 +145,7 @@ function Room({ roomName, handleNotification, roomId }) {
   };
 
   const goBack = () => {
-    history.push('/rooms');
+    history.goBack();
   };
 
   return (
