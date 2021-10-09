@@ -12,6 +12,7 @@ import { getUserId, getUser } from '../utils/utils';
 import './stylesheets/room.css';
 import { FaChevronLeft, FaInfoCircle } from 'react-icons/fa';
 import { useHistory } from 'react-router-dom';
+import { InfoComponent } from './InfoComponent';
 
 /**
  * Room where users can join and send messages to each other. All communications with the server
@@ -23,6 +24,7 @@ function Room({ roomName, handleNotification, roomId }) {
   const [messages, setMessages] = useState([]);
   const [connectedUsers, setConnectedUsers] = useState([]);
   const [messageContent, setMessageContent] = useState('');
+  const [showInfo, setShowInfo] = useState(false);
   const socket = useContext(SocketContext);
   const history = useHistory();
   const messagesEndRef = useRef(null);
@@ -162,6 +164,10 @@ function Room({ roomName, handleNotification, roomId }) {
     messagesEndRef.current.scrollIntoView({ behavior: 'auto' });
   };
 
+  const handleUserArray = () => {
+    setShowInfo(!showInfo);
+  };
+
   const messageItems = messages.map((x) => (
     <li
       className={x.user === getUser() ? 'sentMessage' : 'receivedMessage'}
@@ -181,7 +187,7 @@ function Room({ roomName, handleNotification, roomId }) {
         </div>
         <div className="roomName">{roomName}</div>
         <div className="rightIcon">
-          <FaInfoCircle />
+          <FaInfoCircle onClick={() => handleUserArray()} />
         </div>
       </div>
       <div className="room">
@@ -196,7 +202,7 @@ function Room({ roomName, handleNotification, roomId }) {
           </button>
         </form>
       </div>
-      {connectedUsers.map((x) => x.username)}
+      {showInfo ? <InfoComponent connectedUsers={connectedUsers} /> : ''}
     </div>
   );
 }
