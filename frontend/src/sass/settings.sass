@@ -1,0 +1,46 @@
+@import '_mixins'
+
+@mixin settings()
+  @include theme-aware('background-color', 'body-background-color')
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  height: 80vh
+
+  button
+    @include theme-aware('background-color', 'newRoom-button-color')
+    @include theme-aware('color', 'message-font-color')
+    font-size: 1.5em
+    border-radius: 0.125em
+    border: none
+    padding: 0.3em 1em
+    max-width: 80%
+    margin-top: 5em
+
+  h2
+    @include theme-aware('color', 'form-textInput-color')
+
+
+  select
+    @include theme-aware('background-color', 'newRoom-button-color')
+    @include theme-aware('color', 'message-font-color')
+    font-size: 1.5em
+    border-radius: 0.125em
+    position: relative
+    background-image: none
+    display: block
+    min-width: 40vw
+    outline: none
+    cursor: pointer
+    border: none
+    padding: 0.5em
+    text-overflow: ''
+    text-indent: 2em
+    
+  select:-moz-focusring
+    color: transparent
+    text-shadow: 0 0 0 #888888
+
+  select::-ms-expand
+    display: none

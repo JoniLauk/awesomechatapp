@@ -1,52 +1,73 @@
-@use 'app'
+@import '_mixins'
 
-.viewContainer	
-	.roomList
-		@include app.roomList()
+@mixin roomList()
+	@include theme-aware('background-color', 'roomList-background-color')
+	margin: 2em
+	border-radius: 0.25em
+	list-style-type: none
+	flex-direction: column
+	padding: 1em 0 0 0
+	height: 80vh
+	overflow: hidden
+	display: flex
+	align-items: center
+	@media (min-width: 800px)
+		max-width: 70%
+		align-items: center
+
 	.roomListItem
-		@include app.roomListItem()
-		padding-left: 1em
+		@include theme-aware('background-color', 'roomListItem-background-color')
+		border-radius: 0.25em
+		padding: 0.5em 0.5em 0.25em 0
+		margin-top: 0.5em
+		min-height: 5em
+		width: 70vw
+		display: flex
+		flex-direction: row
+		@media (min-width: 800px)
+			max-width: 70%
 
 	.nameMessage
-		width: 75%
+		flex: 2
+		padding-left: 1rem
 
-	.roomLink
-		text-decoration: none
-		color: app.$secondary
-		font-family: Bevan
-		font-size: 1em
+		.roomLink
+			@include theme-aware('color', 'roomLink-color')
+			text-decoration: none
+			font-family: Bevan
+			font-size: 1em
 
-	.roomList:visited
-		text-decoration: none
-		color: app.$secondary
-		font-family: Bevan
-		font-size: 1em
+		.roomList:visited
+			@include theme-aware('color', 'roomLink-color')
+			text-decoration: none
+			font-family: Bevan
+			font-size: 1em
 
-	.lastMessage
-		color: app.$secondary-accent
-		font-family: Bevan
-		font-size: 1em
-		margin: 0
+		.lastMessage
+			@include theme-aware('color', 'roomLink-message-color')
+			font-family: Bevan
+			font-size: 1em
+			margin: 0
 
 	.iconTime
-		color: app.$secondary
+		@include theme-aware('color', 'roomLink-color')
 		display: flex
 		flex-direction: row
 		justify-content: center
 		font-family: Bevan
-		font-size: 1em
+		font-size: 0.7rem
 		align-items: center
-		width: 20%
+		flex: 1
 
-	.newRoomButton
-		display: flex
-		height: 25%
-		justify-content: center
-		align-items: center
+.newRoomButton
+	display: flex
+	height: 25%
+	justify-content: center
+	align-items: center
 
 	.newRoom
-		background-color: app.$secondary
-		color: app.$font-color
+		@include theme-aware('background-color', 'newRoom-button-color')
+		@include theme-aware('color', 'message-font-color')
 		font-size: 1em
 		border-radius: 0.125em
 		border: none

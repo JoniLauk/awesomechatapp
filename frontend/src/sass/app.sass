@@ -1,24 +1,35 @@
-$primary: #242e42
-$secondary: #958bca
-$primary-accent: #434f66
-$secondary-accent: #8bb7ca
-$font-color: #fff
-$font-family-message: Roboto Slab
-$font-size-message: 1em
+@use 'rooms'
+@use 'room'
+@use 'login'
+@use 'settings'
+@use 'infocomponent'
+@import '_mixins'
 
 @mixin topBar()
-    background-color: $primary-accent
-    font-family: Bevan
-    font-size: 1.5em
-    font-style: normal
-    font-weight: 700
-    color: $secondary-accent
-    display: flex
-    flex-direction: row
-    justify-content: space-between
-    padding: 0.5em
+  @include theme-aware('background-color', 'topBar-background-color')
+  @include theme-aware('color', 'topBar-font-color')
+  font-family: Bevan
+  font-size: 1.5em
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  padding: 0.5em
+  width: 100vw
 
 @mixin viewContainer()
+  display: flex
+  flex-direction: column
+  min-height: 100vh
+  overflow: auto
+
+body
+  @include theme-aware('background-color', 'body-background-color')
+
+  .topBar
+    @include topBar()
+
+  .viewContainer
+    @include theme-aware('background-color', 'body-background-color')
     display: flex
     flex-direction: column
     position: absolute
@@ -28,34 +39,20 @@ $font-size-message: 1em
     bottom: 0
     min-height: 100vh
     overflow: auto
+    @media (min-width: 800px)
+      align-items: center
 
-@mixin roomList()
-    background-color: $secondary
-    margin: 2em
-    border-radius: 0.25em
-    list-style-type: none
-    display: flex
-    flex-direction: column
-    padding: 1em 0 0 0
-    height: 80vh
-    overflow: hidden
+    .roomList
+      @include rooms.roomList()
 
-@mixin roomListItem()
-    background-color: $primary
-    border-radius: 0.25em
-    padding: 0.5em 0.5em 0.25em 0
-    margin-top: 0.5em
-    min-height: 2em
-    min-width: 90%
-    height: fit-content
-    align-self: center
-    display: flex
-    flex-direction: row
+    .room
+      @include room.room()
 
-@mixin formTextInput()
-    font-size: 1.5em
-    max-width: 85%
-    background-color: $secondary
-    border-radius: 0.125em
-    border: none
-    margin-top: 0.25em
+    .loginForm
+      @include login.login()
+
+    .settings
+      @include settings.settings()
+
+    .infoContainer
+      @include infocomponent.info()

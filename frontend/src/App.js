@@ -9,9 +9,11 @@ import { Home, Settings, Rooms, Room, Login, Signup } from './index';
 import { SocketContext, socket } from './context/socket';
 import { Notification } from './components/Notification';
 import { getUser } from './utils/utils';
+import './components/stylesheets/app.css';
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState('');
+  const myStorage = window.localStorage;
   const [notContent, setNotContent] = useState('');
 
   useEffect(() => {
@@ -27,6 +29,16 @@ export default function App() {
       setNotContent('');
     }, 3000);
   };
+
+  useEffect(() => {
+    if (!myStorage.getItem('currentTheme')) {
+      myStorage.setItem('currentTheme', 'nightly');
+    }
+    document.documentElement.className = '';
+    document.documentElement.classList.add(
+      `theme-${myStorage.getItem('currentTheme')}`
+    );
+  });
 
   return (
     <SocketContext.Provider value={socket}>
@@ -52,9 +64,9 @@ export default function App() {
                 <Login handleNotification={handleNotification} />
               )}
             </Route>
-            <Route path="/rooms:">
+            {/* <Route path="/rooms">
               <Room />
-            </Route>
+            </Route> */}
             <Route path="/login">
               <Login handleNotification={handleNotification} />
             </Route>

@@ -12,14 +12,14 @@ import { unmountComponentAtNode } from 'react-dom';
 import Room from './Room';
 import { getUser } from '../utils/utils';
 import { getAll } from '../services/roomService';
-import { FaChevronLeft, FaInfoCircle } from 'react-icons/fa';
-import './stylesheets/rooms.css';
+import { FaChevronLeft, FaInfoCircle, FaWrench } from 'react-icons/fa';
 
 function Rooms({ socket, handleNotification }) {
   const [rooms, setRooms] = useState([]);
   const match = useRouteMatch();
   const history = useHistory();
   const location = useLocation();
+  const myStorage = window.localStorage;
 
   const getRooms = async () => {
     const newRooms = await getAll();
@@ -34,12 +34,16 @@ function Rooms({ socket, handleNotification }) {
     history.push('/rooms');
   };
 
+  const goSettings = () => {
+    history.push('/settings');
+  };
+
   const handleClick = () => {
     unmountComponentAtNode(document.getElementById('roomList'));
   };
 
   const getRoutes = rooms.map((x) => (
-    <Route key={x.id} path={`${match.url}/${x.id}`}>
+    <Route key={x.id} exact path={`${match.url}/${x.id}`}>
       <Room
         roomName={x.name}
         socket={socket}
@@ -73,14 +77,18 @@ function Rooms({ socket, handleNotification }) {
                   <FaChevronLeft />
                 </div>
                 <div>AWESOMECHATAPP</div>
-                <div className="rightIcon">
-                  <FaInfoCircle />
+                <div className="rightIcon" onClick={goSettings}>
+                  <FaWrench />
                 </div>
               </div>
               <ul className="roomList">
                 {rooms.map((room) => (
-                  <li key={room.id} style={{ margin: '0px 5px 0px 5px' }}>
-                    <div className="roomListItem">
+                  <Link
+                    className="roomListItem"
+                    to={`${match.url}/${room.id}`}
+                    key={room.id}
+                  >
+                    <div>
                       <div className="nameMessage">
                         <Link
                           className="roomLink"
@@ -97,7 +105,7 @@ function Rooms({ socket, handleNotification }) {
                         <p>{getNewesMessagesDateForRoom(room)}</p>
                       </div>
                     </div>
-                  </li>
+                  </Link>
                 ))}
               </ul>
               <div className="newRoomButton">
