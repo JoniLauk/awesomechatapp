@@ -4,7 +4,6 @@ import { FaChevronLeft, FaMoon, FaUser } from 'react-icons/fa';
 import { logIn } from '../services/userService';
 import { setToken, getUser, removeToken } from '../utils/utils';
 import { ReactDOM } from 'react';
-import './stylesheets/toggle.css';
 
 function Settings(props) {
   const history = useHistory();
@@ -39,8 +38,8 @@ function Settings(props) {
         <div onClick={goBack}>
           <FaChevronLeft />
         </div>
-        <div>AWESOMECHATAPP</div>
-        <div className="rightIcon"></div>
+        <div>SETTINGS</div>
+        <div style={{ marginRight: '24px' }}></div>
       </div>
       <div className="settings">
         <h2>Choose a theme</h2>
