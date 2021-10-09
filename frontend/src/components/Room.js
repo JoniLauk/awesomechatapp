@@ -21,9 +21,22 @@ function Room({ roomName, handleNotification, roomId }) {
   const history = useHistory();
 
   useEffect(() => {
-    socket.emit('room:join', { roomName, user: getUserId() });
+    socket.emit('room:join', {
+      roomName,
+      user: getUserId(),
+      username: getUser(),
+    });
+    socket.on('connected:users', (data) => {
+      console.log(data);
+      setConnectedUsers(data);
+    });
     return () => {
-      socket.emit('room:leave', { roomName, user: getUserId() });
+      socket.emit('room:leave', {
+        roomName,
+        user: getUserId(),
+        username: getUser(),
+      });
+      setConnectedUsers([]);
     };
   }, [socket, roomName]);
 
@@ -71,24 +84,6 @@ function Room({ roomName, handleNotification, roomId }) {
       socket.off('message:removed', handleMessageDelete);
     };
   }, [socket, handleNewMessages, handleMessageDelete]);
-
-  useEffect(() => {
-    socket.emit(
-      'user:connect',
-      JSON.parse(window.localStorage.getItem('token')).username
-    );
-  }, [socket]);
-
-  useEffect(() => {
-    socket.once('user:connect:broadcast', (data) => {
-      console.log(data);
-    });
-    return () => {
-      socket.off('user:connect:broadcast', (data) => {
-        console.log('disconnect');
-      });
-    };
-  }, [socket]);
 
   useEffect(() => {
     scrollToBottom();
@@ -171,6 +166,7 @@ function Room({ roomName, handleNotification, roomId }) {
           </button>
         </form>
       </div>
+      {connectedUsers.map((x) => x.username)}
     </div>
   );
 }

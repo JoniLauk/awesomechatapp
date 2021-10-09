@@ -39,14 +39,23 @@ io.on('connection', (socket) => {
     socket.join(data.roomName);
     const user = users.find((obj) => obj.user === data.user);
     if (!user) {
-      users.push(data);
+      users.push({
+        username: data.username,
+        user: data.user,
+        roomName: data.roomName,
+        socketId: socket.id,
+      });
     }
+
+    io.to(data.roomName).emit('connected:users', users);
   });
 
   socket.on('room:leave', (data) => {
+    console.log(users);
     const user = users.find((obj) => obj.user === data.user);
     users.pop(user);
     socket.leave(data.roomName);
+    io.to(data.roomName).emit('connected:users', users);
   });
 
   socket.on('message:create', (data) => {
@@ -55,6 +64,14 @@ io.on('connection', (socket) => {
   });
 
   socket.on('message:delete', (data) => deleteMessage(socket, data));
+
+  socket.on('disconnect', (data) => {
+    const user = users.find((obj) => obj.socketId === socket.id);
+    if (user) {
+      users.pop(user);
+      io.to(user.roomName).emit('connected:users', users);
+    }
+  });
 });
 
 /**
