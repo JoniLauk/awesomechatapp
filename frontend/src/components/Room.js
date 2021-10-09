@@ -8,25 +8,33 @@ import React, {
 import { ObjectId } from 'bson';
 import { getAllMessagesForRoom } from '../services/messageService';
 import { SocketContext } from '../context/socket';
-import { getUserId, getUser } from '../utils/utils';
+import { getUserId, getUser, handleNotification } from '../utils/utils';
 import './stylesheets/room.css';
 import { FaChevronLeft, FaInfoCircle, FaPlus } from 'react-icons/fa';
 import { useHistory } from 'react-router-dom';
+import { InfoComponent } from './InfoComponent';
+import { Notification } from './Notification';
 
-function Room({ roomName, handleNotification, roomId }) {
+/**
+ * Room where users can join and send messages to each other. All communications with the server
+ * are handled via socket.io. Every CRUD-operation is event which is handled on the backend.
+ * @param {*} param0
+ * @returns Room component
+ */
+function Room({ roomName, roomId }) {
   const [messages, setMessages] = useState([]);
   const [connectedUsers, setConnectedUsers] = useState([]);
   const [messageContent, setMessageContent] = useState('');
+  const [showInfo, setShowInfo] = useState(false);
+  const [not, setNot] = useState(false);
+  const [notContent, setNotContent] = useState('');
   const socket = useContext(SocketContext);
   const history = useHistory();
+  const messagesEndRef = useRef(null);
 
-  useEffect(() => {
-    socket.emit('room:join', { roomName, user: getUserId() });
-    return () => {
-      socket.emit('room:leave', { roomName, user: getUserId() });
-    };
-  }, [socket, roomName]);
-
+  /**
+   * Appends new messages to the messages state array.
+   */
   const handleNewMessages = useCallback(
     (data) => {
       setMessages([...messages, data]);
@@ -34,18 +42,15 @@ function Room({ roomName, handleNotification, roomId }) {
     [messages]
   );
 
+  /**
+   * Removes specified message from the messages array.
+   */
   const handleMessageDelete = useCallback(
     (data) => {
       setMessages(messages.filter((m) => m._id !== data._id));
     },
     [messages]
   );
-
-  const messagesEndRef = useRef(null);
-
-  const scrollToBottom = () => {
-    messagesEndRef.current.scrollIntoView({ behavior: 'auto' });
-  };
 
   /**
    * Async wrapper for getAll function which retrieves messages from
@@ -63,6 +68,10 @@ function Room({ roomName, handleNotification, roomId }) {
     getMessages();
   }, [roomName]);
 
+  /**
+   * Listens for events fired from the server. Calls either handleNewMessage or
+   * handleMessageDelete callback functions based on the event received.
+   */
   useEffect(() => {
     socket.once('message:received', (data) => handleNewMessages(data));
     socket.once('message:removed', (data) => handleMessageDelete(data));
@@ -72,43 +81,43 @@ function Room({ roomName, handleNotification, roomId }) {
     };
   }, [socket, handleNewMessages, handleMessageDelete]);
 
-  useEffect(() => {
-    socket.emit(
-      'user:connect',
-      JSON.parse(window.localStorage.getItem('token')).username
-    );
-  }, [socket]);
-
-  useEffect(() => {
-    socket.once('user:connect:broadcast', (data) => {
-      console.log(data);
-    });
-    return () => {
-      socket.off('user:connect:broadcast', (data) => {
-        console.log('disconnect');
-      });
-    };
-  }, [socket]);
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
   const emitMessageDel = (x) => {
     socket.emit('message:delete', x);
     setMessages(messages.filter((m) => m._id !== x._id));
   };
 
-  const messageItems = messages.map((x) => (
-    <li
-      className={x.user === getUser() ? 'sentMessage' : 'receivedMessage'}
-      onClick={() => emitMessageDel(x)}
-      key={x._id}
-    >
-      <div className="fromUser">{x.user === getUser() ? '' : x.user}</div>
-      <div>{x.content}</div>
-    </li>
-  ));
+  /**
+   * When user joins room, fires 'room:join' event which is handled on the server.
+   * On user leaving the room, fires 'room:leave' event. Again handled on the server.
+   * Listens for 'connected:users' event. When event happens, adds received array of users
+   * to connectedUsers state array.
+   */
+  useEffect(() => {
+    socket.emit('room:join', {
+      roomName,
+      user: getUserId(),
+      username: getUser(),
+    });
+    socket.on('connected:users', (data) => {
+      console.log(data);
+      setConnectedUsers(data);
+    });
+    return () => {
+      socket.emit('room:leave', {
+        roomName,
+        user: getUserId(),
+        username: getUser(),
+      });
+      setConnectedUsers([]);
+    };
+  }, [socket, roomName]);
+
+  /**
+   * When messages array changes, scroll down.
+   */
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   /**
    * Send message to backend which handles saving to the database.
@@ -128,10 +137,14 @@ function Room({ roomName, handleNotification, roomId }) {
       socket.emit('message:create', newMessage);
       // setMessages([...messages, newMessage]);
     } else {
-      handleNotification({
-        message: 'Message cannot be empty.',
-        type: 'error',
-      });
+      handleNotification(
+        {
+          message: 'Message cannot be empty.',
+          type: 'error',
+        },
+        setNot,
+        setNotContent
+      );
     }
   };
 
@@ -144,19 +157,45 @@ function Room({ roomName, handleNotification, roomId }) {
     setMessageContent(event.target.value);
   };
 
+  /**
+   * Handles going back a page.
+   */
   const goBack = () => {
     history.goBack();
   };
 
+  /**
+   * Scrolls to the bottom of the page.
+   */
+  const scrollToBottom = () => {
+    messagesEndRef.current.scrollIntoView({ behavior: 'auto' });
+  };
+
+  const handleUserArray = () => {
+    setShowInfo(!showInfo);
+  };
+
+  const messageItems = messages.map((x) => (
+    <li
+      className={x.user === getUser() ? 'sentMessage' : 'receivedMessage'}
+      onClick={() => emitMessageDel(x)}
+      key={x._id}
+    >
+      <div className="fromUser">{x.user === getUser() ? '' : x.user}</div>
+      <div>{x.content}</div>
+    </li>
+  ));
+
   return (
     <div className="viewContainer">
+      {not ? <Notification message={notContent}></Notification> : ''}
       <div className="topBar">
         <div onClick={goBack}>
           <FaChevronLeft />
         </div>
         <div className="roomName">{roomName}</div>
         <div className="rightIcon">
-          <FaInfoCircle />
+          <FaInfoCircle onClick={() => handleUserArray()} />
         </div>
       </div>
       <div className="room">
@@ -171,6 +210,15 @@ function Room({ roomName, handleNotification, roomId }) {
           </button>
         </form>
       </div>
+      {showInfo ? (
+        <InfoComponent
+          roomName={roomName}
+          connectedUsers={connectedUsers}
+          setShowInfo={setShowInfo}
+        />
+      ) : (
+        ''
+      )}
     </div>
   );
 }

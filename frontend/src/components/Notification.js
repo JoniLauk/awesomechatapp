@@ -3,16 +3,6 @@ import React from 'react';
 export const Notification = (props) => {
   const { message } = props;
 
-  const styles = {
-    color: message.type === 'success' ? 'green' : 'red',
-    listStyle: 'none',
-    display: 'block',
-    position: 'absolute',
-    left: '50%',
-    top: '20%',
-    transform: 'translate(-50%, -50%)',
-  };
-
   /**
    * Handles how notifications are displayed. Notification message can be of type
    * string and a object.
@@ -21,13 +11,15 @@ export const Notification = (props) => {
   const render = () => {
     if (typeof message.message === 'string') {
       return (
-        <ul style={styles}>
+        <ul className="notification">
           <li>{message.message}</li>
         </ul>
       );
     } else if (typeof message.message === 'object') {
       const m = message.message.map((x) => <li key={x.msg}>{x.msg}</li>);
-      return <ul style={styles}>{m}</ul>;
+      return <ul className="notification">{m}</ul>;
+    } else {
+      return null;
     }
   };
 

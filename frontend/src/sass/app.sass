@@ -2,6 +2,8 @@
 @use 'room'
 @use 'login'
 @use 'settings'
+@use 'infocomponent'
+@use 'notification'
 @import '_mixins'
 
 @mixin topBar()
@@ -25,13 +27,16 @@
   flex-direction: column
   min-height: 100vh
   overflow: auto
-  
+
 body
   @include theme-aware('background-color', 'body-background-color')
 
   .topBar
     @include topBar()
     
+
+  .notification
+    @include notification.notification()
 
   .viewContainer
     @include theme-aware('background-color', 'body-background-color')
@@ -52,11 +57,12 @@ body
 
     .room
       @include room.room()
-    
+
     .loginForm
       @include login.login()
-      
+
     .settings
       @include settings.settings()
-       
-      
+
+    .infoContainer
+      @include infocomponent.info()

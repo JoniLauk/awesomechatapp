@@ -40,3 +40,12 @@ export const setColorScheme = (scheme) => {
 export const getColorScheme = () => {
   return window.localStorage.getItem('colorScheme');
 };
+
+export const handleNotification = (data, setNot, setNotContent) => {
+  setNot(true);
+  setNotContent(data);
+  // setTimeout(() => {
+  //   setNotContent('');
+  //   setNot(false);
+  // }, 2000);
+};

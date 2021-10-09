@@ -57,7 +57,6 @@ usersRouter.post('/', validateUser, async (req, res) => {
   const { body } = req;
 
   const usernameLowerCase = JSON.stringify(body.username).toLowerCase();
-
   const saltRounds = 10;
   const passwordHash = await bcrypt.hash(body.password, saltRounds);
 
@@ -72,7 +71,6 @@ usersRouter.post('/', validateUser, async (req, res) => {
   };
 
   const token = jwt.sign(userForToken, process.env.SECRET);
-
   try {
     User.create(user, (err, post) => {
       if (err) {
@@ -95,7 +93,7 @@ usersRouter.post('/', validateUser, async (req, res) => {
 
 /**
  * Updates user based on data from express put method.
- * @name usersRouter_put_One
+ * @name usersRouter_put_Onev
  * @param {string} req Express put request
  * @param {string} res Express put result
  * @example usersRouter.put('/:id',
