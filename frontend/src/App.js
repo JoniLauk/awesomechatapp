@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   Redirect,
 } from 'react-router-dom';
 import { Home, Settings, Rooms, Room, Login, Signup } from './index';
@@ -40,7 +39,7 @@ export default function App() {
               {currentUser ? (
                 <Redirect to="/rooms" />
               ) : (
-                <Home socket={socket} />
+                <Login handleNotification={handleNotification} />
               )}
             </Route>
             <Route path="/settings">
