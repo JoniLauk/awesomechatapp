@@ -35,8 +35,10 @@ const users = [];
  * @param {socket} Socket.io socket which connects client to this backend.
  */
 io.on('connection', (socket) => {
+  // On connection event add user to room which comes from the client side.
   socket.on('room:join', (data) => {
     socket.join(data.roomName);
+    // If user doesn't exist in users array add him/her.
     const user = users.find((obj) => obj.user === data.user);
     if (!user) {
       users.push({
@@ -47,24 +49,30 @@ io.on('connection', (socket) => {
       });
     }
 
+    // Emit users array to all connected clients in specific room.
     io.to(data.roomName).emit('connected:users', users);
   });
 
+  // On room leave event remove user from array and emit new array to all other
+  // clients.
   socket.on('room:leave', (data) => {
-    console.log(users);
     const user = users.find((obj) => obj.user === data.user);
     users.pop(user);
     socket.leave(data.roomName);
     io.to(data.roomName).emit('connected:users', users);
   });
 
+  // Listen for new message. When event happens, add new message to database and emit it to connected
+  // clients.
   socket.on('message:create', (data) => {
     createMessage(socket, data);
     io.to(data.roomName).emit('message:received', data);
   });
 
+  // On delete event, remove specified message.
   socket.on('message:delete', (data) => deleteMessage(socket, data));
 
+  // On client disconnect remove user from array and emit it to the remaining clients.
   socket.on('disconnect', (data) => {
     const user = users.find((obj) => obj.socketId === socket.id);
     if (user) {
@@ -91,6 +99,11 @@ const createMessage = async (socket, data) => {
   }
 };
 
+/**
+ * Deletes a message from the database. Emits updates to the clients.
+ * @param {socket} socket
+ * @param {message} data
+ */
 const deleteMessage = async (socket, data) => {
   try {
     await Message.findByIdAndDelete(data._id);
@@ -98,11 +111,6 @@ const deleteMessage = async (socket, data) => {
   } catch (err) {
     console.log(err);
   }
-};
-
-const userConnected = (socket, data) => {
-  console.log(data);
-  socket.broadcast.emit('user:connect:broadcast', data);
 };
 
 /**
