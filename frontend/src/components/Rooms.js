@@ -7,7 +7,6 @@ import {
   useRouteMatch,
   useHistory,
   useLocation,
-  Redirect,
 } from 'react-router-dom';
 import { unmountComponentAtNode } from 'react-dom';
 import Room from './Room';
@@ -29,7 +28,7 @@ function Rooms({ socket, handleNotification }) {
 
   useEffect(() => {
     getRooms();
-  }, []);
+  }, [location]);
 
   const goBack = () => {
     history.push('/rooms');
@@ -84,25 +83,25 @@ function Rooms({ socket, handleNotification }) {
               </div>
               <ul className="roomList">
                 {rooms.map((room) => (
-                  <div className="roomListItem">
-                    <div className="nameMessage">
-                      <li key={room.id} onClick={handleClick}>
+                  <li key={room.id} style={{ margin: '0px 5px 0px 5px' }}>
+                    <div className="roomListItem">
+                      <div className="nameMessage">
                         <Link
                           className="roomLink"
                           to={`${match.url}/${room.id}`}
                         >
                           {room.name}
                         </Link>
-                      </li>
-                      <p className="lastMessage">
-                        {getNewestMessageForRoom(room)}
-                      </p>
+                        <p className="lastMessage">
+                          {getNewestMessageForRoom(room)}
+                        </p>
+                      </div>
+                      <div className="iconTime">
+                        <FaChevronLeft />
+                        <p>{getNewesMessagesDateForRoom(room)}</p>
+                      </div>
                     </div>
-                    <div className="iconTime">
-                      <FaChevronLeft />
-                      <p>{getNewesMessagesDateForRoom(room)}</p>
-                    </div>
-                  </div>
+                  </li>
                 ))}
               </ul>
               <div className="newRoomButton">

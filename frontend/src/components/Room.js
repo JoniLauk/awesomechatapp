@@ -5,27 +5,27 @@ import React, {
   useCallback,
   useRef,
 } from 'react';
-import {
-  BrowserRouter as useParams,
-  Link,
-  Router,
-  Route,
-} from 'react-router-dom';
 import { ObjectId } from 'bson';
 import { getAllMessagesForRoom } from '../services/messageService';
 import { SocketContext } from '../context/socket';
-import { getUser } from '../utils/utils';
+import { getUserId, getUser } from '../utils/utils';
 import './stylesheets/room.css';
-import { render } from 'react-dom';
 import { FaChevronLeft, FaInfoCircle } from 'react-icons/fa';
 import { useHistory } from 'react-router-dom';
-import Rooms from './Rooms';
 
 function Room({ roomName, handleNotification, roomId }) {
   const [messages, setMessages] = useState([]);
+  const [connectedUsers, setConnectedUsers] = useState([]);
   const [messageContent, setMessageContent] = useState('');
   const socket = useContext(SocketContext);
   const history = useHistory();
+
+  useEffect(() => {
+    socket.emit('room:join', { roomName, user: getUserId() });
+    return () => {
+      socket.emit('room:leave', { roomName, user: getUserId() });
+    };
+  }, [socket, roomName]);
 
   const handleNewMessages = useCallback(
     (data) => {
@@ -55,6 +55,9 @@ function Room({ roomName, handleNotification, roomId }) {
     const getMessages = async () => {
       const response = await getAllMessagesForRoom(roomName);
       setMessages(response);
+      return () => {
+        setMessages([]);
+      };
     };
 
     getMessages();
@@ -67,7 +70,25 @@ function Room({ roomName, handleNotification, roomId }) {
       socket.off('message:received', handleNewMessages);
       socket.off('message:removed', handleMessageDelete);
     };
-  }, [socket, messages, handleNewMessages, handleMessageDelete]);
+  }, [socket, handleNewMessages, handleMessageDelete]);
+
+  useEffect(() => {
+    socket.emit(
+      'user:connect',
+      JSON.parse(window.localStorage.getItem('token')).username
+    );
+  }, [socket]);
+
+  useEffect(() => {
+    socket.once('user:connect:broadcast', (data) => {
+      console.log(data);
+    });
+    return () => {
+      socket.off('user:connect:broadcast', (data) => {
+        console.log('disconnect');
+      });
+    };
+  }, [socket]);
 
   useEffect(() => {
     scrollToBottom();
@@ -105,7 +126,7 @@ function Room({ roomName, handleNotification, roomId }) {
 
       setMessageContent('');
       socket.emit('message:create', newMessage);
-      setMessages([...messages, newMessage]);
+      // setMessages([...messages, newMessage]);
     } else {
       handleNotification({
         message: 'Message cannot be empty.',
@@ -124,7 +145,7 @@ function Room({ roomName, handleNotification, roomId }) {
   };
 
   const goBack = () => {
-    history.push('/rooms');
+    history.goBack();
   };
 
   return (

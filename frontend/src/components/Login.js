@@ -31,8 +31,8 @@ function Login({ handleNotification }) {
         type: 'success',
       });
       resetCreds();
+      history.push('/rooms');
     } catch (error) {
-      console.log(error);
       handleNotification({
         message: error.response.data.error,
         type: 'error',
@@ -65,7 +65,12 @@ function Login({ handleNotification }) {
             <form className="loginForm" onSubmit={handleLogin}>
               <div className="loginFormDiv">
                 <h3>Name</h3>
-                <input type="text" name="name" onChange={handleUsername} />
+                <input
+                  type="text"
+                  name="name"
+                  onChange={handleUsername}
+                  value={username}
+                />
               </div>
               <div className="loginFormDiv">
                 <h3>Password</h3>
@@ -73,6 +78,7 @@ function Login({ handleNotification }) {
                   type="password"
                   name="password"
                   onChange={handlePassword}
+                  value={password}
                 />
               </div>
               <div className="loginFormSubmit">

@@ -3,11 +3,11 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   Redirect,
 } from 'react-router-dom';
 import { Home, Settings, Rooms, Room, Login, Signup } from './index';
 import { SocketContext, socket } from './context/socket';
+import { Notification } from './components/Notification';
 import { getUser } from './utils/utils';
 import './components/stylesheets/app.css';
 
@@ -22,8 +22,8 @@ export default function App() {
   }, [currentUser]);
 
   const handleNotification = (props) => {
-    const { msg } = props;
-    console.log(msg);
+    const { message } = props;
+    console.log(message);
     setNotContent(props);
     setTimeout(() => {
       setNotContent('');
@@ -44,21 +44,25 @@ export default function App() {
     <SocketContext.Provider value={socket}>
       <div>
         {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
+              renders the first one that matches the current URL. */}
         <Router>
           <Switch>
             <Route exact path="/">
               {currentUser ? (
                 <Redirect to="/rooms" />
               ) : (
-                <Home socket={socket} />
+                <Login handleNotification={handleNotification} />
               )}
             </Route>
             <Route path="/settings">
               <Settings />
             </Route>
             <Route path="/rooms">
-              <Rooms socket={socket} handleNotification={handleNotification} />
+              {currentUser ? (
+                <Rooms handleNotification={handleNotification} />
+              ) : (
+                <Login handleNotification={handleNotification} />
+              )}
             </Route>
             <Route path="/rooms:">
               <Room />
@@ -74,6 +78,7 @@ export default function App() {
             </Route>
           </Switch>
         </Router>
+        {notContent === '' ? '' : <Notification message={notContent} />}
       </div>
     </SocketContext.Provider>
   );

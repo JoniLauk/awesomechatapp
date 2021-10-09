@@ -11,7 +11,6 @@ const roomRouter = require('./routes/room');
 const Message = require('./models/message');
 const Room = require('./models/room');
 const { tokenExtractor, authenticator } = require('./middleware/middleware');
-const { token } = require('morgan');
 require('dotenv').config();
 
 const app = express();
@@ -28,13 +27,33 @@ app.use(morgan('tiny'));
 app.use(express.json());
 app.use(cors());
 
+const users = [];
+
 /**
  * Socket listens for incoming events from the client. Data sent between client and server
  * is handled based on the event type.
  * @param {socket} Socket.io socket which connects client to this backend.
  */
 io.on('connection', (socket) => {
-  socket.on('message:create', (data) => createMessage(socket, data));
+  socket.on('room:join', (data) => {
+    socket.join(data.roomName);
+    const user = users.find((obj) => obj.user === data.user);
+    if (!user) {
+      users.push(data);
+    }
+  });
+
+  socket.on('room:leave', (data) => {
+    const user = users.find((obj) => obj.user === data.user);
+    users.pop(user);
+    socket.leave(data.roomName);
+  });
+
+  socket.on('message:create', (data) => {
+    createMessage(socket, data);
+    io.to(data.roomName).emit('message:received', data);
+  });
+
   socket.on('message:delete', (data) => deleteMessage(socket, data));
 });
 
@@ -45,11 +64,11 @@ io.on('connection', (socket) => {
  * @param {message} data
  */
 const createMessage = async (socket, data) => {
+  console.log(data);
   try {
     const newMessage = { ...data, date: new Date() };
     Message.create(newMessage);
     await Room.updateOne({ _id: data.room }, { $push: { messages: data._id } });
-    socket.broadcast.emit('message:received', data);
   } catch (err) {
     console.log(err);
   }
@@ -62,6 +81,11 @@ const deleteMessage = async (socket, data) => {
   } catch (err) {
     console.log(err);
   }
+};
+
+const userConnected = (socket, data) => {
+  console.log(data);
+  socket.broadcast.emit('user:connect:broadcast', data);
 };
 
 /**
@@ -80,8 +104,8 @@ mongoose
 
 app.use('/api/login', loginRouter);
 app.use('/api/rooms', [tokenExtractor, authenticator], roomRouter);
-app.use('/api/messages', tokenExtractor, authenticator, messageRouter);
-app.use('/api/users', tokenExtractor, authenticator, userRouter);
+app.use('/api/messages', [tokenExtractor, authenticator], messageRouter);
+app.use('/api/users', userRouter);
 
 server.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);

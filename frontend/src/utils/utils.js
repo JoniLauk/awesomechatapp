@@ -20,6 +20,15 @@ export const getUser = () => {
   }
 };
 
+export const getUserId = () => {
+  try {
+    const token = JSON.parse(window.localStorage.getItem('token')).id;
+    return token;
+  } catch (error) {
+    return null;
+  }
+};
+
 export const removeToken = () => {
   window.localStorage.removeItem('token');
 };
