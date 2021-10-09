@@ -1,12 +1,20 @@
-@use 'app'
+@import '_mixins'
 
-.loginForm
+@mixin formTextInput()
+    @include theme-aware('background-color', 'roomList-background-color')
+    font-size: 1.5em
+    max-width: 85%
+    border-radius: 0.125em
+    border: none
+    margin-top: 0.25em
+
+@mixin login()
+    @include theme-aware('color', 'message-font-color')
     display: flex
     flex-direction: column
     justify-content: center
     align-items: center
     height: 80vh
-    color: app.$font-color
     font-size: 1.5em
     margin-top: 1.5em
 
@@ -23,10 +31,10 @@
         margin-left: 2.5em
 
         input[type="text"]
-            @include app.formTextInput()
-
+            @include formTextInput()
+            
         input[type="password"]
-            @include app.formTextInput()
+            @include formTextInput()
 
     .loginFormSubmit
         display: flex
@@ -37,8 +45,8 @@
         justify-content: center
 
         input[type='submit']
-            background-color: app.$secondary
-            color: app.$font-color
+            @include theme-aware('background-color', 'sent-message-background-color')
+            @include theme-aware('color', 'message-font-color')
             font-size: 1em
             border-radius: 0.125em
             border: none
@@ -54,5 +62,5 @@
         font-size: 0.6em
 
         .formLink
-            color: app.$secondary-accent
+            @include theme-aware('color', 'loginLink-color')
             text-decoration: none

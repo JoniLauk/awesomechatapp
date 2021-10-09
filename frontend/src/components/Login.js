@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Link, useHistory } from 'react-router-dom';
 import { logIn } from '../services/userService';
 import { setToken, getUser, removeToken } from '../utils/utils';
 import './stylesheets/login.css';
