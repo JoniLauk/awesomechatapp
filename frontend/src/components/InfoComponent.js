@@ -2,6 +2,14 @@ import React from 'react';
 import { FaChevronLeft, FaInfoCircle } from 'react-icons/fa';
 import './stylesheets/infocomponent.css';
 
+/**
+ * Displays information about the room which user has selected. Currently only shows
+ * connected users. Users array and room name are passed via props to this component.
+ * setShowInfo is state passed from parent. It is used to control visibility of this
+ * component.
+ * @param {*} props
+ * @returns InfoComponent
+ */
 export const InfoComponent = (props) => {
   const { setShowInfo, connectedUsers, roomName } = props;
   return (

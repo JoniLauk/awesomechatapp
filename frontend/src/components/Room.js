@@ -10,7 +10,12 @@ import { getAllMessagesForRoom } from '../services/messageService';
 import { SocketContext } from '../context/socket';
 import { getUserId, getUser, handleNotification } from '../utils/utils';
 import './stylesheets/room.css';
-import { FaChevronLeft, FaInfoCircle, FaPlus } from 'react-icons/fa';
+import {
+  FaChevronLeft,
+  FaInfoCircle,
+  FaPlus,
+  FaTrashAlt,
+} from 'react-icons/fa';
 import { useHistory } from 'react-router-dom';
 import { InfoComponent } from './InfoComponent';
 import { Notification } from './Notification';
@@ -175,16 +180,47 @@ function Room({ roomName, roomId }) {
     setShowInfo(!showInfo);
   };
 
-  const messageItems = messages.map((x) => (
-    <li
-      className={x.user === getUser() ? 'sentMessage' : 'receivedMessage'}
-      onClick={() => emitMessageDel(x)}
-      key={x._id}
-    >
-      <div className="fromUser">{x.user === getUser() ? '' : x.user}</div>
-      <div>{x.content}</div>
-    </li>
-  ));
+  function checkURL(url) {
+    if (typeof url !== 'string') return false;
+    return url.match(/\.(jpg|jpeg|gif|png)$/) != null;
+  }
+
+  const messageItems = messages.map((x) => {
+    if (checkURL(x.content)) {
+      return (
+        <li
+          className={x.user === getUser() ? 'sentMessage' : 'receivedMessage'}
+          onClick={() => emitMessageDel(x)}
+          key={x._id}
+        >
+          <div
+            className="messageMenu"
+            onClick={() => {
+              emitMessageDel(x);
+            }}
+          >
+            <FaTrashAlt />
+          </div>
+          <div className="fromUser">
+            <p>{x.user === getUser() ? '' : x.user}</p>
+            <img style={{ maxHeight: '50vh' }} alt="" src={x.content}></img>
+          </div>
+        </li>
+      );
+    }
+    return (
+      <li
+        className={x.user === getUser() ? 'sentMessage' : 'receivedMessage'}
+        key={x._id}
+      >
+        <div className="messageMenu" onClick={() => emitMessageDel(x)}>
+          <FaTrashAlt />
+        </div>
+        <div className="fromUser">{x.user === getUser() ? '' : x.user}</div>
+        <div>{x.content}</div>
+      </li>
+    );
+  });
 
   return (
     <div className="viewContainer">

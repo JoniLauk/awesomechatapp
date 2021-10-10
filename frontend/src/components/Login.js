@@ -13,20 +13,38 @@ function Login() {
   const [notContent, setNotContent] = useState('');
   const history = useHistory();
 
+  /**
+   * If user is logged in redirect to /rooms.
+   */
   useEffect(() => {
     if (user) history.push('/rooms');
   });
 
+  /**
+   * Hanldes username field in the login form. Adds username
+   * to username state object.
+   * @param {*} event onChange event
+   */
   const handleUsername = (event) => {
     event.preventDefault();
     setUsername(event.target.value);
   };
 
+  /**
+   * Hanles password field in the login form. Adds password
+   * to password state object.
+   * @param {*} event
+   */
   const handlePassword = (event) => {
     event.preventDefault();
     setPassword(event.target.value);
   };
 
+  /**
+   * Login forms submit action. Logs user in based on the credentials
+   * provided.
+   * @param {*} event
+   */
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
@@ -50,57 +68,56 @@ function Login() {
     }
   };
 
+  /**
+   * Reset input fields.
+   */
   const resetCreds = () => {
     setPassword('');
     setUsername('');
   };
 
-  const conditionalRender = () => {
-    return (
-      <div className="viewContainer">
-        {not ? <Notification message={notContent}></Notification> : ''}
-        <div className="topBar">
-          <div></div>
-          <div>AWESOMECHATAPP</div>
-          <div className="rightIcon"></div>
-        </div>
-        <div>
-          <form className="loginForm" onSubmit={handleLogin}>
-            <div className="loginFormDiv">
-              <h3>Name</h3>
-              <input
-                id="login-form-username-input"
-                type="text"
-                name="name"
-                onChange={handleUsername}
-                value={username}
-              />
-            </div>
-            <div className="loginFormDiv">
-              <h3>Password</h3>
-              <input
-                type="password"
-                name="password"
-                onChange={handlePassword}
-                value={password}
-              />
-            </div>
-            <div className="loginFormSubmit">
-              <input type="submit" value="LOGIN" />
-              <div className="formInstructions">
-                <p>Don’t have account yet?</p>
-                <a className="formLink" href="/signup">
-                  Sign up now!
-                </a>
-              </div>
-            </div>
-          </form>
-        </div>
+  return (
+    <div className="viewContainer">
+      {not ? <Notification message={notContent}></Notification> : ''}
+      <div className="topBar">
+        <div></div>
+        <div>AWESOMECHATAPP</div>
+        <div className="rightIcon"></div>
       </div>
-    );
-  };
-
-  return conditionalRender();
+      <div>
+        <form className="loginForm" onSubmit={handleLogin}>
+          <div className="loginFormDiv">
+            <h3>Name</h3>
+            <input
+              id="login-form-username-input"
+              type="text"
+              name="name"
+              onChange={handleUsername}
+              value={username}
+            />
+          </div>
+          <div className="loginFormDiv">
+            <h3>Password</h3>
+            <input
+              type="password"
+              name="password"
+              onChange={handlePassword}
+              value={password}
+            />
+          </div>
+          <div className="loginFormSubmit">
+            <input type="submit" value="LOGIN" />
+            <div className="formInstructions">
+              <p>Don’t have account yet?</p>
+              <a className="formLink" href="/signup">
+                Sign up now!
+              </a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 }
 
 export default Login;

@@ -249,12 +249,40 @@ body .viewContainer .room .chat .sentMessage {
   align-self: flex-end;
   font-family: Roboto Slab;
   box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15);
+  position: relative;
 }
 .theme-nightly body .viewContainer .room .chat .sentMessage {
   background-color: #958bca;
 }
 .theme-brome body .viewContainer .room .chat .sentMessage {
   background-color: #d77a61;
+}
+body .viewContainer .room .chat .sentMessage:hover:hover {
+  filter: brightness(1.2);
+  cursor: pointer;
+}
+body .viewContainer .room .chat .sentMessage:hover > .messageMenu {
+  display: block;
+}
+body .viewContainer .room .chat .messageMenu {
+  display: none;
+  z-index: 1000000;
+  padding: 1em;
+  border-radius: 50%;
+  left: -2vw;
+  font-family: Roboto Slab;
+  box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15);
+  position: absolute;
+}
+.theme-nightly body .viewContainer .room .chat .messageMenu {
+  background-color: #434f66;
+}
+.theme-brome body .viewContainer .room .chat .messageMenu {
+  background-color: #2c5784;
+}
+body .viewContainer .room .chat .messageMenu:hover:hover {
+  filter: brightness(1.2);
+  cursor: pointer;
 }
 body .viewContainer .room .chat .receivedMessage {
   border-radius: 1em 1em 1em 0.25em;
