@@ -88,22 +88,16 @@ function Rooms({ socket, handleNotification }) {
                     to={`${match.url}/${room.id}`}
                     key={room.id}
                   >
-                    <div>
-                      <div className="nameMessage">
-                        <Link
-                          className="roomLink"
-                          to={`${match.url}/${room.id}`}
-                        >
-                          {room.name}
-                        </Link>
-                        <p className="lastMessage">
-                          {getNewestMessageForRoom(room)}
-                        </p>
-                      </div>
-                      <div className="iconTime">
-                        <FaChevronLeft />
-                        <p>{getNewesMessagesDateForRoom(room)}</p>
-                      </div>
+                    <div className="nameMessage">
+                      <Link className="roomLink" to={`${match.url}/${room.id}`}>
+                        {room.name}
+                      </Link>
+                    </div>
+                    <div className="iconTime">
+                      <p className="lastMessage">
+                        {getNewestMessageForRoom(room)}
+                      </p>
+                      <p>{getNewesMessagesDateForRoom(room)}</p>
                     </div>
                   </Link>
                 ))}

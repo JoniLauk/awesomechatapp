@@ -121,7 +121,9 @@ function Room({ roomName, roomId }) {
    * When messages array changes, scroll down.
    */
   useEffect(() => {
-    scrollToBottom();
+    setTimeout(() => {
+      scrollToBottom();
+    }, 25);
   }, [messages]);
 
   /**
@@ -141,6 +143,9 @@ function Room({ roomName, roomId }) {
       setMessageContent('');
       socket.emit('message:create', newMessage);
       // setMessages([...messages, newMessage]);
+      setTimeout(() => {
+        scrollToBottom();
+      }, 10);
     } else {
       handleNotification(
         {
@@ -174,6 +179,7 @@ function Room({ roomName, roomId }) {
    */
   const scrollToBottom = () => {
     messagesEndRef.current.scrollIntoView({ behavior: 'auto' });
+    console.log('scroll');
   };
 
   const handleUserArray = () => {
@@ -203,7 +209,7 @@ function Room({ roomName, roomId }) {
           </div>
           <div className="fromUser">
             <p>{x.user === getUser() ? '' : x.user}</p>
-            <img style={{ maxHeight: '50vh' }} alt="" src={x.content}></img>
+            <img style={{ maxWidth: '100%' }} alt="" src={x.content}></img>
           </div>
         </li>
       );
@@ -224,7 +230,6 @@ function Room({ roomName, roomId }) {
 
   return (
     <div className="viewContainer">
-      {not ? <Notification message={notContent}></Notification> : ''}
       <div className="topBar">
         <div onClick={goBack}>
           <FaChevronLeft />
@@ -255,6 +260,7 @@ function Room({ roomName, roomId }) {
       ) : (
         ''
       )}
+      {not ? <Notification message={notContent}></Notification> : ''}
     </div>
   );
 }

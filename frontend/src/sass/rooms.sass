@@ -18,52 +18,55 @@
 	.roomListItem
 		@include theme-aware('background-color', 'roomListItem-background-color')
 		border-radius: 0.25em
-		padding: 0.5em 0.5em 0.25em 0
+		padding: 1em
 		margin-top: 1em
-		min-height: 5em
-		width: 70vw
+		height: 5em
+		width: 80vw
 		display: flex
 		flex-direction: row
+		align-items: center
+		justify-content: space-between
+		max-width: 90%
 		box-shadow: 12.5px 12.5px 12.5px rgba(0, 0, 0, 0.15), 100px 100px 100px rgba(0, 0, 0, 0.075)
-
-		@media (min-width: 800px)
-			max-width: 70%
+		overflow: hidden
+		&:hover
+			transform: scale(1.05)
+			filter: brightness(1.1)
 
 		&:hover
 			filter: brightness(1.2)
 			transform: scale(1.02)
 
-	.nameMessage
-		flex: 2
-		padding-left: 1rem
+		.nameMessage
+			padding-left: 0.5rem
+			text-decoration: none
+			flex: 60%
 
-	.roomLink
-		@include theme-aware('color', 'roomLink-color')
-		text-decoration: none
-		font-family: Bevan
-		font-size: 1em
+			.roomLink
+				@include theme-aware('color', 'roomLink-color')
+				text-decoration: none
+				font-family: Bevan
+				font-size: 1em
+			
 
-	.roomList:visited
-		@include theme-aware('color', 'roomLink-color')
-		text-decoration: none
-		font-family: Bevan
-		font-size: 1em
+		.iconTime
+			@include theme-aware('color', 'roomLink-color')
+			display: flex
+			flex-direction: column
+			justify-content: center
+			align-items: start
+			font-family: Bevan
+			font-size: 0.7rem
+			flex: 40%
 
-	.lastMessage
-		@include theme-aware('color', 'roomLink-message-color')
-		font-family: Bevan
-		font-size: 1em
-		margin: 0
-
-	.iconTime
-		@include theme-aware('color', 'roomLink-color')
-		display: flex
-		flex-direction: row
-		justify-content: center
-		font-family: Bevan
-		font-size: 0.7rem
-		align-items: center
-		flex: 1
+			.lastMessage
+				@include theme-aware('color', 'roomLink-message-color')
+				font-family: Bevan
+				font-size: 1em
+				margin: 0
+				padding-top: 0.5em
+				overflow: hidden
+				max-height: 5em
 
 .newRoomButton
 	display: flex

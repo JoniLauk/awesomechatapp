@@ -21,6 +21,10 @@
     margin-top: 5em
     box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15)
 
+    &:hover
+      transform: scale(1.05)
+      filter: brightness(1.1)
+
   select
     @include theme-aware('background-color', 'newRoom-button-color')
     @include theme-aware('color', 'message-font-color')
@@ -37,6 +41,9 @@
     text-overflow: ''
     text-indent: 1em
     box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15)
+    &:hover
+      transform: scale(1.05)
+      filter: brightness(1.1)
     @media (min-width: 800px)
       max-width: 300px
       
