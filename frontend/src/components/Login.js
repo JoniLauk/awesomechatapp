@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { logIn } from '../services/userService';
-import {
-  setToken,
-  getUser,
-  removeToken,
-  handleNotification,
-} from '../utils/utils';
+import { setToken, getUser, handleNotification } from '../utils/utils';
 import { Notification } from './Notification';
 import './stylesheets/login.css';
 
-function Login({ setCurrentUser }) {
+function Login() {
   const [user, setUser] = useState(getUser());
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -18,16 +13,38 @@ function Login({ setCurrentUser }) {
   const [notContent, setNotContent] = useState('');
   const history = useHistory();
 
+  /**
+   * If user is logged in redirect to /rooms.
+   */
+  useEffect(() => {
+    if (user) history.push('/rooms');
+  });
+
+  /**
+   * Hanldes username field in the login form. Adds username
+   * to username state object.
+   * @param {*} event onChange event
+   */
   const handleUsername = (event) => {
     event.preventDefault();
     setUsername(event.target.value);
   };
 
+  /**
+   * Hanles password field in the login form. Adds password
+   * to password state object.
+   * @param {*} event
+   */
   const handlePassword = (event) => {
     event.preventDefault();
     setPassword(event.target.value);
   };
 
+  /**
+   * Login forms submit action. Logs user in based on the credentials
+   * provided.
+   * @param {*} event
+   */
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
@@ -35,6 +52,7 @@ function Login({ setCurrentUser }) {
       setToken(loginUser);
       setUser(loginUser);
       resetCreds();
+      history.push('/rooms');
     } catch (error) {
       if (error.response) {
         handleNotification(
@@ -50,66 +68,56 @@ function Login({ setCurrentUser }) {
     }
   };
 
-  const logout = () => {
-    setUser(null);
-    resetCreds();
-    removeToken();
-  };
-
+  /**
+   * Reset input fields.
+   */
   const resetCreds = () => {
     setPassword('');
     setUsername('');
   };
 
-  const conditionalRender = () => {
-    if (!user) {
-      return (
-        <div className="viewContainer">
-          {not ? <Notification message={notContent}></Notification> : ''}
-          <div className="topBar">
-            <div></div>
-            <div>AWESOMECHATAPP</div>
-            <div className="rightIcon"></div>
+  return (
+    <div className="viewContainer">
+      {not ? <Notification message={notContent}></Notification> : ''}
+      <div className="topBar">
+        <div></div>
+        <div>AWESOMECHATAPP</div>
+        <div className="rightIcon"></div>
+      </div>
+      <div>
+        <form className="loginForm" onSubmit={handleLogin}>
+          <div className="loginFormDiv">
+            <h3>Name</h3>
+            <input
+              id="login-form-username-input"
+              type="text"
+              name="name"
+              onChange={handleUsername}
+              value={username}
+            />
           </div>
-          <div>
-            <form className="loginForm" onSubmit={handleLogin}>
-              <div className="loginFormDiv">
-                <h3>Name</h3>
-                <input
-                  type="text"
-                  name="name"
-                  onChange={handleUsername}
-                  value={username}
-                />
-              </div>
-              <div className="loginFormDiv">
-                <h3>Password</h3>
-                <input
-                  type="password"
-                  name="password"
-                  onChange={handlePassword}
-                  value={password}
-                />
-              </div>
-              <div className="loginFormSubmit">
-                <input type="submit" value="LOGIN" />
-                <div className="formInstructions">
-                  <p>Don’t have account yet?</p>
-                  <a className="formLink" href="/signup">
-                    Sign up now!
-                  </a>
-                </div>
-              </div>
-            </form>
+          <div className="loginFormDiv">
+            <h3>Password</h3>
+            <input
+              type="password"
+              name="password"
+              onChange={handlePassword}
+              value={password}
+            />
           </div>
-        </div>
-      );
-    } else {
-      return <button onClick={logout}>Log out</button>;
-    }
-  };
-
-  return conditionalRender();
+          <div className="loginFormSubmit">
+            <input type="submit" value="LOGIN" />
+            <div className="formInstructions">
+              <p>Don’t have account yet?</p>
+              <a className="formLink" href="/signup">
+                Sign up now!
+              </a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 }
 
 export default Login;

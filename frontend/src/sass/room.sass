@@ -40,14 +40,33 @@
       padding: 0.5em 1em 0.5em 1em
       margin-top: 0.8125em
       margin-right: 1.125em
-      margin-left: 1.125em
+      margin-left: 3.125em
       min-height: 2em
       min-width: 3em
       height: fit-content
       align-self: flex-end
       font-family: Roboto Slab
       box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15)
+      position: relative
+      &:hover
+        @include buttons-hover-effect
 
+      &:hover > .messageMenu
+        display: block
+
+    .messageMenu
+      @include theme-aware('background-color' , 'topBar-background-color' )
+
+      display: none
+      z-index: 1000000
+      padding: 1em
+      border-radius: 50%
+      left: -2vw
+      font-family: Roboto Slab
+      box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15)
+      position: absolute
+      &:hover
+        @include buttons-hover-effect
 
     .receivedMessage
       @include theme-aware('background-color', 'received-message-background-color')
@@ -107,4 +126,8 @@
       display: flex
       justify-content: center
       align-items: center
+<<<<<<< HEAD
       box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15)
+=======
+      box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15)
+>>>>>>> main

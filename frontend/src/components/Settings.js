@@ -32,33 +32,41 @@ function Settings(props) {
     );
   };
 
-  return (
-    <div className="viewContainer">
-      <div className="topBar">
-        <div onClick={goBack}>
-          <FaChevronLeft />
+  const conditionalRender = () => {
+    if (user) {
+      return (
+        <div className="viewContainer">
+          <div className="topBar">
+            <div onClick={goBack}>
+              <FaChevronLeft />
+            </div>
+            <div>SETTINGS</div>
+            <div style={{ marginRight: '24px' }}></div>
+          </div>
+          <div className="settings">
+            <h2>Choose a theme</h2>
+            <select
+              name="themes"
+              id="themes"
+              value={myStorage.getItem('currentTheme')}
+              onChange={handleTheme}
+            >
+              <option value="nightly">nightly</option>
+              <option value="brome">brome</option>
+            </select>
+            <button className="settingsButton">Change password</button>
+            <button className="settingsButton" onClick={logout}>
+              Logout
+            </button>
+          </div>
         </div>
-        <div>SETTINGS</div>
-        <div style={{ marginRight: '24px' }}></div>
-      </div>
-      <div className="settings">
-        <h2>Choose a theme</h2>
-        <select
-          name="themes"
-          id="themes"
-          value={myStorage.getItem('currentTheme')}
-          onChange={handleTheme}
-        >
-          <option value="nightly">nightly</option>
-          <option value="brome">brome</option>
-        </select>
-        <button className="settingsButton">Change password</button>
-        <button className="settingsButton" onClick={logout}>
-          Logout
-        </button>
-      </div>
-    </div>
-  );
+      );
+    } else {
+      return <h1>Not logged in</h1>;
+    }
+  };
+
+  return conditionalRender();
 }
 
 export default Settings;
