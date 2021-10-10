@@ -24,10 +24,6 @@
     &:hover
       cursor: pointer
       filter: brightness(1.2)
-<<<<<<< HEAD
-=======
-
->>>>>>> main
   :nth-child(3)
     padding-right: 1em
     svg
@@ -44,6 +40,9 @@
 
 body
   @include theme-aware('background-color', 'body-background-color')
+
+  .notification
+    @include notification.notification()
 
   button
     @include buttons-hover-effect
@@ -79,5 +78,4 @@ body
     .infoContainer
       @include infocomponent.info()
 
-    .notification
-      @include notification.notification()
+    

@@ -18,7 +18,7 @@ function Login() {
    */
   useEffect(() => {
     if (user) history.push('/rooms');
-  });
+  }, []);
 
   /**
    * Hanldes username field in the login form. Adds username
