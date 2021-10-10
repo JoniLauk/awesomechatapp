@@ -242,7 +242,7 @@ body .viewContainer .room .chat .sentMessage {
   padding: 0.5em 1em 0.5em 1em;
   margin-top: 0.8125em;
   margin-right: 1.125em;
-  margin-left: 1.125em;
+  margin-left: 3.125em;
   min-height: 2em;
   min-width: 3em;
   height: fit-content;
