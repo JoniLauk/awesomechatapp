@@ -44,8 +44,8 @@ export const getColorScheme = () => {
 export const handleNotification = (data, setNot, setNotContent) => {
   setNot(true);
   setNotContent(data);
-  // setTimeout(() => {
-  //   setNotContent('');
-  //   setNot(false);
-  // }, 2000);
+  setTimeout(() => {
+    setNotContent('');
+    setNot(false);
+  }, 2000);
 };
