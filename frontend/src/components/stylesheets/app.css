@@ -29,6 +29,10 @@
 .theme-brome body {
   background-color: #f7ede2;
 }
+body button:hover {
+  filter: brightness(1.2);
+  cursor: pointer;
+}
 body .topBar {
   font-family: Bevan;
   font-size: 1.5em;
@@ -351,6 +355,10 @@ body .viewContainer .loginForm {
 }
 .theme-brome body .viewContainer .loginForm {
   color: #fff;
+}
+body .viewContainer .loginForm input:hover {
+  filter: brightness(1.2);
+  cursor: pointer;
 }
 body .viewContainer .loginForm h3 {
   margin: 0;

@@ -18,6 +18,9 @@
     font-size: 1.5em
     margin-top: 1.5em
 
+    input
+        @include buttons-hover-effect
+
     h3
         margin: 0
         padding: 0
@@ -32,7 +35,7 @@
 
         input[type="text"]
             @include formTextInput()
-            
+
         input[type="password"]
             @include formTextInput()
 
