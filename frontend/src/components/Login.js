@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Route, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { logIn } from '../services/userService';
-import {
-  setToken,
-  getUser,
-  removeToken,
-  handleNotification,
-} from '../utils/utils';
+import { setToken, getUser, handleNotification } from '../utils/utils';
 import { Notification } from './Notification';
 import './stylesheets/login.css';
 
@@ -19,9 +14,7 @@ function Login() {
   const history = useHistory();
 
   useEffect(() => {
-    if (user) {
-      history.push('/rooms');
-    }
+    if (user) history.push('/rooms');
   });
 
   const handleUsername = (event) => {
@@ -76,6 +69,7 @@ function Login() {
             <div className="loginFormDiv">
               <h3>Name</h3>
               <input
+                id="login-form-username-input"
                 type="text"
                 name="name"
                 onChange={handleUsername}
