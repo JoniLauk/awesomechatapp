@@ -54,41 +54,22 @@ body .topBar {
 body .topBar :nth-child(1) {
   padding-left: 1em;
 }
+body .topBar :nth-child(1) svg {
+  padding: 0;
+}
+body .topBar :nth-child(1):hover {
+  cursor: pointer;
+  filter: brightness(1.2);
+}
 body .topBar :nth-child(3) {
   padding-right: 1em;
 }
-body .notification {
-  font-family: Roboto Slab;
-  display: flex;
-  position: absolute;
-  top: 45vh;
-  justify-content: center;
+body .topBar :nth-child(3) svg {
   padding: 0;
-  list-style: none;
 }
-.theme-nightly body .notification {
-  color: #fff;
-}
-.theme-brome body .notification {
-  color: #2c5784;
-}
-body .notification li {
-  display: flex;
-  justify-content: center;
-  border-radius: 1em 1em 1em 1em;
-  padding: 0.5em 1em 0.5em 1em;
-  margin-top: 0.8125em;
-  margin-right: 1.125em;
-  margin-left: 1.125em;
-  min-height: 2em;
-  min-width: 3em;
-  height: fit-content;
-}
-.theme-nightly body .notification li {
-  background-color: #434f66;
-}
-.theme-brome body .notification li {
-  background-color: #2c5784;
+body .topBar :nth-child(3):hover {
+  cursor: pointer;
+  filter: brightness(1.2);
 }
 body .viewContainer {
   display: flex;
@@ -100,17 +81,13 @@ body .viewContainer {
   bottom: 0;
   min-height: 100vh;
   overflow: auto;
+  align-items: center;
 }
 .theme-nightly body .viewContainer {
   background-color: #242e42;
 }
 .theme-brome body .viewContainer {
   background-color: #f7ede2;
-}
-@media (min-width: 800px) {
-  body .viewContainer {
-    align-items: center;
-  }
 }
 body .viewContainer .roomList {
   margin: 1.5em 2em;
@@ -155,6 +132,10 @@ body .viewContainer .roomList .roomListItem {
   body .viewContainer .roomList .roomListItem {
     max-width: 70%;
   }
+}
+body .viewContainer .roomList .roomListItem:hover {
+  filter: brightness(1.2);
+  transform: scale(1.02);
 }
 body .viewContainer .roomList .nameMessage {
   flex: 2;
@@ -576,6 +557,40 @@ body .viewContainer .infoContainer li {
 }
 .theme-brome body .viewContainer .infoContainer li {
   background-color: #d77a61;
+}
+body .viewContainer .notification {
+  font-family: Roboto Slab;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 45vh;
+  justify-content: center;
+  padding: 0;
+  list-style: none;
+}
+.theme-nightly body .viewContainer .notification {
+  color: #fff;
+}
+.theme-brome body .viewContainer .notification {
+  color: #fff;
+}
+body .viewContainer .notification li {
+  display: flex;
+  justify-content: center;
+  border-radius: 1em 1em 1em 1em;
+  padding: 0.5em 1em 0.5em 1em;
+  margin-top: 0.8125em;
+  margin-right: 1.125em;
+  margin-left: 1.125em;
+  min-height: 2em;
+  min-width: 3em;
+  height: fit-content;
+}
+.theme-nightly body .viewContainer .notification li {
+  background-color: #434f66;
+}
+.theme-brome body .viewContainer .notification li {
+  background-color: #2c5784;
 }
 
 /*# sourceMappingURL=app.css.map */

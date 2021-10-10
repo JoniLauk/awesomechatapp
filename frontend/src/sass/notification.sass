@@ -1,9 +1,10 @@
 @import _mixins
 
 @mixin notification()
-  @include theme-aware('color', 'h2-color')
+  @include theme-aware('color', 'chat-message-color')
   font-family: Roboto Slab
   display: flex
+  flex-direction: column
   position: absolute
   top: 45vh
   justify-content: center
