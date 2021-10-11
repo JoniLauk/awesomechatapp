@@ -10,9 +10,10 @@ import {
 } from 'react-router-dom';
 import { unmountComponentAtNode } from 'react-dom';
 import Room from './Room';
+import { NewRoomForm } from './NewRoomForm';
 import { getUser } from '../utils/utils';
 import { getAll } from '../services/roomService';
-import { FaChevronLeft, FaInfoCircle, FaCog } from 'react-icons/fa';
+import { FaChevronLeft, FaCog } from 'react-icons/fa';
 import './stylesheets/rooms.css';
 
 function Rooms({ socket, handleNotification }) {
@@ -66,6 +67,15 @@ function Rooms({ socket, handleNotification }) {
     } else return '';
   };
 
+  const handleNewRoomButton = (event) => {
+    event.preventDefault();
+    const newRoom = {
+      name: 'Skiggelssköggels',
+      messages: [],
+    };
+    setRooms([...rooms, newRoom]);
+  };
+
   const conditionalRender = () => {
     if (getUser()) {
       return (
@@ -103,7 +113,9 @@ function Rooms({ socket, handleNotification }) {
                 ))}
               </ul>
               <div className="newRoomButton">
-                <button className="newRoom">New Room</button>
+                <button className="newRoom" onClick={handleNewRoomButton}>
+                  New Room
+                </button>
               </div>
             </div>
           </div>
