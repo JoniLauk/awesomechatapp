@@ -4,6 +4,7 @@ import { FaChevronLeft, FaMoon, FaUser } from 'react-icons/fa';
 import { logIn } from '../services/userService';
 import { setToken, getUser, removeToken } from '../utils/utils';
 import { ReactDOM } from 'react';
+import { ChangePassword } from './ChangePassword';
 
 function Settings({ setRoomName }) {
   const history = useHistory();
@@ -32,6 +33,11 @@ function Settings({ setRoomName }) {
     );
   };
 
+  const handlePasswordChangeButton = async (event) => {
+    event.preventDefault();
+    return <ChangePassword />;
+  };
+
   const conditionalRender = () => {
     if (user) {
       return (
@@ -47,7 +53,12 @@ function Settings({ setRoomName }) {
               <option value="nightly">nightly</option>
               <option value="brome">brome</option>
             </select>
-            <button className="settingsButton">Change password</button>
+            <button
+              className="settingsButton"
+              onClick={handlePasswordChangeButton}
+            >
+              Change password
+            </button>
             <button className="settingsButton" onClick={logout}>
               Logout
             </button>

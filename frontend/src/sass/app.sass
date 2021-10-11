@@ -35,17 +35,11 @@
 @mixin viewContainer()
   display: flex
   flex-direction: column
+  
   // overflow: auto
-  height: auto
-
-#root
-  position: absolute
-  top: 0
-  bottom: 0
 
 body
   @include theme-aware('background-color', 'body-background-color')
-  height: 100%
 
   .notification
     @include notification.notification()
@@ -60,8 +54,7 @@ body
     // @include theme-aware('background-color', 'body-background-color')
     display: flex
     flex-direction: column
-    height: 100%
-    // position: absolute
+        // position: absolute
     // top: 0
     // right: 0
     // left: 0
