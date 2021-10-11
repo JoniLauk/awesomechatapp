@@ -13,7 +13,7 @@ export const Nav = ({ roomName }) => {
     history.push('/settings');
   };
   return (
-    <div>
+    <div className="header">
       <div className="topBar">
         <FaChevronLeft onClick={goBack} />
         <div>{roomName}</div>
