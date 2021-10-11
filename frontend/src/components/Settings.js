@@ -5,7 +5,7 @@ import { logIn } from '../services/userService';
 import { setToken, getUser, removeToken } from '../utils/utils';
 import { ReactDOM } from 'react';
 
-function Settings(props) {
+function Settings({ setRoomName }) {
   const history = useHistory();
   const [user, setUser] = useState(getUser());
   const myStorage = window.localStorage;
@@ -13,9 +13,9 @@ function Settings(props) {
     myStorage.getItem('currentTheme')
   );
 
-  const goBack = () => {
-    history.push('/rooms');
-  };
+  useEffect(() => {
+    setRoomName('SETTINGS');
+  });
 
   const logout = () => {
     setUser(null);
@@ -36,13 +36,6 @@ function Settings(props) {
     if (user) {
       return (
         <div className="viewContainer">
-          <div className="topBar">
-            <div onClick={goBack}>
-              <FaChevronLeft />
-            </div>
-            <div>SETTINGS</div>
-            <div style={{ marginRight: '24px' }}></div>
-          </div>
           <div className="settings">
             <h2>Choose a theme</h2>
             <select

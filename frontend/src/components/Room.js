@@ -16,9 +16,10 @@ import {
   FaPlus,
   FaTrashAlt,
 } from 'react-icons/fa';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useRouteMatch, useParams } from 'react-router-dom';
 import { InfoComponent } from './InfoComponent';
 import { Notification } from './Notification';
+import { Nav } from './Nav';
 
 /**
  * Room where users can join and send messages to each other. All communications with the server
@@ -26,7 +27,7 @@ import { Notification } from './Notification';
  * @param {*} param0
  * @returns Room component
  */
-function Room({ roomName, roomId }) {
+function Room() {
   const [messages, setMessages] = useState([]);
   const [connectedUsers, setConnectedUsers] = useState([]);
   const [messageContent, setMessageContent] = useState('');
@@ -36,6 +37,8 @@ function Room({ roomName, roomId }) {
   const socket = useContext(SocketContext);
   const history = useHistory();
   const messagesEndRef = useRef(null);
+
+  const roomId = useParams();
 
   /**
    * Appends new messages to the messages state array.
@@ -63,7 +66,7 @@ function Room({ roomName, roomId }) {
    */
   useEffect(() => {
     const getMessages = async () => {
-      const response = await getAllMessagesForRoom(roomName);
+      const response = await getAllMessagesForRoom(roomId.id);
       setMessages(response);
       return () => {
         setMessages([]);
@@ -71,7 +74,7 @@ function Room({ roomName, roomId }) {
     };
 
     getMessages();
-  }, [roomName]);
+  }, [roomId]);
 
   /**
    * Listens for events fired from the server. Calls either handleNewMessage or
@@ -99,23 +102,22 @@ function Room({ roomName, roomId }) {
    */
   useEffect(() => {
     socket.emit('room:join', {
-      roomName,
+      roomId,
       user: getUserId(),
       username: getUser(),
     });
     socket.on('connected:users', (data) => {
-      console.log(data);
       setConnectedUsers(data);
     });
     return () => {
       socket.emit('room:leave', {
-        roomName,
+        roomId,
         user: getUserId(),
         username: getUser(),
       });
       setConnectedUsers([]);
     };
-  }, [socket, roomName]);
+  }, [socket, roomId]);
 
   /**
    * When messages array changes, scroll down.
@@ -134,15 +136,15 @@ function Room({ roomName, roomId }) {
     if (messageContent !== '') {
       const newMessage = {
         _id: new ObjectId().toString(),
-        roomName: roomName,
-        room: roomId,
+        roomName: roomId.id,
+        room: roomId.id,
         user: getUser(),
         content: messageContent,
       };
 
       setMessageContent('');
       socket.emit('message:create', newMessage);
-      // setMessages([...messages, newMessage]);
+      setMessages([...messages, newMessage]);
       setTimeout(() => {
         scrollToBottom();
       }, 10);
@@ -179,7 +181,6 @@ function Room({ roomName, roomId }) {
    */
   const scrollToBottom = () => {
     messagesEndRef.current.scrollIntoView({ behavior: 'auto' });
-    console.log('scroll');
   };
 
   const handleUserArray = () => {
@@ -193,7 +194,6 @@ function Room({ roomName, roomId }) {
 
   const messageItems = messages.map((x) => {
     if (checkURL(x.content)) {
-      console.log(getUser());
       return (
         <li
           className={x.user === getUser() ? 'sentMessage' : 'receivedMessage'}
@@ -231,15 +231,6 @@ function Room({ roomName, roomId }) {
 
   return (
     <div className="viewContainer">
-      <div className="topBar">
-        <div onClick={goBack}>
-          <FaChevronLeft />
-        </div>
-        <div className="roomName">{roomName}</div>
-        <div className="rightIcon">
-          <FaInfoCircle onClick={() => handleUserArray()} />
-        </div>
-      </div>
       <div className="room">
         <ul className="chat">
           {messageItems}
@@ -254,7 +245,7 @@ function Room({ roomName, roomId }) {
       </div>
       {showInfo ? (
         <InfoComponent
-          roomName={roomName}
+          roomName={roomId}
           connectedUsers={connectedUsers}
           setShowInfo={setShowInfo}
         />

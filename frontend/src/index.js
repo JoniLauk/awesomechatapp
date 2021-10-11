@@ -12,7 +12,7 @@ export { default as Signup } from './components/Signup';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App style={{ height: '100%' }} />
   </React.StrictMode>,
   document.getElementById('root')
 );

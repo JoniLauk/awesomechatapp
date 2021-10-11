@@ -10,13 +10,13 @@ import {
 } from 'react-router-dom';
 import { unmountComponentAtNode } from 'react-dom';
 import Room from './Room';
-import { NewRoomForm } from './NewRoomForm';
 import { getUser } from '../utils/utils';
 import { getAll } from '../services/roomService';
 import { FaChevronLeft, FaCog } from 'react-icons/fa';
 import './stylesheets/rooms.css';
+import { Nav } from './Nav';
 
-function Rooms({ socket, handleNotification }) {
+function Rooms({ socket, handleNotification, setRoomName }) {
   const [rooms, setRooms] = useState([]);
   const match = useRouteMatch();
   const history = useHistory();
@@ -28,8 +28,9 @@ function Rooms({ socket, handleNotification }) {
   };
 
   useEffect(() => {
+    setRoomName('AWESOMECHATAPP');
     getRooms();
-  }, [location]);
+  }, [location, setRoomName]);
 
   const goBack = () => {
     history.push('/rooms');
@@ -79,10 +80,10 @@ function Rooms({ socket, handleNotification }) {
   const conditionalRender = () => {
     if (getUser()) {
       return (
-        <Router>
+        <div>
           <div id="roomList">
             <div className="viewContainer">
-              <div className="topBar">
+              {/* <div className="topBar">
                 <div onClick={goBack}>
                   <FaChevronLeft />
                 </div>
@@ -90,13 +91,14 @@ function Rooms({ socket, handleNotification }) {
                 <div className="rightIcon" onClick={goSettings}>
                   <FaCog />
                 </div>
-              </div>
+              </div> */}
               <ul className="roomList">
                 {rooms.map((room) => (
                   <Link
                     className="roomListItem"
                     to={`${match.url}/${room.id}`}
                     key={room.id}
+                    onClick={() => setRoomName(room.name)}
                   >
                     <div className="nameMessage">
                       <Link className="roomLink" to={`${match.url}/${room.id}`}>
@@ -120,7 +122,7 @@ function Rooms({ socket, handleNotification }) {
             </div>
           </div>
           <Switch>{getRoutes}</Switch>
-        </Router>
+        </div>
       );
     } else {
       return (

@@ -23,6 +23,15 @@
   color: #fff;
 }
 
+#root {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+
+body {
+  height: 100%;
+}
 .theme-nightly body {
   background-color: #242e42;
 }
@@ -113,20 +122,8 @@ body .topBar :nth-child(3):hover {
 body .viewContainer {
   display: flex;
   flex-direction: column;
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  min-height: 100vh;
-  overflow: auto;
+  height: 100%;
   align-items: center;
-}
-.theme-nightly body .viewContainer {
-  background-color: #242e42;
-}
-.theme-brome body .viewContainer {
-  background-color: #f7ede2;
 }
 body .viewContainer .roomList {
   margin: 1.5em 2em;
@@ -227,7 +224,6 @@ body .viewContainer .roomList .roomListItem .iconTime .lastMessage {
 body .viewContainer .room {
   display: flex;
   flex-direction: column;
-  height: 100vh;
   overflow: hidden;
 }
 .theme-nightly body .viewContainer .room {
