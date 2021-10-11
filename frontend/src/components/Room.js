@@ -193,10 +193,10 @@ function Room({ roomName, roomId }) {
 
   const messageItems = messages.map((x) => {
     if (checkURL(x.content)) {
+      console.log(getUser());
       return (
         <li
           className={x.user === getUser() ? 'sentMessage' : 'receivedMessage'}
-          onClick={() => emitMessageDel(x)}
           key={x._id}
         >
           <div
@@ -213,19 +213,20 @@ function Room({ roomName, roomId }) {
           </div>
         </li>
       );
+    } else {
+      return (
+        <li
+          className={x.user === getUser() ? 'sentMessage' : 'receivedMessage'}
+          key={x._id}
+        >
+          <div className="messageMenu" onClick={() => emitMessageDel(x)}>
+            <FaTrashAlt />
+          </div>
+          <div className="fromUser">{x.user === getUser() ? '' : x.user}</div>
+          <div>{x.content}</div>
+        </li>
+      );
     }
-    return (
-      <li
-        className={x.user === getUser() ? 'sentMessage' : 'receivedMessage'}
-        key={x._id}
-      >
-        <div className="messageMenu" onClick={() => emitMessageDel(x)}>
-          <FaTrashAlt />
-        </div>
-        <div className="fromUser">{x.user === getUser() ? '' : x.user}</div>
-        <div>{x.content}</div>
-      </li>
-    );
   });
 
   return (
