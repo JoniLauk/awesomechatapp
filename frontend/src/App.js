@@ -48,7 +48,7 @@ export default function App() {
               <Signup />
             </Route>
             <Route path="/">
-              {getUser() ? <Rooms /> : <Redirect to="/login" />}
+              {getUser() ? <Redirect to="/rooms" /> : <Redirect to="/login" />}
             </Route>
           </Switch>
         </Router>
