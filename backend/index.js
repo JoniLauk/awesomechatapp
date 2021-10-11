@@ -27,7 +27,7 @@ app.use(morgan('tiny'));
 app.use(express.json());
 app.use(cors());
 
-const users = [];
+let users = [];
 
 /**
  * Socket listens for incoming events from the client. Data sent between client and server
@@ -57,7 +57,7 @@ io.on('connection', (socket) => {
   // clients.
   socket.on('room:leave', (data) => {
     const user = users.find((obj) => obj.user === data.user);
-    users.pop(user);
+    users = users.filter((x) => x.username !== user.username);
     socket.leave(data.roomName);
     io.to(data.roomName).emit('connected:users', users);
   });
@@ -76,7 +76,7 @@ io.on('connection', (socket) => {
   socket.on('disconnect', (data) => {
     const user = users.find((obj) => obj.socketId === socket.id);
     if (user) {
-      users.pop(user);
+      users = users.filter((x) => x.username !== user.username);
       io.to(user.roomName).emit('connected:users', users);
     }
   });
