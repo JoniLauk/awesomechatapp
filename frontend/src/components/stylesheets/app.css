@@ -290,6 +290,9 @@ body .viewContainer .room .chat::-webkit-scrollbar-thumb {
     max-width: 1100px;
   }
 }
+body .viewContainer .room .chat img {
+  border-radius: 1em;
+}
 body .viewContainer .room .chat .sentMessage {
   border-radius: 1em 1em 0.25em 1em;
   padding: 0.5em 1em 0.5em 1em;
