@@ -17,6 +17,7 @@ import './components/stylesheets/app.css';
  */
 export default function App() {
   const [roomName, setRoomName] = useState('');
+  const [showInfo, setShowInfo] = useState(false);
   const myStorage = window.localStorage;
 
   /**
@@ -32,10 +33,22 @@ export default function App() {
     );
   });
 
+  const roomProps = {
+    setRoomName,
+    showInfo,
+    setShowInfo,
+  };
+
+  const navProps = {
+    roomName,
+    setShowInfo,
+    showInfo,
+  };
+
   return (
     <SocketContext.Provider value={socket}>
       <Router>
-        <Nav roomName={roomName} />
+        <Nav navProps={navProps} />
         <Switch>
           <Route path="/settings">
             {getUser() ? (
@@ -45,7 +58,7 @@ export default function App() {
             )}
           </Route>
           <Route path="/rooms/:id">
-            <Room />
+            <Room roomProps={roomProps} />
           </Route>
           <Route path="/rooms">
             {getUser() ? (
