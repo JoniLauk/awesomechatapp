@@ -12,151 +12,66 @@
   font-family: Bevan
   font-size: 1.5em
   display: flex
-  position: sticky
-  top: 0
   flex-direction: row
   align-items: center
   width: 100vw
-  min-height: 100%
+  min-height: 3em
   justify-content: space-between
   :nth-child(1)
     padding-left: 1em
-    svg
-      padding: 0
-    &:hover
-      cursor: pointer
-      filter: brightness(1.2)
   :nth-child(3)
     padding-right: 1em
-    svg
-      padding: 0
-    &:hover
-      cursor: pointer
-      filter: brightness(1.2)
 
 @mixin viewContainer()
-  // display: flex
-  // flex-direction: column
-  // overflow: auto
-  // height: auto
-  // grid-row-start: 2
+  display: flex
+  flex-direction: column
+  min-height: 100vh
+  overflow: auto
 
-#root
-  position: absolute
-  top: 0
-  bottom: 0
-  display: grid
-  width: 100vw
-  grid-template-rows: 6em 1fr
-  grid-template-columns: 6em 1fr 1fr 6em
-
-  .roomListContainer
-    @include theme-aware('background-color', 'roomList-background-color')
-    margin: 1.5em 2em
-    border-radius: 0.25em
-    list-style-type: none
-    flex-direction: column
-    padding: 1em 0 0 0
-    height: 75vh
-    overflow: hidden
-    display: flex
-    align-items: center
-    box-shadow: 12.5px 12.5px 12.5px rgba(0, 0, 0, 0.15), 100px 100px 100px rgba(0, 0, 0, 0.075)
-    grid-row: 2 / 3
-    grid-column: 2 / 4
-
-    .roomListItem
-      @include theme-aware('background-color', 'roomListItem-background-color')
-      border-radius: 0.25em
-      padding: 1em
-      margin-top: 1em
-      height: 5em
-      width: 80vw
-      display: flex
-      flex-direction: row
-      align-items: center
-      justify-content: space-between
-      max-width: 90%
-      box-shadow: 12.5px 12.5px 12.5px rgba(0, 0, 0, 0.15), 100px 100px 100px rgba(0, 0, 0, 0.075)
-      overflow: hidden
-    &:hover
-      transform: scale(1.05)
-      filter: brightness(1.1)
-
-    &:hover
-      filter: brightness(1.2)
-      transform: scale(1.02)
-
-    .nameMessage
-      padding-left: 0.5rem
-      text-decoration: none
-      flex: 60%
-
-      .roomLink
-        @include theme-aware('color', 'roomLink-color')
-        text-decoration: none
-        font-family: Bevan
-        font-size: 1em
-
-    .iconTime
-      @include theme-aware('color', 'roomLink-color')
-      display: flex
-      flex-direction: column
-      justify-content: center
-      align-items: start
-      font-family: Bevan
-      font-size: 0.7rem
-      flex: 40%
-
-      .lastMessage
-        @include theme-aware('color', 'roomLink-message-color')
-        font-family: Bevan
-        font-size: 1em
-        margin: 0
-        padding-top: 0.5em
-        overflow: hidden
-        max-height: 5em
-
-body
+body, html
   @include theme-aware('background-color', 'body-background-color')
   height: 100%
 
-  .notification
-    @include notification.notification()
+  #root
+    // position: absolute
+    // top: 0
+    // bottom: 0
+    height: 100%
+    display: flex
+    flex-direction: column
 
-  button
+    .roomViewContainer
+      display: flex
+      flex: 1
+      height: 80%
+      flex-direction: column
+      align-items: center
+
+  .button
     @include buttons-hover-effect
 
   .topBar
     @include topBar()
 
-  .header
-    grid-row-start: 1
+  .notification
+    @include notification.notification()
 
-  .viewContainer
-    // @include theme-aware('background-color', 'body-background-color')
-    // display: flex
-    display: grid
-    grid-template-rows: 1fr 1fr
-    grid-row: 2
-    grid-column: 2 / 4
-    // flex-direction: column
-    // overflow-y: auto
-    // overflow: auto
+  .roomListContainer
+    display: flex
+    flex-direction: column
+    align-items: center
 
-    // align-items: center
+  .roomList
+    @include rooms.roomList()
 
-    .roomList
-      @include rooms.roomList()
+  .room
+    @include room.room()
 
-    .room
-      @include room.room()
+  .loginForm
+    @include login.login()
 
-    .loginForm
-      @include login.login()
+  .settings
+    @include settings.settings()
 
-    .settings
-      @include settings.settings()
-
-    .infoContainer
-      @include infocomponent.info()
+  .infoContainer
+    @include infocomponent.info()

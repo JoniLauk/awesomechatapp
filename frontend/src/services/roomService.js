@@ -9,3 +9,10 @@ export const getAll = async () => {
   });
   return response.data;
 };
+
+export const getRoomName = async (id) => {
+  const response = await axios.get(`${url}/${id}`, {
+    headers: { authorization: `bearer ${getToken()}` },
+  });
+  return response.data;
+};

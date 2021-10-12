@@ -13,59 +13,57 @@
 	align-items: center
 	box-shadow: 12.5px 12.5px 12.5px rgba(0, 0, 0, 0.15), 100px 100px 100px rgba(0, 0, 0, 0.075)
 	@media (min-width: 800px)
-		// max-width: 1100px
+		max-width: 1100px
 
 	.roomListItem
 		@include theme-aware('background-color', 'roomListItem-background-color')
+		@include buttons-hover-effect
 		border-radius: 0.25em
-		padding: 1em
+		padding: 0.5em 0.5em 0.25em 0
 		margin-top: 1em
-		height: 5em
-		width: 100vw
+		min-height: 5em
+		width: 70vw
 		display: flex
 		flex-direction: row
-		align-items: center
-		justify-content: space-between
-		max-width: 90%
 		box-shadow: 12.5px 12.5px 12.5px rgba(0, 0, 0, 0.15), 100px 100px 100px rgba(0, 0, 0, 0.075)
-		overflow: hidden
+
 		&:hover
 			transform: scale(1.05)
-			filter: brightness(1.1)
 
-		&:hover
-			filter: brightness(1.2)
-			transform: scale(1.02)
+		@media (min-width: 800px)
+			max-width: 70%
 
-		.nameMessage
-			padding-left: 0.5rem
-			text-decoration: none
-			flex: 60%
+	.nameMessage
+		flex: 2
+		padding-left: 1rem
 
-			.roomLink
-				@include theme-aware('color', 'roomLink-color')
-				text-decoration: none
-				font-family: Bevan
-				font-size: 1em
+	.roomLink
+		@include theme-aware('color', 'roomLink-color')
+		text-decoration: none
+		font-family: Bevan
+		font-size: 1em
 
-		.iconTime
-			@include theme-aware('color', 'roomLink-color')
-			display: flex
-			flex-direction: column
-			justify-content: center
-			align-items: start
-			font-family: Bevan
-			font-size: 0.7rem
-			flex: 40%
+	.roomList:visited
+		@include theme-aware('color', 'roomLink-color')
+		text-decoration: none
+		font-family: Bevan
+		font-size: 1em
 
-			.lastMessage
-				@include theme-aware('color', 'roomLink-message-color')
-				font-family: Bevan
-				font-size: 1em
-				margin: 0
-				padding-top: 0.5em
-				overflow: hidden
-				max-height: 5em
+	.lastMessage
+		@include theme-aware('color', 'roomLink-message-color')
+		font-family: Bevan
+		font-size: 1em
+		margin: 0
+
+	.iconTime
+		@include theme-aware('color', 'roomLink-color')
+		display: flex
+		flex-direction: row
+		justify-content: center
+		font-family: Bevan
+		font-size: 0.7rem
+		align-items: center
+		flex: 1
 
 .newRoomButton
 	display: flex

@@ -7,6 +7,7 @@ import React, {
 } from 'react';
 import { ObjectId } from 'bson';
 import { getAllMessagesForRoom } from '../services/messageService';
+import { getRoomName } from '../services/roomService';
 import { SocketContext } from '../context/socket';
 import { getUserId, getUser, handleNotification } from '../utils/utils';
 import './stylesheets/room.css';
@@ -27,16 +28,17 @@ import { Nav } from './Nav';
  * @param {*} param0
  * @returns Room component
  */
-function Room() {
+function Room({ roomProps }) {
   const [messages, setMessages] = useState([]);
   const [connectedUsers, setConnectedUsers] = useState([]);
   const [messageContent, setMessageContent] = useState('');
-  const [showInfo, setShowInfo] = useState(false);
   const [not, setNot] = useState(false);
   const [notContent, setNotContent] = useState('');
   const socket = useContext(SocketContext);
   const history = useHistory();
   const messagesEndRef = useRef(null);
+
+  const { setRoomName, setShowInfo, showInfo } = roomProps;
 
   const roomId = useParams();
 
@@ -67,6 +69,8 @@ function Room() {
   useEffect(() => {
     const getMessages = async () => {
       const response = await getAllMessagesForRoom(roomId.id);
+      const roomName = await getRoomName(roomId.id);
+      setRoomName(roomName.name);
       setMessages(response);
       return () => {
         setMessages([]);
@@ -74,7 +78,7 @@ function Room() {
     };
 
     getMessages();
-  }, [roomId]);
+  }, [roomId, setRoomName]);
 
   /**
    * Listens for events fired from the server. Calls either handleNewMessage or
@@ -230,7 +234,7 @@ function Room() {
   });
 
   return (
-    <div className="viewContainer">
+    <div className="roomViewContainer">
       <div className="room">
         <ul className="chat">
           {messageItems}
