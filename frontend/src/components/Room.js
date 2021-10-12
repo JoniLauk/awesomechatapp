@@ -191,52 +191,51 @@ function Room({ roomProps }) {
     messagesEndRef.current.scrollIntoView({ behavior: 'auto' });
   };
 
-  const handleUserArray = () => {
-    setShowInfo(!showInfo);
-  };
+  // const handleUserArray = () => {
+  //   setShowInfo(!showInfo);
+  // };
 
-  function checkURL(url) {
-    if (typeof url !== 'string') return false;
-    return url.match(/\.(jpg|jpeg|gif|png)$/) != null;
-  }
+  // function checkURL(url) {
+  //   if (typeof url !== 'string') return false;
+  //   return url.match(/\.(jpg|jpeg|gif|png)$/) != null;
+  // }
 
-  const messageItems = messages.map((x) => {
-    if (checkURL(x.content)) {
+  const checkIfImageExists = (message) => {
+    const img = new Image();
+    img.src = message.content;
+    if (img.complete) {
       return (
-        <li
-          className={x.user === getUser() ? 'sentMessage' : 'receivedMessage'}
-          key={x._id}
-        >
-          <div
-            className="messageMenu"
-            onClick={() => {
-              emitMessageDel(x);
-            }}
-          >
-            <FaTrashAlt />
-          </div>
-          <div className="fromUser">
-            <p>{x.user === getUser() ? '' : x.user}</p>
-            <img style={{ maxWidth: '100%' }} alt="" src={x.content}></img>
-          </div>
-        </li>
-      );
-    } else {
-      return (
-        <li
-          className={x.user === getUser() ? 'sentMessage' : 'receivedMessage'}
-          key={x._id}
-        >
-          <div className="messageMenu" onClick={() => emitMessageDel(x)}>
-            <FaTrashAlt />
-          </div>
-          <div className="fromUser">{x.user === getUser() ? '' : x.user}</div>
-          <div>{x.content}</div>
-        </li>
+        <img
+          style={{ maxWdith: '100%' }}
+          src={message.content}
+          alt={message.content}
+        />
       );
     }
-  });
+    return <p>{message.content}</p>;
+  };
 
+  const messageItems = messages.map((x) => {
+    return (
+      <li
+        className={x.user === getUser() ? 'sentMessage' : 'receivedMessage'}
+        key={x._id}
+      >
+        <div
+          className="messageMenu"
+          onClick={() => {
+            emitMessageDel(x);
+          }}
+        >
+          <FaTrashAlt />
+        </div>
+        <div className="fromUser">
+          <p>{x.user === getUser() ? '' : x.user}</p>
+          {checkIfImageExists(x)}
+        </div>
+      </li>
+    );
+  });
   return (
     <div className="roomViewContainer">
       <div className="room">
