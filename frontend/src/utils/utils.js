@@ -33,6 +33,10 @@ export const removeToken = () => {
   window.localStorage.removeItem('token');
 };
 
+export const removeColorScheme = () => {
+  window.localStorage.removeItem('currentTheme');
+};
+
 export const setColorScheme = (scheme) => {
   window.localStorage.setItem('colorScheme', scheme);
 };

@@ -1,14 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, useHistory } from 'react-router-dom';
-import { FaChevronLeft, FaMoon, FaUser } from 'react-icons/fa';
-import { logIn } from '../services/userService';
-import { setToken, getUser, removeToken } from '../utils/utils';
-import { ReactDOM } from 'react';
+import { deleteAccount } from '../services/userService';
+import {
+  getUser,
+  removeToken,
+  getUserId,
+  handleNotification,
+  removeColorScheme,
+} from '../utils/utils';
 import { ChangePassword } from './ChangePassword';
+import { Notification } from './Notification';
 
 function Settings({ setRoomName }) {
   const history = useHistory();
   const [user, setUser] = useState(getUser());
+  const [userId, setUserId] = useState(getUserId());
+  const [not, setNot] = useState(false);
+  const [notContent, setNotContent] = useState('');
   const myStorage = window.localStorage;
   const [isChangePasswordVisible, setIsChangePasswordVisible] = useState(false);
   const [currentTheme, setCurrentTheme] = useState(
@@ -22,7 +30,41 @@ function Settings({ setRoomName }) {
   const logout = () => {
     setUser(null);
     removeToken();
+    removeColorScheme();
     history.push('/login');
+  };
+
+  const deleteCurrentAccount = async (event) => {
+    if (window.confirm('Are you sure you wish to delete this item?')) {
+      try {
+        await deleteAccount({
+          userId,
+        });
+        setUser(null);
+        removeToken();
+        removeColorScheme();
+        history.push('/login');
+        handleNotification(
+          {
+            message: `Account deleted successfully.`,
+            type: 'success',
+          },
+          setNot,
+          setNotContent
+        );
+      } catch (error) {
+        if (error.response.data.errors) {
+          handleNotification(
+            {
+              message: 'Error',
+              type: 'error',
+            },
+            setNot,
+            setNotContent
+          );
+        }
+      }
+    }
   };
 
   const handleTheme = (event) => {
@@ -42,6 +84,7 @@ function Settings({ setRoomName }) {
     if (user) {
       return (
         <div>
+          {not ? <Notification message={notContent} /> : ''}
           <div className="settings">
             <h2>Choose a theme</h2>
             <select
@@ -61,6 +104,9 @@ function Settings({ setRoomName }) {
             </button>
             <button className="settingsButton" onClick={logout}>
               Logout
+            </button>
+            <button className="settingsButton" onClick={deleteCurrentAccount}>
+              Delete account
             </button>
           </div>
           <ChangePassword

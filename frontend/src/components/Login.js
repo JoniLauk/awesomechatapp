@@ -77,13 +77,8 @@ function Login() {
   };
 
   return (
-    <div className="viewContainer">
+    <div>
       {not ? <Notification message={notContent}></Notification> : ''}
-      <div className="topBar">
-        <div></div>
-        <div>AWESOMECHATAPP</div>
-        <div className="rightIcon"></div>
-      </div>
       <div>
         <form className="loginForm" onSubmit={handleLogin}>
           <div className="loginFormDiv">

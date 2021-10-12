@@ -72,9 +72,11 @@ body .topBar, html .topBar {
 }
 body .topBar :nth-child(1), html .topBar :nth-child(1) {
   padding-left: 1em;
+  padding-right: 0;
 }
 body .topBar :nth-child(3), html .topBar :nth-child(3) {
   padding-right: 1em;
+  padding-left: 0;
 }
 body .notification, html .notification {
   font-family: Roboto Slab;
@@ -674,9 +676,9 @@ body .changePassword, html .changePassword {
   align-items: center;
   position: absolute;
   top: 15vh;
-  left: 10vw;
+  left: 20vw;
   height: 65vh;
-  width: 80vw;
+  width: 60vw;
   border-radius: 1em;
   border: none;
   box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15);

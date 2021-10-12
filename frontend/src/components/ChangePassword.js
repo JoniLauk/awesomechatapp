@@ -14,10 +14,6 @@ export const ChangePassword = ({
   const [not, setNot] = useState(false);
   const [notContent, setNotContent] = useState('');
 
-  useEffect(() => {
-    console.log({ isChangePasswordVisible });
-  }, []);
-
   const handlePassword = (event) => {
     event.preventDefault();
     setPassword(event.target.value);

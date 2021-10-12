@@ -128,8 +128,8 @@ usersRouter.put('/', validatePasswords, async (req, res) => {
  * @param {string} res Express delete result
  * @example usersRouter.delete('/:id',
  */
-usersRouter.delete('/:id', async (req, res) => {
-  await User.findByIdAndDelete(req.params.id);
+usersRouter.post('/delete', async (req, res) => {
+  await User.deleteOne({ _id: req.body.userId });
   return res.status(204).end();
 });
 
