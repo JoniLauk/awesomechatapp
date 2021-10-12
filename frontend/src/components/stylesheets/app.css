@@ -148,6 +148,7 @@ body .roomList .roomListItem, html .roomList .roomListItem {
   display: flex;
   flex-direction: row;
   box-shadow: 12.5px 12.5px 12.5px rgba(0, 0, 0, 0.15), 100px 100px 100px rgba(0, 0, 0, 0.075);
+  overflow: hidden;
 }
 .theme-nightly body .roomList .roomListItem, .theme-nightly html .roomList .roomListItem {
   background-color: #242e42;
@@ -161,6 +162,10 @@ body .roomList .roomListItem:hover, html .roomList .roomListItem:hover {
 }
 body .roomList .roomListItem:hover, html .roomList .roomListItem:hover {
   transform: scale(1.05);
+}
+body .roomList .roomListItem:hover:hover, html .roomList .roomListItem:hover:hover {
+  filter: brightness(1.2);
+  cursor: pointer;
 }
 @media (min-width: 800px) {
   body .roomList .roomListItem, html .roomList .roomListItem {
@@ -263,7 +268,21 @@ body .room .chat::-webkit-scrollbar, html .room .chat::-webkit-scrollbar {
     max-width: 1100px;
   }
 }
+body .room .chat .messageContent, html .room .chat .messageContent {
+  margin: 0;
+}
+body .room .chat .userName, html .room .chat .userName {
+  margin: 0 0 0.5em 0;
+  font-size: 0.9em;
+}
+.theme-nightly body .room .chat .userName, .theme-nightly html .room .chat .userName {
+  color: #8bb7ca;
+}
+.theme-brome body .room .chat .userName, .theme-brome html .room .chat .userName {
+  color: #d77a61;
+}
 body .room .chat img, html .room .chat img {
+  margin-top: 0.5em;
   border-radius: 1em;
 }
 body .room .chat .sentMessage, html .room .chat .sentMessage {
@@ -275,6 +294,7 @@ body .room .chat .sentMessage, html .room .chat .sentMessage {
   min-height: 2em;
   min-width: 3em;
   height: fit-content;
+  min-height: fit-content;
   align-self: flex-end;
   font-family: Roboto Slab;
   box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15);

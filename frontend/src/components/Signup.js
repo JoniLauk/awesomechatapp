@@ -62,11 +62,6 @@ function Signup() {
   return (
     <div className="viewContainer">
       {not ? <Notification message={notContent} /> : ''}
-      <div className="topBar">
-        <div></div>
-        <div>AWESOMECHATAPP</div>
-        <div className="rightIcon"></div>
-      </div>
       <div>
         <form className="loginForm" onSubmit={handleSignup}>
           <div className="loginFormDiv">

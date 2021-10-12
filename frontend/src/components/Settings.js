@@ -20,6 +20,7 @@ function Settings({ setRoomName }) {
   const logout = () => {
     setUser(null);
     removeToken();
+    setRoomName('AWESOMECHATAPP');
     history.push('/login');
   };
 

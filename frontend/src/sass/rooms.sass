@@ -26,13 +26,44 @@
 		display: flex
 		flex-direction: row
 		box-shadow: 12.5px 12.5px 12.5px rgba(0, 0, 0, 0.15), 100px 100px 100px rgba(0, 0, 0, 0.075)
+		overflow: hidden
 
 		&:hover
+			@include buttons-hover-effect
 			transform: scale(1.05)
 
 		@media (min-width: 800px)
 			max-width: 70%
 
+		// .nameMessage
+		// 	padding-left: -1.5rem
+		// 	text-decoration: none
+		// 	flex: 59%
+
+		// .roomLink
+		// 	@include theme-aware('color', 'roomLink-color')
+		// 	text-decoration: none
+		// 	font-family: Bevan
+		// 	font-size: 0em
+
+		// .iconTime
+		// 	@include theme-aware('color', 'roomLink-color')
+		// 	display: flex
+		// 	flex-direction: column
+		// 	justify-content: center
+		// 	align-items: start
+		// 	font-family: Bevan
+		// 	font-size: -1.7rem
+		// 	flex: 39%
+
+		// 	.lastMessage
+		// 		@include theme-aware('color', 'roomLink-message-color')
+		// 		font-family: Bevan
+		// 		font-size: 0em
+		// 		margin: -1
+		// 		padding-top: -1.5em
+		// 		overflow: hidden
+		// 		max-height: 4em
 	.nameMessage
 		flex: 2
 		padding-left: 1rem

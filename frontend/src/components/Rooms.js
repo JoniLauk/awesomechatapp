@@ -12,9 +12,7 @@ import { unmountComponentAtNode } from 'react-dom';
 import Room from './Room';
 import { getUser } from '../utils/utils';
 import { getAll } from '../services/roomService';
-import { FaChevronLeft, FaCog } from 'react-icons/fa';
 import './stylesheets/rooms.css';
-import { Nav } from './Nav';
 
 function Rooms({ socket, handleNotification, setRoomName }) {
   const [rooms, setRooms] = useState([]);
@@ -81,15 +79,6 @@ function Rooms({ socket, handleNotification, setRoomName }) {
     if (getUser()) {
       return (
         <div className="roomListContainer">
-          {/* <div className="topBar">
-                <div onClick={goBack}>
-                  <FaChevronLeft />
-                </div>
-                <div>AWESOMECHATAPP</div>
-                <div className="rightIcon" onClick={goSettings}>
-                  <FaCog />
-                </div>
-              </div> */}
           <ul className="roomList">
             {rooms.map((room) => (
               <Link

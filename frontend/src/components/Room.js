@@ -212,7 +212,7 @@ function Room({ roomProps }) {
         />
       );
     }
-    return <p>{message.content}</p>;
+    return <p className="messageContent">{message.content}</p>;
   };
 
   const messageItems = messages.map((x) => {
@@ -230,7 +230,7 @@ function Room({ roomProps }) {
           <FaTrashAlt />
         </div>
         <div className="fromUser">
-          <p>{x.user === getUser() ? '' : x.user}</p>
+          {x.user === getUser() ? '' : <p className="userName">{x.user}</p>}
           {checkIfImageExists(x)}
         </div>
       </li>
