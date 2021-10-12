@@ -13,7 +13,6 @@ export const getAllMessagesForRoom = async (roomId) => {
     params: { roomId },
     headers: { authorization: `bearer ${getToken()}` },
   });
-  console.log(response);
   return response.data;
 };
 

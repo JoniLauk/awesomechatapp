@@ -11,27 +11,27 @@ import './stylesheets/infocomponent.css';
  * @returns InfoComponent
  */
 export const InfoComponent = (props) => {
+  const testArr = () => {
+    let arr = [];
+    for (let i = 0; i < 100; i++) {
+      arr.push(i);
+    }
+    return arr;
+  };
+
+  const arr = testArr();
+
   const { setShowInfo, connectedUsers, roomName } = props;
+  console.log(connectedUsers);
   return (
-    <div className="viewContainer">
-      <div className="topBar">
-        <div>
-          <FaChevronLeft onClick={() => setShowInfo()} />
-        </div>
-        <div className="roomName">{roomName}</div>
-        <div className="rightIcon">
-          <FaInfoCircle />
-        </div>
-      </div>
-      <div className="infoContainer">
-        <h2>Info</h2>
-        <h3>Connected users:</h3>
-        <ul>
-          {connectedUsers.map((x) => (
-            <li key={x.id}>{x.username}</li>
-          ))}
-        </ul>
-      </div>
+    <div className="infoContainer">
+      <h1>Info</h1>
+      <h2>Connected users:</h2>
+      <ul>
+        {connectedUsers.map((x) => (
+          <li>{x.username}</li>
+        ))}
+      </ul>
     </div>
   );
 };

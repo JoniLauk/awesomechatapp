@@ -80,10 +80,8 @@ function Rooms({ socket, handleNotification, setRoomName }) {
   const conditionalRender = () => {
     if (getUser()) {
       return (
-        <div>
-          <div id="roomList">
-            <div className="viewContainer">
-              {/* <div className="topBar">
+        <div className="roomListContainer">
+          {/* <div className="topBar">
                 <div onClick={goBack}>
                   <FaChevronLeft />
                 </div>
@@ -92,34 +90,30 @@ function Rooms({ socket, handleNotification, setRoomName }) {
                   <FaCog />
                 </div>
               </div> */}
-              <ul className="roomList">
-                {rooms.map((room) => (
-                  <Link
-                    className="roomListItem"
-                    to={`${match.url}/${room.id}`}
-                    key={room.id}
-                    onClick={() => setRoomName(room.name)}
-                  >
-                    <div className="nameMessage">
-                      <Link className="roomLink" to={`${match.url}/${room.id}`}>
-                        {room.name}
-                      </Link>
-                    </div>
-                    <div className="iconTime">
-                      <p className="lastMessage">
-                        {getNewestMessageForRoom(room)}
-                      </p>
-                      <p>{getNewesMessagesDateForRoom(room)}</p>
-                    </div>
+          <ul className="roomList">
+            {rooms.map((room) => (
+              <Link
+                className="roomListItem"
+                to={`${match.url}/${room.id}`}
+                key={room.id}
+                onClick={() => setRoomName(room.name)}
+              >
+                <div className="nameMessage">
+                  <Link className="roomLink" to={`${match.url}/${room.id}`}>
+                    {room.name}
                   </Link>
-                ))}
-              </ul>
-              <div className="newRoomButton">
-                <button className="newRoom" onClick={handleNewRoomButton}>
-                  New Room
-                </button>
-              </div>
-            </div>
+                </div>
+                <div className="iconTime">
+                  <p className="lastMessage">{getNewestMessageForRoom(room)}</p>
+                  <p>{getNewesMessagesDateForRoom(room)}</p>
+                </div>
+              </Link>
+            ))}
+          </ul>
+          <div className="newRoomButton">
+            <button className="newRoom" onClick={handleNewRoomButton}>
+              New Room
+            </button>
           </div>
           <Switch>{getRoutes}</Switch>
         </div>
