@@ -17,6 +17,7 @@ import './components/stylesheets/app.css';
  */
 export default function App() {
   const [roomName, setRoomName] = useState('');
+  const [currentUser, setCurrentUser] = useState({});
   const [showInfo, setShowInfo] = useState(false);
   const myStorage = window.localStorage;
 
@@ -33,6 +34,14 @@ export default function App() {
     );
   });
 
+  useEffect(() => {
+    setCurrentUser(getUser());
+  }, []);
+
+  useEffect(() => {
+    setRoomName('AWESOMECHATAPP');
+  }, [setRoomName]);
+
   const roomProps = {
     setRoomName,
     showInfo,
@@ -41,6 +50,7 @@ export default function App() {
 
   const navProps = {
     roomName,
+    setRoomName,
     setShowInfo,
     showInfo,
   };
@@ -51,7 +61,7 @@ export default function App() {
         <Nav navProps={navProps} />
         <Switch>
           <Route path="/settings">
-            {getUser() ? (
+            {currentUser ? (
               <Settings setRoomName={setRoomName} />
             ) : (
               <Redirect to="/login" />
@@ -61,7 +71,7 @@ export default function App() {
             <Room roomProps={roomProps} />
           </Route>
           <Route path="/rooms">
-            {getUser() ? (
+            {currentUser ? (
               <Rooms setRoomName={setRoomName} />
             ) : (
               <Redirect to="/login" />
