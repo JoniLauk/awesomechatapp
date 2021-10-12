@@ -10,7 +10,6 @@ import {
 } from 'react-router-dom';
 import { unmountComponentAtNode } from 'react-dom';
 import Room from './Room';
-import { NewRoomForm } from './NewRoomForm';
 import { getUser } from '../utils/utils';
 import { getAll } from '../services/roomService';
 import { FaChevronLeft, FaCog } from 'react-icons/fa';
