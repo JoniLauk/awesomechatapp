@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { FaChevronLeft, FaCog, FaInfoCircle, FaTimes } from 'react-icons/fa';
 
