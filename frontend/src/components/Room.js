@@ -229,8 +229,8 @@ function Room({ roomProps }) {
         >
           <FaTrashAlt />
         </div>
-        <div className="fromUser">
-          <p>{x.user === getUser() ? '' : x.user}</p>
+        <div>
+          <p className="fromUser">{x.user === getUser() ? '' : x.user}</p>
           {checkIfImageExists(x)}
         </div>
       </li>

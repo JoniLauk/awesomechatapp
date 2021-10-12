@@ -118,7 +118,6 @@ usersRouter.put('/', validatePasswords, async (req, res) => {
     res.json(returned.toJSON());
   } catch (err) {
     res.sendStatus(404);
-    console.log(err);
   }
 });
 

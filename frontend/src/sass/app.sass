@@ -26,18 +26,12 @@
 @mixin viewContainer()
   display: flex
   flex-direction: column
-<<<<<<< HEAD
-  
-  // overflow: auto
-
-body
-=======
   min-height: 100vh
   overflow: auto
 
 body, html
->>>>>>> matias_dev
   @include theme-aware('background-color', 'body-background-color')
+  height: 100%
 
   #root
     // position: absolute
@@ -66,15 +60,6 @@ body, html
   .roomListContainer
     display: flex
     flex-direction: column
-<<<<<<< HEAD
-        // position: absolute
-    // top: 0
-    // right: 0
-    // left: 0
-    // bottom: 0
-    // overflow: auto
-=======
->>>>>>> matias_dev
     align-items: center
 
   .roomList
@@ -89,14 +74,9 @@ body, html
   .settings
     @include settings.settings()
 
-<<<<<<< HEAD
-    .infoContainer
-      @include infocomponent.info()
-
-    .changePassword
-      @include changePassword.changePassword()
-      
-=======
   .infoContainer
     @include infocomponent.info()
->>>>>>> matias_dev
+
+  .changePassword
+    @include changePassword.changePassword()
+  

@@ -5,7 +5,6 @@ import { logIn } from '../services/userService';
 import { setToken, getUser, removeToken } from '../utils/utils';
 import { ReactDOM } from 'react';
 import { ChangePassword } from './ChangePassword';
-import { Notification } from './Notification';
 
 function Settings({ setRoomName }) {
   const history = useHistory();
@@ -42,7 +41,7 @@ function Settings({ setRoomName }) {
   const conditionalRender = () => {
     if (user) {
       return (
-        <div className="viewContainer">
+        <div>
           <div className="settings">
             <h2>Choose a theme</h2>
             <select
