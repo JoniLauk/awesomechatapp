@@ -4,6 +4,7 @@
 @use 'settings'
 @use 'infocomponent'
 @use 'notification'
+@use 'changePassword'
 @import '_mixins'
 
 @mixin topBar()
@@ -76,3 +77,7 @@ body
 
     .infoContainer
       @include infocomponent.info()
+
+    .changePassword
+      @include changePassword.changePassword()
+      

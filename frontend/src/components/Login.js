@@ -54,7 +54,7 @@ function Login() {
       resetCreds();
       history.push('/rooms');
     } catch (error) {
-      if (error.response) {
+      if (error.response.data.error) {
         handleNotification(
           {
             message: error.response.data.error,

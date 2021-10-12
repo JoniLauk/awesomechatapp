@@ -5,6 +5,7 @@ const User = require('../models/user');
 // const bodyParser = require('body-parser');
 // const mongoSanitize = require('express-mongo-sanitize');
 const { validateUser } = require('../validators/userValidator');
+const { validatePasswords } = require('../validators/pwchangeValidator');
 const { response } = require('express');
 // usersRouter.use(bodyParser.urlencoded({ extended: true }));
 // usersRouter.use(bodyParser.json());
@@ -98,16 +99,26 @@ usersRouter.post('/', validateUser, async (req, res) => {
  * @param {string} res Express put result
  * @example usersRouter.put('/:id',
  */
-usersRouter.put('/:id', async (req, res) => {
+usersRouter.put('/', validatePasswords, async (req, res) => {
   // Todo err handling
   const { body } = req;
+  console.log(body);
+
+  const saltRounds = 10;
+  const passwordHash = await bcrypt.hash(body.newPassword, saltRounds);
+
   try {
-    const returned = await User.findByIdAndUpdate(req.params.id, body, {
-      new: true,
-    });
+    const returned = await User.findOneAndUpdate(
+      { username: body.user },
+      { passwordHash: passwordHash },
+      {
+        new: true,
+      }
+    );
     res.json(returned.toJSON());
   } catch (err) {
     res.sendStatus(404);
+    console.log(err);
   }
 });
 

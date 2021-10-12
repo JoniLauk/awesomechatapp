@@ -5,11 +5,13 @@ import { logIn } from '../services/userService';
 import { setToken, getUser, removeToken } from '../utils/utils';
 import { ReactDOM } from 'react';
 import { ChangePassword } from './ChangePassword';
+import { Notification } from './Notification';
 
 function Settings({ setRoomName }) {
   const history = useHistory();
   const [user, setUser] = useState(getUser());
   const myStorage = window.localStorage;
+  const [isChangePasswordVisible, setIsChangePasswordVisible] = useState(false);
   const [currentTheme, setCurrentTheme] = useState(
     myStorage.getItem('currentTheme')
   );
@@ -33,9 +35,8 @@ function Settings({ setRoomName }) {
     );
   };
 
-  const handlePasswordChangeButton = async (event) => {
-    event.preventDefault();
-    return <ChangePassword />;
+  const handlePasswordChangeButton = () => {
+    setIsChangePasswordVisible(true);
   };
 
   const conditionalRender = () => {
@@ -63,6 +64,10 @@ function Settings({ setRoomName }) {
               Logout
             </button>
           </div>
+          <ChangePassword
+            setIsChangePasswordVisible={setIsChangePasswordVisible}
+            isChangePasswordVisible={isChangePasswordVisible}
+          />
         </div>
       );
     } else {
