@@ -47,9 +47,11 @@ function Room({ roomProps }) {
    */
   const handleNewMessages = useCallback(
     (data) => {
+      console.log('hnm');
       setMessages([...messages, data]);
+      socket.off('message:received');
     },
-    [messages]
+    [messages, socket]
   );
 
   /**
@@ -58,8 +60,9 @@ function Room({ roomProps }) {
   const handleMessageDelete = useCallback(
     (data) => {
       setMessages(messages.filter((m) => m._id !== data._id));
+      socket.off('message:removed');
     },
-    [messages]
+    [messages, socket]
   );
 
   /**
@@ -85,6 +88,8 @@ function Room({ roomProps }) {
    * handleMessageDelete callback functions based on the event received.
    */
   useEffect(() => {
+    socket.off('message:received');
+    socket.off('message:removed');
     socket.once('message:received', (data) => handleNewMessages(data));
     socket.once('message:removed', (data) => handleMessageDelete(data));
     return () => {
@@ -148,7 +153,6 @@ function Room({ roomProps }) {
 
       setMessageContent('');
       socket.emit('message:create', newMessage);
-      setMessages([...messages, newMessage]);
       setTimeout(() => {
         scrollToBottom();
       }, 10);
