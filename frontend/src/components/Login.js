@@ -13,12 +13,10 @@ function Login() {
   const [notContent, setNotContent] = useState('');
   const history = useHistory();
 
-  /**
-   * If user is logged in redirect to /rooms.
-   */
   useEffect(() => {
+    setUser(getUser());
     if (user) history.push('/rooms');
-  });
+  }, [history, user]);
 
   /**
    * Hanldes username field in the login form. Adds username
@@ -79,11 +77,6 @@ function Login() {
   return (
     <div className="viewContainer">
       {not ? <Notification message={notContent}></Notification> : ''}
-      <div className="topBar">
-        <div></div>
-        <div>AWESOMECHATAPP</div>
-        <div className="rightIcon"></div>
-      </div>
       <div>
         <form className="loginForm" onSubmit={handleLogin}>
           <div className="loginFormDiv">
