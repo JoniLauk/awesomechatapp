@@ -2,10 +2,18 @@
 
 @mixin info()
   @include theme-aware('color', 'h2-color')
+  @include theme-aware('background-color', 'topBar-background-color')
+  background-color: pink
   font-family: Roboto Slab
   display: flex
   flex-direction: column
   align-items: center
+  position: absolute
+  right: 0
+  width: 30vw
+  border-radius: 0em 0em 1em 1em
+  max-height: 50vh
+  overflow: auto
 
   ul
     padding: 0
