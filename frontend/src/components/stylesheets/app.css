@@ -607,12 +607,13 @@ body .infoContainer, html .infoContainer {
   border-radius: 0em 0em 1em 1em;
   max-height: 50vh;
   overflow: auto;
+  padding-bottom: 2em;
 }
 .theme-nightly body .infoContainer, .theme-nightly html .infoContainer {
   color: #fff;
 }
 .theme-brome body .infoContainer, .theme-brome html .infoContainer {
-  color: #2c5784;
+  color: #fff;
 }
 .theme-nightly body .infoContainer, .theme-nightly html .infoContainer {
   background-color: #434f66;

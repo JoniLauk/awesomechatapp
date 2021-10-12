@@ -1,7 +1,7 @@
 @import '_mixins'
 
 @mixin info()
-  @include theme-aware('color', 'h2-color')
+  @include theme-aware('color', 'message-font-color')
   @include theme-aware('background-color', 'topBar-background-color')
   background-color: pink
   font-family: Roboto Slab
@@ -14,6 +14,7 @@
   border-radius: 0em 0em 1em 1em
   max-height: 50vh
   overflow: auto
+  padding-bottom: 2em
 
   ul
     padding: 0
