@@ -18,6 +18,7 @@ export const changeUserpassword = async (user) => {
 };
 
 export const deleteAccount = async (userId) => {
-  const response = await axios.post(`${url}users/delete`, userId);
+  console.log(userId);
+  const response = await axios.delete(`${url}users/${userId.userId}`);
   return response.data;
 };

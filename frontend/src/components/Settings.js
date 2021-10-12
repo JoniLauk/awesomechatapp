@@ -6,7 +6,7 @@ import {
   removeToken,
   getUserId,
   handleNotification,
-  removeColorScheme,
+  setColorScheme,
 } from '../utils/utils';
 import { ChangePassword } from './ChangePassword';
 import { Notification } from './Notification';
@@ -30,19 +30,17 @@ function Settings({ setRoomName }) {
   const logout = () => {
     setUser(null);
     removeToken();
-    removeColorScheme();
+    setColorScheme('nightly');
     history.push('/login');
   };
 
   const deleteCurrentAccount = async (event) => {
     if (window.confirm('Are you sure you wish to delete this item?')) {
       try {
-        await deleteAccount({
-          userId,
-        });
+        await deleteAccount({ userId });
         setUser(null);
         removeToken();
-        removeColorScheme();
+        setColorScheme('nightly');
         history.push('/login');
         handleNotification(
           {
