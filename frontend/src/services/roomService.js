@@ -16,3 +16,15 @@ export const getRoomName = async (id) => {
   });
   return response.data;
 };
+
+export const addNewRoom = async (name) => {
+  console.log(name);
+  const response = await axios.post(
+    `${url}/`,
+    { name: name.newRoomName },
+    {
+      headers: { authorization: `bearer ${getToken()}` },
+    }
+  );
+  return response.data;
+};

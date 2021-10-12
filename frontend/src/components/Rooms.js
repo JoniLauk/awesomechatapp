@@ -11,16 +11,18 @@ import {
 import { unmountComponentAtNode } from 'react-dom';
 import Room from './Room';
 import { getUser } from '../utils/utils';
-import { getAll } from '../services/roomService';
+import { getAll, addNewRoom } from '../services/roomService';
 import { FaChevronLeft, FaCog } from 'react-icons/fa';
 import './stylesheets/rooms.css';
 import { Nav } from './Nav';
+import { NewRoom } from './NewRoom';
 
 function Rooms({ socket, handleNotification, setRoomName }) {
   const [rooms, setRooms] = useState([]);
   const match = useRouteMatch();
   const history = useHistory();
   const location = useLocation();
+  const [isNewRoomVisible, setNewRoomVisible] = useState(false);
 
   const getRooms = async () => {
     const newRooms = await getAll();
@@ -68,13 +70,12 @@ function Rooms({ socket, handleNotification, setRoomName }) {
     } else return '';
   };
 
-  const handleNewRoomButton = (event) => {
-    event.preventDefault();
-    const newRoom = {
-      name: 'Skiggelssköggels',
-      messages: [],
-    };
-    setRooms([...rooms, newRoom]);
+  const handleNewRoomButton = async (event) => {
+    setNewRoomVisible(true);
+
+    //await addNewRoom('asdf');
+    //const newRooms = await getAll();
+    //setRooms(newRooms);
   };
 
   const conditionalRender = () => {
@@ -116,6 +117,10 @@ function Rooms({ socket, handleNotification, setRoomName }) {
             </button>
           </div>
           <Switch>{getRoutes}</Switch>
+          <NewRoom
+            isNewRoomVisible={isNewRoomVisible}
+            setNewRoomVisible={setNewRoomVisible}
+          />
         </div>
       );
     } else {

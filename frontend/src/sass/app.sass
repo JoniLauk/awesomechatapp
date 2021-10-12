@@ -5,6 +5,7 @@
 @use 'infocomponent'
 @use 'notification'
 @use 'changePassword'
+@use 'newRoom'
 @import '_mixins'
 
 @mixin topBar()
@@ -82,3 +83,5 @@ body, html
   .changePassword
     @include changePassword.changePassword()
   
+  .addNewRoom
+    @include newRoom.newRoom()
