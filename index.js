@@ -136,11 +136,13 @@ app.use('/api/rooms', [tokenExtractor, authenticator], roomRouter);
 app.use('/api/messages', [tokenExtractor, authenticator], messageRouter);
 app.use('/api/users', userRouter);
 
-app.use(express.static(path.join(dirname, 'build')));
-
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(dirname, 'build', 'index.html'));
-});
+if (process.env.NODE_ENV === 'production') {
+  // set static folder
+  app.use(express.static('frontend/build'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+  });
+}
 
 server.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
