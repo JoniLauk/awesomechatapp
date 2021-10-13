@@ -29,7 +29,7 @@
   },
   "nodemonConfig": {
     "env": {
-      "NODE_ENV": "dev"
+      "NODE_ENV": "production"
     }
   }
 }
