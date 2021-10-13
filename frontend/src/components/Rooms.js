@@ -88,9 +88,9 @@ function Rooms({ socket, handleNotification, setRoomName }) {
                 onClick={() => setRoomName(room.name)}
               >
                 <div className="nameMessage">
-                  <Link className="roomLink" to={`${match.url}/${room.id}`}>
+                  <h2 className="roomLink" to={`${match.url}/${room.id}`}>
                     {room.name}
-                  </Link>
+                  </h2>
                 </div>
                 <div className="iconTime">
                   <p className="lastMessage">{getNewestMessageForRoom(room)}</p>
