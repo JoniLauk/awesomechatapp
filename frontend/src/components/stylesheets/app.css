@@ -8,7 +8,8 @@
   border-radius: 0.125em;
   border: none;
   padding: 0.3em 1em;
-  box-shadow: 12.5px 12.5px 12.5px rgba(0, 0, 0, 0.15), 100px 100px 100px rgba(0, 0, 0, 0.075);
+  box-shadow: 12.5px 12.5px 12.5px rgba(0, 0, 0, 0.15),
+    100px 100px 100px rgba(0, 0, 0, 0.075);
 }
 .theme-nightly .newRoomButton .newRoom {
   background-color: #958bca;
@@ -33,35 +34,43 @@
   cursor: pointer;
 }
 
-body, html {
+body,
+html {
   height: 100%;
 }
-.theme-nightly body, .theme-nightly html {
+.theme-nightly body,
+.theme-nightly html {
   background-color: #242e42;
 }
-.theme-brome body, .theme-brome html {
+.theme-brome body,
+.theme-brome html {
   background-color: #f7ede2;
 }
-.theme-peachesncream body, .theme-peachesncream html {
+.theme-peachesncream body,
+.theme-peachesncream html {
   background-color: #ffe8b8;
 }
-body #root, html #root {
+body #root,
+html #root {
   height: 100%;
   display: flex;
   flex-direction: column;
 }
-body #root .roomViewContainer, html #root .roomViewContainer {
+body #root .roomViewContainer,
+html #root .roomViewContainer {
   display: flex;
   flex: 1;
   height: 80%;
   flex-direction: column;
   align-items: center;
 }
-body .button:hover, html .button:hover {
+body .button:hover,
+html .button:hover {
   filter: brightness(1.2);
   cursor: pointer;
 }
-body .topBar, html .topBar {
+body .topBar,
+html .topBar {
   font-family: Bevan;
   font-size: 1.5em;
   display: flex;
@@ -71,33 +80,42 @@ body .topBar, html .topBar {
   min-height: 3em;
   justify-content: space-between;
 }
-.theme-nightly body .topBar, .theme-nightly html .topBar {
+.theme-nightly body .topBar,
+.theme-nightly html .topBar {
   background-color: #434f66;
 }
-.theme-brome body .topBar, .theme-brome html .topBar {
+.theme-brome body .topBar,
+.theme-brome html .topBar {
   background-color: #2c5784;
 }
-.theme-peachesncream body .topBar, .theme-peachesncream html .topBar {
+.theme-peachesncream body .topBar,
+.theme-peachesncream html .topBar {
   background-color: #ffcc99;
 }
-.theme-nightly body .topBar, .theme-nightly html .topBar {
+.theme-nightly body .topBar,
+.theme-nightly html .topBar {
   color: #8bb7ca;
 }
-.theme-brome body .topBar, .theme-brome html .topBar {
+.theme-brome body .topBar,
+.theme-brome html .topBar {
   color: #d77a61;
 }
-.theme-peachesncream body .topBar, .theme-peachesncream html .topBar {
+.theme-peachesncream body .topBar,
+.theme-peachesncream html .topBar {
   color: #fffdd0;
 }
-body .topBar :nth-child(1), html .topBar :nth-child(1) {
+body .topBar :nth-child(1),
+html .topBar :nth-child(1) {
   padding-left: 1em;
   padding-right: 0;
 }
-body .topBar :nth-child(3), html .topBar :nth-child(3) {
+body .topBar :nth-child(3),
+html .topBar :nth-child(3) {
   padding-right: 1em;
   padding-left: 0;
 }
-body .notification, html .notification {
+body .notification,
+html .notification {
   font-family: Roboto Slab;
   display: flex;
   flex-direction: column;
@@ -107,16 +125,20 @@ body .notification, html .notification {
   padding: 0;
   list-style: none;
 }
-.theme-nightly body .notification, .theme-nightly html .notification {
+.theme-nightly body .notification,
+.theme-nightly html .notification {
   color: #fff;
 }
-.theme-brome body .notification, .theme-brome html .notification {
+.theme-brome body .notification,
+.theme-brome html .notification {
   color: #fff;
 }
-.theme-peachesncream body .notification, .theme-peachesncream html .notification {
+.theme-peachesncream body .notification,
+.theme-peachesncream html .notification {
   color: #f67e7d;
 }
-body .notification li, html .notification li {
+body .notification li,
+html .notification li {
   display: flex;
   justify-content: center;
   border-radius: 1em 1em 1em 1em;
@@ -129,21 +151,26 @@ body .notification li, html .notification li {
   height: fit-content;
   box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15);
 }
-.theme-nightly body .notification li, .theme-nightly html .notification li {
+.theme-nightly body .notification li,
+.theme-nightly html .notification li {
   background-color: #434f66;
 }
-.theme-brome body .notification li, .theme-brome html .notification li {
+.theme-brome body .notification li,
+.theme-brome html .notification li {
   background-color: #2c5784;
 }
-.theme-peachesncream body .notification li, .theme-peachesncream html .notification li {
+.theme-peachesncream body .notification li,
+.theme-peachesncream html .notification li {
   background-color: #ffcc99;
 }
-body .roomListContainer, html .roomListContainer {
+body .roomListContainer,
+html .roomListContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-body .roomList, html .roomList {
+body .roomList,
+html .roomList {
   margin: 1.5em 2em;
   border-radius: 0.25em;
   list-style-type: none;
@@ -151,62 +178,79 @@ body .roomList, html .roomList {
   padding: 1em 0 0 0;
   height: 75vh;
   overflow-y: scroll;
-  overflow-x: hidden;
+  overflow-x: auto;
   display: flex;
   align-items: center;
-  box-shadow: 12.5px 12.5px 12.5px rgba(0, 0, 0, 0.15), 100px 100px 100px rgba(0, 0, 0, 0.075);
+  box-shadow: 12.5px 12.5px 12.5px rgba(0, 0, 0, 0.15),
+    100px 100px 100px rgba(0, 0, 0, 0.075);
 }
-.theme-nightly body .roomList, .theme-nightly html .roomList {
+.theme-nightly body .roomList,
+.theme-nightly html .roomList {
   background-color: #958bca;
 }
-.theme-brome body .roomList, .theme-brome html .roomList {
+.theme-brome body .roomList,
+.theme-brome html .roomList {
   background-color: #d77a61;
 }
-.theme-peachesncream body .roomList, .theme-peachesncream html .roomList {
+.theme-peachesncream body .roomList,
+.theme-peachesncream html .roomList {
   background-color: #fffdd0;
 }
-body .roomList::-webkit-scrollbar, html .roomList::-webkit-scrollbar {
+body .roomList::-webkit-scrollbar,
+html .roomList::-webkit-scrollbar {
   border-radius: 7em;
   width: 1rem;
 }
-.theme-nightly body .roomList::-webkit-scrollbar, .theme-nightly html .roomList::-webkit-scrollbar {
+.theme-nightly body .roomList::-webkit-scrollbar,
+.theme-nightly html .roomList::-webkit-scrollbar {
   background: #242e42;
 }
-.theme-brome body .roomList::-webkit-scrollbar, .theme-brome html .roomList::-webkit-scrollbar {
+.theme-brome body .roomList::-webkit-scrollbar,
+.theme-brome html .roomList::-webkit-scrollbar {
   background: #f7ede2;
 }
-.theme-peachesncream body .roomList::-webkit-scrollbar, .theme-peachesncream html .roomList::-webkit-scrollbar {
+.theme-peachesncream body .roomList::-webkit-scrollbar,
+.theme-peachesncream html .roomList::-webkit-scrollbar {
   background: #ffe8b8;
 }
-.theme-nightly body .roomList::-webkit-scrollbar, .theme-nightly html .roomList::-webkit-scrollbar {
+.theme-nightly body .roomList::-webkit-scrollbar,
+.theme-nightly html .roomList::-webkit-scrollbar {
   border: 3px solid #958bca;
 }
-.theme-brome body .roomList::-webkit-scrollbar, .theme-brome html .roomList::-webkit-scrollbar {
+.theme-brome body .roomList::-webkit-scrollbar,
+.theme-brome html .roomList::-webkit-scrollbar {
   border: 3px solid #d77a61;
 }
-.theme-peachesncream body .roomList::-webkit-scrollbar, .theme-peachesncream html .roomList::-webkit-scrollbar {
+.theme-peachesncream body .roomList::-webkit-scrollbar,
+.theme-peachesncream html .roomList::-webkit-scrollbar {
   border: 3px solid #fffdd0;
 }
-body .roomList::-webkit-scrollbar-thumb, html .roomList::-webkit-scrollbar-thumb {
+body .roomList::-webkit-scrollbar-thumb,
+html .roomList::-webkit-scrollbar-thumb {
   border: 5px solid transparent;
   border-radius: 7em;
   background-clip: content-box;
 }
-.theme-nightly body .roomList::-webkit-scrollbar-thumb, .theme-nightly html .roomList::-webkit-scrollbar-thumb {
+.theme-nightly body .roomList::-webkit-scrollbar-thumb,
+.theme-nightly html .roomList::-webkit-scrollbar-thumb {
   background: #958bca;
 }
-.theme-brome body .roomList::-webkit-scrollbar-thumb, .theme-brome html .roomList::-webkit-scrollbar-thumb {
+.theme-brome body .roomList::-webkit-scrollbar-thumb,
+.theme-brome html .roomList::-webkit-scrollbar-thumb {
   background: #d77a61;
 }
-.theme-peachesncream body .roomList::-webkit-scrollbar-thumb, .theme-peachesncream html .roomList::-webkit-scrollbar-thumb {
+.theme-peachesncream body .roomList::-webkit-scrollbar-thumb,
+.theme-peachesncream html .roomList::-webkit-scrollbar-thumb {
   background: #fffdd0;
 }
 @media (min-width: 800px) {
-  body .roomList, html .roomList {
+  body .roomList,
+  html .roomList {
     max-width: 1100px;
   }
 }
-body .roomList .roomListItem, html .roomList .roomListItem {
+body .roomList .roomListItem,
+html .roomList .roomListItem {
   border-radius: 0.25em;
   padding: 0.5em 0.5em 0.25em 0;
   margin: 1em;
@@ -214,68 +258,86 @@ body .roomList .roomListItem, html .roomList .roomListItem {
   width: 70vw;
   display: flex;
   flex-direction: row;
-  box-shadow: 12.5px 12.5px 12.5px rgba(0, 0, 0, 0.15), 100px 100px 100px rgba(0, 0, 0, 0.075);
+  box-shadow: 12.5px 12.5px 12.5px rgba(0, 0, 0, 0.15),
+    100px 100px 100px rgba(0, 0, 0, 0.075);
   overflow: hidden;
   text-decoration: none;
 }
-.theme-nightly body .roomList .roomListItem, .theme-nightly html .roomList .roomListItem {
+.theme-nightly body .roomList .roomListItem,
+.theme-nightly html .roomList .roomListItem {
   background-color: #242e42;
 }
-.theme-brome body .roomList .roomListItem, .theme-brome html .roomList .roomListItem {
+.theme-brome body .roomList .roomListItem,
+.theme-brome html .roomList .roomListItem {
   background-color: #2c5784;
 }
-.theme-peachesncream body .roomList .roomListItem, .theme-peachesncream html .roomList .roomListItem {
+.theme-peachesncream body .roomList .roomListItem,
+.theme-peachesncream html .roomList .roomListItem {
   background-color: #ffe8b8;
 }
-body .roomList .roomListItem:hover, html .roomList .roomListItem:hover {
+body .roomList .roomListItem:hover,
+html .roomList .roomListItem:hover {
   filter: brightness(1.2);
   cursor: pointer;
 }
-body .roomList .roomListItem:hover, html .roomList .roomListItem:hover {
+body .roomList .roomListItem:hover,
+html .roomList .roomListItem:hover {
   transform: scale(1.05);
 }
-body .roomList .roomListItem:hover:hover, html .roomList .roomListItem:hover:hover {
+body .roomList .roomListItem:hover:hover,
+html .roomList .roomListItem:hover:hover {
   filter: brightness(1.2);
   cursor: pointer;
 }
 @media (min-width: 800px) {
-  body .roomList .roomListItem, html .roomList .roomListItem {
+  body .roomList .roomListItem,
+  html .roomList .roomListItem {
     max-width: 70%;
   }
 }
-body .roomList .nameMessage, html .roomList .nameMessage {
+body .roomList .nameMessage,
+html .roomList .nameMessage {
   padding-left: 1rem;
   min-width: 40vw;
 }
-body .roomList .roomLink, html .roomList .roomLink {
+body .roomList .roomLink,
+html .roomList .roomLink {
   text-decoration: none;
   font-family: Bevan;
   font-size: 1em;
 }
-.theme-nightly body .roomList .roomLink, .theme-nightly html .roomList .roomLink {
+.theme-nightly body .roomList .roomLink,
+.theme-nightly html .roomList .roomLink {
   color: #958bca;
 }
-.theme-brome body .roomList .roomLink, .theme-brome html .roomList .roomLink {
+.theme-brome body .roomList .roomLink,
+.theme-brome html .roomList .roomLink {
   color: #d77a61;
 }
-.theme-peachesncream body .roomList .roomLink, .theme-peachesncream html .roomList .roomLink {
+.theme-peachesncream body .roomList .roomLink,
+.theme-peachesncream html .roomList .roomLink {
   color: #f67e7d;
 }
-body .roomList .roomList:visited, html .roomList .roomList:visited {
+body .roomList .roomList:visited,
+html .roomList .roomList:visited {
   text-decoration: none;
   font-family: Bevan;
   font-size: 1em;
 }
-.theme-nightly body .roomList .roomList:visited, .theme-nightly html .roomList .roomList:visited {
+.theme-nightly body .roomList .roomList:visited,
+.theme-nightly html .roomList .roomList:visited {
   color: #958bca;
 }
-.theme-brome body .roomList .roomList:visited, .theme-brome html .roomList .roomList:visited {
+.theme-brome body .roomList .roomList:visited,
+.theme-brome html .roomList .roomList:visited {
   color: #d77a61;
 }
-.theme-peachesncream body .roomList .roomList:visited, .theme-peachesncream html .roomList .roomList:visited {
+.theme-peachesncream body .roomList .roomList:visited,
+.theme-peachesncream html .roomList .roomList:visited {
   color: #f67e7d;
 }
-body .roomList .iconTime, html .roomList .iconTime {
+body .roomList .iconTime,
+html .roomList .iconTime {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -284,52 +346,65 @@ body .roomList .iconTime, html .roomList .iconTime {
   align-items: center;
   overflow: hidden;
 }
-.theme-nightly body .roomList .iconTime, .theme-nightly html .roomList .iconTime {
+.theme-nightly body .roomList .iconTime,
+.theme-nightly html .roomList .iconTime {
   color: #958bca;
 }
-.theme-brome body .roomList .iconTime, .theme-brome html .roomList .iconTime {
+.theme-brome body .roomList .iconTime,
+.theme-brome html .roomList .iconTime {
   color: #d77a61;
 }
-.theme-peachesncream body .roomList .iconTime, .theme-peachesncream html .roomList .iconTime {
+.theme-peachesncream body .roomList .iconTime,
+.theme-peachesncream html .roomList .iconTime {
   color: #f67e7d;
 }
-body .roomList .iconTime .lastMessage, html .roomList .iconTime .lastMessage {
+body .roomList .iconTime .lastMessage,
+html .roomList .iconTime .lastMessage {
   font-family: Bevan;
   font-size: 1em;
   margin: 0;
   max-width: 100%;
 }
-.theme-nightly body .roomList .iconTime .lastMessage, .theme-nightly html .roomList .iconTime .lastMessage {
+.theme-nightly body .roomList .iconTime .lastMessage,
+.theme-nightly html .roomList .iconTime .lastMessage {
   color: #8bb7ca;
 }
-.theme-brome body .roomList .iconTime .lastMessage, .theme-brome html .roomList .iconTime .lastMessage {
+.theme-brome body .roomList .iconTime .lastMessage,
+.theme-brome html .roomList .iconTime .lastMessage {
   color: #fff;
 }
-.theme-peachesncream body .roomList .iconTime .lastMessage, .theme-peachesncream html .roomList .iconTime .lastMessage {
+.theme-peachesncream body .roomList .iconTime .lastMessage,
+.theme-peachesncream html .roomList .iconTime .lastMessage {
   color: #f67e7d;
 }
-body .room, html .room {
+body .room,
+html .room {
   display: flex;
   flex: 1;
   flex-direction: column;
   overflow: hidden;
 }
-.theme-nightly body .room, .theme-nightly html .room {
+.theme-nightly body .room,
+.theme-nightly html .room {
   background-color: #242e42;
 }
-.theme-brome body .room, .theme-brome html .room {
+.theme-brome body .room,
+.theme-brome html .room {
   background-color: #f7ede2;
 }
-.theme-peachesncream body .room, .theme-peachesncream html .room {
+.theme-peachesncream body .room,
+.theme-peachesncream html .room {
   background-color: #ffe8b8;
 }
 @media (min-width: 800px) {
-  body .room, html .room {
+  body .room,
+  html .room {
     display: flex;
     max-width: 1100px;
   }
 }
-body .room .chat, html .room .chat {
+body .room .chat,
+html .room .chat {
   list-style-type: none;
   display: flex;
   flex-direction: column;
@@ -339,78 +414,100 @@ body .room .chat, html .room .chat {
   margin: 0;
   width: 100vw;
 }
-.theme-nightly body .room .chat, .theme-nightly html .room .chat {
+.theme-nightly body .room .chat,
+.theme-nightly html .room .chat {
   color: #fff;
 }
-.theme-brome body .room .chat, .theme-brome html .room .chat {
+.theme-brome body .room .chat,
+.theme-brome html .room .chat {
   color: #fff;
 }
-.theme-peachesncream body .room .chat, .theme-peachesncream html .room .chat {
+.theme-peachesncream body .room .chat,
+.theme-peachesncream html .room .chat {
   color: #f67e7d;
 }
-body .room .chat::-webkit-scrollbar, html .room .chat::-webkit-scrollbar {
+body .room .chat::-webkit-scrollbar,
+html .room .chat::-webkit-scrollbar {
   border-radius: 7em;
   width: 1rem;
 }
-.theme-nightly body .room .chat::-webkit-scrollbar, .theme-nightly html .room .chat::-webkit-scrollbar {
+.theme-nightly body .room .chat::-webkit-scrollbar,
+.theme-nightly html .room .chat::-webkit-scrollbar {
   background: #242e42;
 }
-.theme-brome body .room .chat::-webkit-scrollbar, .theme-brome html .room .chat::-webkit-scrollbar {
+.theme-brome body .room .chat::-webkit-scrollbar,
+.theme-brome html .room .chat::-webkit-scrollbar {
   background: #f7ede2;
 }
-.theme-peachesncream body .room .chat::-webkit-scrollbar, .theme-peachesncream html .room .chat::-webkit-scrollbar {
+.theme-peachesncream body .room .chat::-webkit-scrollbar,
+.theme-peachesncream html .room .chat::-webkit-scrollbar {
   background: #ffe8b8;
 }
-.theme-nightly body .room .chat::-webkit-scrollbar, .theme-nightly html .room .chat::-webkit-scrollbar {
+.theme-nightly body .room .chat::-webkit-scrollbar,
+.theme-nightly html .room .chat::-webkit-scrollbar {
   border: 3px solid #958bca;
 }
-.theme-brome body .room .chat::-webkit-scrollbar, .theme-brome html .room .chat::-webkit-scrollbar {
+.theme-brome body .room .chat::-webkit-scrollbar,
+.theme-brome html .room .chat::-webkit-scrollbar {
   border: 3px solid #d77a61;
 }
-.theme-peachesncream body .room .chat::-webkit-scrollbar, .theme-peachesncream html .room .chat::-webkit-scrollbar {
+.theme-peachesncream body .room .chat::-webkit-scrollbar,
+.theme-peachesncream html .room .chat::-webkit-scrollbar {
   border: 3px solid #fffdd0;
 }
-body .room .chat::-webkit-scrollbar-thumb, html .room .chat::-webkit-scrollbar-thumb {
+body .room .chat::-webkit-scrollbar-thumb,
+html .room .chat::-webkit-scrollbar-thumb {
   border: 5px solid transparent;
   border-radius: 7em;
   background-clip: content-box;
 }
-.theme-nightly body .room .chat::-webkit-scrollbar-thumb, .theme-nightly html .room .chat::-webkit-scrollbar-thumb {
+.theme-nightly body .room .chat::-webkit-scrollbar-thumb,
+.theme-nightly html .room .chat::-webkit-scrollbar-thumb {
   background: #958bca;
 }
-.theme-brome body .room .chat::-webkit-scrollbar-thumb, .theme-brome html .room .chat::-webkit-scrollbar-thumb {
+.theme-brome body .room .chat::-webkit-scrollbar-thumb,
+.theme-brome html .room .chat::-webkit-scrollbar-thumb {
   background: #d77a61;
 }
-.theme-peachesncream body .room .chat::-webkit-scrollbar-thumb, .theme-peachesncream html .room .chat::-webkit-scrollbar-thumb {
+.theme-peachesncream body .room .chat::-webkit-scrollbar-thumb,
+.theme-peachesncream html .room .chat::-webkit-scrollbar-thumb {
   background: #fffdd0;
 }
 @media (min-width: 800px) {
-  body .room .chat, html .room .chat {
+  body .room .chat,
+  html .room .chat {
     max-width: 1100px;
   }
 }
-body .room .chat .messageContent, html .room .chat .messageContent {
+body .room .chat .messageContent,
+html .room .chat .messageContent {
   margin: 0;
 }
-body .room .chat .userName, html .room .chat .userName {
+body .room .chat .userName,
+html .room .chat .userName {
   margin: 0 0 0.5em 0;
   font-size: 0.9em;
 }
-.theme-nightly body .room .chat .userName, .theme-nightly html .room .chat .userName {
+.theme-nightly body .room .chat .userName,
+.theme-nightly html .room .chat .userName {
   color: #8bb7ca;
 }
-.theme-brome body .room .chat .userName, .theme-brome html .room .chat .userName {
+.theme-brome body .room .chat .userName,
+.theme-brome html .room .chat .userName {
   color: #d77a61;
 }
-.theme-peachesncream body .room .chat .userName, .theme-peachesncream html .room .chat .userName {
+.theme-peachesncream body .room .chat .userName,
+.theme-peachesncream html .room .chat .userName {
   color: #fffdd0;
 }
-body .room .chat img, html .room .chat img {
+body .room .chat img,
+html .room .chat img {
   margin-top: 0.5em;
   border-radius: 1em;
   max-width: 100%;
 }
-body .room .chat .sentMessage, html .room .chat .sentMessage {
+body .room .chat .sentMessage,
+html .room .chat .sentMessage {
   border-radius: 1em 1em 0.25em 1em;
   padding: 0.5em 1em 0.5em 1em;
   margin-top: 0.8125em;
@@ -425,23 +522,29 @@ body .room .chat .sentMessage, html .room .chat .sentMessage {
   box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15);
   position: relative;
 }
-.theme-nightly body .room .chat .sentMessage, .theme-nightly html .room .chat .sentMessage {
+.theme-nightly body .room .chat .sentMessage,
+.theme-nightly html .room .chat .sentMessage {
   background-color: #958bca;
 }
-.theme-brome body .room .chat .sentMessage, .theme-brome html .room .chat .sentMessage {
+.theme-brome body .room .chat .sentMessage,
+.theme-brome html .room .chat .sentMessage {
   background-color: #d77a61;
 }
-.theme-peachesncream body .room .chat .sentMessage, .theme-peachesncream html .room .chat .sentMessage {
+.theme-peachesncream body .room .chat .sentMessage,
+.theme-peachesncream html .room .chat .sentMessage {
   background-color: #fffdd0;
 }
-body .room .chat .sentMessage:hover:hover, html .room .chat .sentMessage:hover:hover {
+body .room .chat .sentMessage:hover:hover,
+html .room .chat .sentMessage:hover:hover {
   filter: brightness(1.2);
   cursor: pointer;
 }
-body .room .chat .sentMessage:hover > .messageMenu, html .room .chat .sentMessage:hover > .messageMenu {
+body .room .chat .sentMessage:hover > .messageMenu,
+html .room .chat .sentMessage:hover > .messageMenu {
   display: block;
 }
-body .room .chat .receivedMessage, html .room .chat .receivedMessage {
+body .room .chat .receivedMessage,
+html .room .chat .receivedMessage {
   border-radius: 1em 1em 1em 0.25em;
   padding: 0.5em 1em 0.5em 1em;
   margin-top: 0.8125em;
@@ -454,16 +557,20 @@ body .room .chat .receivedMessage, html .room .chat .receivedMessage {
   font-family: Roboto Slab;
   box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15);
 }
-.theme-nightly body .room .chat .receivedMessage, .theme-nightly html .room .chat .receivedMessage {
+.theme-nightly body .room .chat .receivedMessage,
+.theme-nightly html .room .chat .receivedMessage {
   background-color: #434f66;
 }
-.theme-brome body .room .chat .receivedMessage, .theme-brome html .room .chat .receivedMessage {
+.theme-brome body .room .chat .receivedMessage,
+.theme-brome html .room .chat .receivedMessage {
   background-color: #2c5784;
 }
-.theme-peachesncream body .room .chat .receivedMessage, .theme-peachesncream html .room .chat .receivedMessage {
+.theme-peachesncream body .room .chat .receivedMessage,
+.theme-peachesncream html .room .chat .receivedMessage {
   background-color: #ffcc99;
 }
-body .room .chat .messageMenu, html .room .chat .messageMenu {
+body .room .chat .messageMenu,
+html .room .chat .messageMenu {
   display: none;
   z-index: 1000000;
   padding: 1em;
@@ -473,33 +580,42 @@ body .room .chat .messageMenu, html .room .chat .messageMenu {
   box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15);
   position: absolute;
 }
-.theme-nightly body .room .chat .messageMenu, .theme-nightly html .room .chat .messageMenu {
+.theme-nightly body .room .chat .messageMenu,
+.theme-nightly html .room .chat .messageMenu {
   background-color: #434f66;
 }
-.theme-brome body .room .chat .messageMenu, .theme-brome html .room .chat .messageMenu {
+.theme-brome body .room .chat .messageMenu,
+.theme-brome html .room .chat .messageMenu {
   background-color: #2c5784;
 }
-.theme-peachesncream body .room .chat .messageMenu, .theme-peachesncream html .room .chat .messageMenu {
+.theme-peachesncream body .room .chat .messageMenu,
+.theme-peachesncream html .room .chat .messageMenu {
   background-color: #ffcc99;
 }
-body .room .chat .messageMenu:hover:hover, html .room .chat .messageMenu:hover:hover {
+body .room .chat .messageMenu:hover:hover,
+html .room .chat .messageMenu:hover:hover {
   filter: brightness(1.2);
   cursor: pointer;
 }
-body .room .chat .messageContent, html .room .chat .messageContent {
+body .room .chat .messageContent,
+html .room .chat .messageContent {
   font-family: Roboto Slab;
   font-size: 1em;
 }
-.theme-nightly body .room .chat .messageContent, .theme-nightly html .room .chat .messageContent {
+.theme-nightly body .room .chat .messageContent,
+.theme-nightly html .room .chat .messageContent {
   color: #fff;
 }
-.theme-brome body .room .chat .messageContent, .theme-brome html .room .chat .messageContent {
+.theme-brome body .room .chat .messageContent,
+.theme-brome html .room .chat .messageContent {
   color: #fff;
 }
-.theme-peachesncream body .room .chat .messageContent, .theme-peachesncream html .room .chat .messageContent {
+.theme-peachesncream body .room .chat .messageContent,
+.theme-peachesncream html .room .chat .messageContent {
   color: #f67e7d;
 }
-body .room .submitMessageForm, html .room .submitMessageForm {
+body .room .submitMessageForm,
+html .room .submitMessageForm {
   display: flex;
   flex-direction: row;
   padding-bottom: 0.5em;
@@ -507,7 +623,8 @@ body .room .submitMessageForm, html .room .submitMessageForm {
   justify-content: center;
   align-items: center;
 }
-body .room .submitMessageForm input, html .room .submitMessageForm input {
+body .room .submitMessageForm input,
+html .room .submitMessageForm input {
   margin-left: 1.125em;
   margin-right: 1.125em;
   height: 2.625em;
@@ -518,34 +635,44 @@ body .room .submitMessageForm input, html .room .submitMessageForm input {
   text-indent: 1em;
   box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15);
 }
-.theme-nightly body .room .submitMessageForm input, .theme-nightly html .room .submitMessageForm input {
+.theme-nightly body .room .submitMessageForm input,
+.theme-nightly html .room .submitMessageForm input {
   background-color: #434f66;
 }
-.theme-brome body .room .submitMessageForm input, .theme-brome html .room .submitMessageForm input {
+.theme-brome body .room .submitMessageForm input,
+.theme-brome html .room .submitMessageForm input {
   background-color: #2c5784;
 }
-.theme-peachesncream body .room .submitMessageForm input, .theme-peachesncream html .room .submitMessageForm input {
+.theme-peachesncream body .room .submitMessageForm input,
+.theme-peachesncream html .room .submitMessageForm input {
   background-color: #ffcca6;
 }
-.theme-nightly body .room .submitMessageForm input, .theme-nightly html .room .submitMessageForm input {
+.theme-nightly body .room .submitMessageForm input,
+.theme-nightly html .room .submitMessageForm input {
   color: #fff;
 }
-.theme-brome body .room .submitMessageForm input, .theme-brome html .room .submitMessageForm input {
+.theme-brome body .room .submitMessageForm input,
+.theme-brome html .room .submitMessageForm input {
   color: #fff;
 }
-.theme-peachesncream body .room .submitMessageForm input, .theme-peachesncream html .room .submitMessageForm input {
+.theme-peachesncream body .room .submitMessageForm input,
+.theme-peachesncream html .room .submitMessageForm input {
   color: #fff;
 }
-.theme-nightly body .room .submitMessageForm input:focus, .theme-nightly html .room .submitMessageForm input:focus {
+.theme-nightly body .room .submitMessageForm input:focus,
+.theme-nightly html .room .submitMessageForm input:focus {
   outline-color: #958bca;
 }
-.theme-brome body .room .submitMessageForm input:focus, .theme-brome html .room .submitMessageForm input:focus {
+.theme-brome body .room .submitMessageForm input:focus,
+.theme-brome html .room .submitMessageForm input:focus {
   outline-color: #d77a61;
 }
-.theme-peachesncream body .room .submitMessageForm input:focus, .theme-peachesncream html .room .submitMessageForm input:focus {
+.theme-peachesncream body .room .submitMessageForm input:focus,
+.theme-peachesncream html .room .submitMessageForm input:focus {
   outline-color: #ffcc99;
 }
-body .room .submitMessageForm button, html .room .submitMessageForm button {
+body .room .submitMessageForm button,
+html .room .submitMessageForm button {
   margin-right: 1.125em;
   flex: 1;
   border: none;
@@ -558,16 +685,20 @@ body .room .submitMessageForm button, html .room .submitMessageForm button {
   align-items: center;
   box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15);
 }
-.theme-nightly body .room .submitMessageForm button, .theme-nightly html .room .submitMessageForm button {
+.theme-nightly body .room .submitMessageForm button,
+.theme-nightly html .room .submitMessageForm button {
   background-color: #958bca;
 }
-.theme-brome body .room .submitMessageForm button, .theme-brome html .room .submitMessageForm button {
+.theme-brome body .room .submitMessageForm button,
+.theme-brome html .room .submitMessageForm button {
   background-color: #d77a61;
 }
-.theme-peachesncream body .room .submitMessageForm button, .theme-peachesncream html .room .submitMessageForm button {
+.theme-peachesncream body .room .submitMessageForm button,
+.theme-peachesncream html .room .submitMessageForm button {
   background-color: #ffcc99;
 }
-body .loginForm, html .loginForm {
+body .loginForm,
+html .loginForm {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -576,37 +707,47 @@ body .loginForm, html .loginForm {
   font-size: 1.5em;
   margin-top: 1.5em;
 }
-.theme-nightly body .loginForm, .theme-nightly html .loginForm {
+.theme-nightly body .loginForm,
+.theme-nightly html .loginForm {
   color: #fff;
 }
-.theme-brome body .loginForm, .theme-brome html .loginForm {
+.theme-brome body .loginForm,
+.theme-brome html .loginForm {
   color: #2c5784;
 }
-.theme-peachesncream body .loginForm, .theme-peachesncream html .loginForm {
+.theme-peachesncream body .loginForm,
+.theme-peachesncream html .loginForm {
   color: #f67e7d;
 }
-body .loginForm input:hover, html .loginForm input:hover {
+body .loginForm input:hover,
+html .loginForm input:hover {
   filter: brightness(1.2);
   cursor: pointer;
 }
-body .loginForm h1, html .loginForm h1 {
+body .loginForm h2,
+html .loginForm h2 {
   font-family: Bevan;
   font-size: 1.5em;
 }
-.theme-nightly body .loginForm h1, .theme-nightly html .loginForm h1 {
+.theme-nightly body .loginForm h2,
+.theme-nightly html .loginForm h2 {
   color: #8bb7ca;
 }
-.theme-brome body .loginForm h1, .theme-brome html .loginForm h1 {
+.theme-brome body .loginForm h2,
+.theme-brome html .loginForm h2 {
   color: #2c5784;
 }
-.theme-peachesncream body .loginForm h1, .theme-peachesncream html .loginForm h1 {
+.theme-peachesncream body .loginForm h2,
+.theme-peachesncream html .loginForm h2 {
   color: #f67e7d;
 }
-body .loginForm h3, html .loginForm h3 {
+body .loginForm h3,
+html .loginForm h3 {
   margin: 0;
   padding: 0;
 }
-body .loginForm .loginFormDiv, html .loginForm .loginFormDiv {
+body .loginForm .loginFormDiv,
+html .loginForm .loginFormDiv {
   margin-top: 2em;
   max-width: 100%;
   display: flex;
@@ -614,48 +755,59 @@ body .loginForm .loginFormDiv, html .loginForm .loginFormDiv {
   justify-content: center;
   margin-left: 2.5em;
 }
-body .loginForm .loginFormDiv input[type=text], html .loginForm .loginFormDiv input[type=text] {
+body .loginForm .loginFormDiv input[type='text'],
+html .loginForm .loginFormDiv input[type='text'] {
   font-size: 1.5em;
   max-width: 85%;
   border-radius: 0.125em;
   border: none;
   margin-top: 0.25em;
 }
-.theme-nightly body .loginForm .loginFormDiv input[type=text], .theme-nightly html .loginForm .loginFormDiv input[type=text] {
+.theme-nightly body .loginForm .loginFormDiv input[type='text'],
+.theme-nightly html .loginForm .loginFormDiv input[type='text'] {
   background-color: #958bca;
 }
-.theme-brome body .loginForm .loginFormDiv input[type=text], .theme-brome html .loginForm .loginFormDiv input[type=text] {
+.theme-brome body .loginForm .loginFormDiv input[type='text'],
+.theme-brome html .loginForm .loginFormDiv input[type='text'] {
   background-color: #d77a61;
 }
-.theme-peachesncream body .loginForm .loginFormDiv input[type=text], .theme-peachesncream html .loginForm .loginFormDiv input[type=text] {
+.theme-peachesncream body .loginForm .loginFormDiv input[type='text'],
+.theme-peachesncream html .loginForm .loginFormDiv input[type='text'] {
   background-color: #fffdd0;
 }
-body .loginForm .loginFormDiv input[type=password], html .loginForm .loginFormDiv input[type=password] {
+body .loginForm .loginFormDiv input[type='password'],
+html .loginForm .loginFormDiv input[type='password'] {
   font-size: 1.5em;
   max-width: 85%;
   border-radius: 0.125em;
   border: none;
   margin-top: 0.25em;
 }
-.theme-nightly body .loginForm .loginFormDiv input[type=password], .theme-nightly html .loginForm .loginFormDiv input[type=password] {
+.theme-nightly body .loginForm .loginFormDiv input[type='password'],
+.theme-nightly html .loginForm .loginFormDiv input[type='password'] {
   background-color: #958bca;
 }
-.theme-brome body .loginForm .loginFormDiv input[type=password], .theme-brome html .loginForm .loginFormDiv input[type=password] {
+.theme-brome body .loginForm .loginFormDiv input[type='password'],
+.theme-brome html .loginForm .loginFormDiv input[type='password'] {
   background-color: #d77a61;
 }
-.theme-peachesncream body .loginForm .loginFormDiv input[type=password], .theme-peachesncream html .loginForm .loginFormDiv input[type=password] {
+.theme-peachesncream body .loginForm .loginFormDiv input[type='password'],
+.theme-peachesncream html .loginForm .loginFormDiv input[type='password'] {
   background-color: #fffdd0;
 }
-body .loginForm .loginFormDiv .pwIcon, html .loginForm .loginFormDiv .pwIcon {
+body .loginForm .loginFormDiv .pwIcon,
+html .loginForm .loginFormDiv .pwIcon {
   position: relative;
   left: 78%;
   bottom: 30%;
 }
-body .loginForm .loginFormDiv .pwIcon:hover, html .loginForm .loginFormDiv .pwIcon:hover {
+body .loginForm .loginFormDiv .pwIcon:hover,
+html .loginForm .loginFormDiv .pwIcon:hover {
   filter: brightness(1.2);
   cursor: pointer;
 }
-body .loginForm .loginFormSubmit, html .loginForm .loginFormSubmit {
+body .loginForm .loginFormSubmit,
+html .loginForm .loginFormSubmit {
   display: flex;
   flex-direction: column;
   position: relative;
@@ -663,7 +815,8 @@ body .loginForm .loginFormSubmit, html .loginForm .loginFormSubmit {
   align-items: center;
   justify-content: center;
 }
-body .loginForm .loginFormSubmit input[type=submit], html .loginForm .loginFormSubmit input[type=submit] {
+body .loginForm .loginFormSubmit input[type='submit'],
+html .loginForm .loginFormSubmit input[type='submit'] {
   font-family: Bevan;
   font-size: 1em;
   border-radius: 0.125em;
@@ -671,25 +824,32 @@ body .loginForm .loginFormSubmit input[type=submit], html .loginForm .loginFormS
   padding: 0.3em 1em;
   max-width: 90%;
 }
-.theme-nightly body .loginForm .loginFormSubmit input[type=submit], .theme-nightly html .loginForm .loginFormSubmit input[type=submit] {
+.theme-nightly body .loginForm .loginFormSubmit input[type='submit'],
+.theme-nightly html .loginForm .loginFormSubmit input[type='submit'] {
   background-color: #958bca;
 }
-.theme-brome body .loginForm .loginFormSubmit input[type=submit], .theme-brome html .loginForm .loginFormSubmit input[type=submit] {
+.theme-brome body .loginForm .loginFormSubmit input[type='submit'],
+.theme-brome html .loginForm .loginFormSubmit input[type='submit'] {
   background-color: #d77a61;
 }
-.theme-peachesncream body .loginForm .loginFormSubmit input[type=submit], .theme-peachesncream html .loginForm .loginFormSubmit input[type=submit] {
+.theme-peachesncream body .loginForm .loginFormSubmit input[type='submit'],
+.theme-peachesncream html .loginForm .loginFormSubmit input[type='submit'] {
   background-color: #fffdd0;
 }
-.theme-nightly body .loginForm .loginFormSubmit input[type=submit], .theme-nightly html .loginForm .loginFormSubmit input[type=submit] {
+.theme-nightly body .loginForm .loginFormSubmit input[type='submit'],
+.theme-nightly html .loginForm .loginFormSubmit input[type='submit'] {
   color: #fff;
 }
-.theme-brome body .loginForm .loginFormSubmit input[type=submit], .theme-brome html .loginForm .loginFormSubmit input[type=submit] {
+.theme-brome body .loginForm .loginFormSubmit input[type='submit'],
+.theme-brome html .loginForm .loginFormSubmit input[type='submit'] {
   color: #2c5784;
 }
-.theme-peachesncream body .loginForm .loginFormSubmit input[type=submit], .theme-peachesncream html .loginForm .loginFormSubmit input[type=submit] {
+.theme-peachesncream body .loginForm .loginFormSubmit input[type='submit'],
+.theme-peachesncream html .loginForm .loginFormSubmit input[type='submit'] {
   color: #f67e7d;
 }
-body .loginForm .formInstructions, html .loginForm .formInstructions {
+body .loginForm .formInstructions,
+html .loginForm .formInstructions {
   display: flex;
   flex-direction: column;
   position: relative;
@@ -697,46 +857,58 @@ body .loginForm .formInstructions, html .loginForm .formInstructions {
   justify-content: center;
   font-size: 0.6em;
 }
-body .loginForm .formInstructions .formLink, html .loginForm .formInstructions .formLink {
+body .loginForm .formInstructions .formLink,
+html .loginForm .formInstructions .formLink {
   text-decoration: none;
 }
-.theme-nightly body .loginForm .formInstructions .formLink, .theme-nightly html .loginForm .formInstructions .formLink {
+.theme-nightly body .loginForm .formInstructions .formLink,
+.theme-nightly html .loginForm .formInstructions .formLink {
   color: #8bb7ca;
 }
-.theme-brome body .loginForm .formInstructions .formLink, .theme-brome html .loginForm .formInstructions .formLink {
+.theme-brome body .loginForm .formInstructions .formLink,
+.theme-brome html .loginForm .formInstructions .formLink {
   color: #2c5784;
 }
-.theme-peachesncream body .loginForm .formInstructions .formLink, .theme-peachesncream html .loginForm .formInstructions .formLink {
+.theme-peachesncream body .loginForm .formInstructions .formLink,
+.theme-peachesncream html .loginForm .formInstructions .formLink {
   color: #f67e7d;
 }
-body .settings, html .settings {
+body .settings,
+html .settings {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 80vh;
 }
-.theme-nightly body .settings, .theme-nightly html .settings {
+.theme-nightly body .settings,
+.theme-nightly html .settings {
   background-color: #242e42;
 }
-.theme-brome body .settings, .theme-brome html .settings {
+.theme-brome body .settings,
+.theme-brome html .settings {
   background-color: #f7ede2;
 }
-.theme-peachesncream body .settings, .theme-peachesncream html .settings {
+.theme-peachesncream body .settings,
+.theme-peachesncream html .settings {
   background-color: #ffe8b8;
 }
 @media (min-width: 800px) {
-  .theme-nightly body .settings, .theme-nightly html .settings {
+  .theme-nightly body .settings,
+  .theme-nightly html .settings {
     background-color: #242e42;
   }
-  .theme-brome body .settings, .theme-brome html .settings {
+  .theme-brome body .settings,
+  .theme-brome html .settings {
     background-color: #f7ede2;
   }
-  .theme-peachesncream body .settings, .theme-peachesncream html .settings {
+  .theme-peachesncream body .settings,
+  .theme-peachesncream html .settings {
     background-color: #ffe8b8;
   }
 }
-body .settings button, html .settings button {
+body .settings button,
+html .settings button {
   font-size: 1.5em;
   border-radius: 0.125em;
   border: none;
@@ -745,29 +917,37 @@ body .settings button, html .settings button {
   margin-top: 5em;
   box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15);
 }
-.theme-nightly body .settings button, .theme-nightly html .settings button {
+.theme-nightly body .settings button,
+.theme-nightly html .settings button {
   background-color: #958bca;
 }
-.theme-brome body .settings button, .theme-brome html .settings button {
+.theme-brome body .settings button,
+.theme-brome html .settings button {
   background-color: #d77a61;
 }
-.theme-peachesncream body .settings button, .theme-peachesncream html .settings button {
+.theme-peachesncream body .settings button,
+.theme-peachesncream html .settings button {
   background-color: #ffcc99;
 }
-.theme-nightly body .settings button, .theme-nightly html .settings button {
+.theme-nightly body .settings button,
+.theme-nightly html .settings button {
   color: #fff;
 }
-.theme-brome body .settings button, .theme-brome html .settings button {
+.theme-brome body .settings button,
+.theme-brome html .settings button {
   color: #fff;
 }
-.theme-peachesncream body .settings button, .theme-peachesncream html .settings button {
+.theme-peachesncream body .settings button,
+.theme-peachesncream html .settings button {
   color: #fff;
 }
-body .settings button:hover, html .settings button:hover {
+body .settings button:hover,
+html .settings button:hover {
   transform: scale(1.05);
   filter: brightness(1.1);
 }
-body .settings select, html .settings select {
+body .settings select,
+html .settings select {
   font-size: 1.5em;
   border-radius: 0.125em;
   position: relative;
@@ -778,57 +958,72 @@ body .settings select, html .settings select {
   cursor: pointer;
   border: none;
   padding: 0.5em;
-  text-overflow: "";
+  text-overflow: '';
   text-indent: 1em;
   box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15);
 }
-.theme-nightly body .settings select, .theme-nightly html .settings select {
+.theme-nightly body .settings select,
+.theme-nightly html .settings select {
   background-color: #958bca;
 }
-.theme-brome body .settings select, .theme-brome html .settings select {
+.theme-brome body .settings select,
+.theme-brome html .settings select {
   background-color: #d77a61;
 }
-.theme-peachesncream body .settings select, .theme-peachesncream html .settings select {
+.theme-peachesncream body .settings select,
+.theme-peachesncream html .settings select {
   background-color: #ffcc99;
 }
-.theme-nightly body .settings select, .theme-nightly html .settings select {
+.theme-nightly body .settings select,
+.theme-nightly html .settings select {
   color: #fff;
 }
-.theme-brome body .settings select, .theme-brome html .settings select {
+.theme-brome body .settings select,
+.theme-brome html .settings select {
   color: #fff;
 }
-.theme-peachesncream body .settings select, .theme-peachesncream html .settings select {
+.theme-peachesncream body .settings select,
+.theme-peachesncream html .settings select {
   color: #fff;
 }
-body .settings select:hover, html .settings select:hover {
+body .settings select:hover,
+html .settings select:hover {
   transform: scale(1.05);
   filter: brightness(1.1);
 }
 @media (min-width: 800px) {
-  body .settings select, html .settings select {
+  body .settings select,
+  html .settings select {
     max-width: 300px;
   }
 }
-body .settings select:-moz-focusring, html .settings select:-moz-focusring {
+body .settings select:-moz-focusring,
+html .settings select:-moz-focusring {
   color: transparent;
   text-shadow: 0 0 0 #888888;
 }
-body .settings select::-ms-expand, html .settings select::-ms-expand {
+body .settings select::-ms-expand,
+html .settings select::-ms-expand {
   display: none;
 }
-body .settings h2, html .settings h2 {
+body .settings h2,
+html .settings h2 {
   text-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15);
 }
-.theme-nightly body .settings h2, .theme-nightly html .settings h2 {
+.theme-nightly body .settings h2,
+.theme-nightly html .settings h2 {
   color: #fff;
 }
-.theme-brome body .settings h2, .theme-brome html .settings h2 {
+.theme-brome body .settings h2,
+.theme-brome html .settings h2 {
   color: #2c5784;
 }
-.theme-peachesncream body .settings h2, .theme-peachesncream html .settings h2 {
+.theme-peachesncream body .settings h2,
+.theme-peachesncream html .settings h2 {
   color: #fffdd0;
 }
-body .infoContainer, html .infoContainer {
+body .infoContainer,
+html .infoContainer {
   background-color: pink;
   font-family: Roboto Slab;
   display: flex;
@@ -842,29 +1037,37 @@ body .infoContainer, html .infoContainer {
   overflow: auto;
   padding-bottom: 2em;
 }
-.theme-nightly body .infoContainer, .theme-nightly html .infoContainer {
+.theme-nightly body .infoContainer,
+.theme-nightly html .infoContainer {
   color: #fff;
 }
-.theme-brome body .infoContainer, .theme-brome html .infoContainer {
+.theme-brome body .infoContainer,
+.theme-brome html .infoContainer {
   color: #fff;
 }
-.theme-peachesncream body .infoContainer, .theme-peachesncream html .infoContainer {
+.theme-peachesncream body .infoContainer,
+.theme-peachesncream html .infoContainer {
   color: #fff;
 }
-.theme-nightly body .infoContainer, .theme-nightly html .infoContainer {
+.theme-nightly body .infoContainer,
+.theme-nightly html .infoContainer {
   background-color: #434f66;
 }
-.theme-brome body .infoContainer, .theme-brome html .infoContainer {
+.theme-brome body .infoContainer,
+.theme-brome html .infoContainer {
   background-color: #2c5784;
 }
-.theme-peachesncream body .infoContainer, .theme-peachesncream html .infoContainer {
+.theme-peachesncream body .infoContainer,
+.theme-peachesncream html .infoContainer {
   background-color: #ffcc99;
 }
-body .infoContainer ul, html .infoContainer ul {
+body .infoContainer ul,
+html .infoContainer ul {
   padding: 0;
   list-style: none;
 }
-body .infoContainer li, html .infoContainer li {
+body .infoContainer li,
+html .infoContainer li {
   display: flex;
   justify-content: center;
   border-radius: 1em 1em 1em 1em;
@@ -876,16 +1079,20 @@ body .infoContainer li, html .infoContainer li {
   min-width: 3em;
   height: fit-content;
 }
-.theme-nightly body .infoContainer li, .theme-nightly html .infoContainer li {
+.theme-nightly body .infoContainer li,
+.theme-nightly html .infoContainer li {
   background-color: #958bca;
 }
-.theme-brome body .infoContainer li, .theme-brome html .infoContainer li {
+.theme-brome body .infoContainer li,
+.theme-brome html .infoContainer li {
   background-color: #d77a61;
 }
-.theme-peachesncream body .infoContainer li, .theme-peachesncream html .infoContainer li {
+.theme-peachesncream body .infoContainer li,
+.theme-peachesncream html .infoContainer li {
   background-color: #fffdd0;
 }
-body .changePassword, html .changePassword {
+body .changePassword,
+html .changePassword {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -898,25 +1105,32 @@ body .changePassword, html .changePassword {
   border: none;
   box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15);
 }
-.theme-nightly body .changePassword, .theme-nightly html .changePassword {
+.theme-nightly body .changePassword,
+.theme-nightly html .changePassword {
   background-color: #434f66;
 }
-.theme-brome body .changePassword, .theme-brome html .changePassword {
+.theme-brome body .changePassword,
+.theme-brome html .changePassword {
   background-color: #2c5784;
 }
-.theme-peachesncream body .changePassword, .theme-peachesncream html .changePassword {
+.theme-peachesncream body .changePassword,
+.theme-peachesncream html .changePassword {
   background-color: #ffcc99;
 }
-.theme-nightly body .changePassword, .theme-nightly html .changePassword {
+.theme-nightly body .changePassword,
+.theme-nightly html .changePassword {
   color: #8bb7ca;
 }
-.theme-brome body .changePassword, .theme-brome html .changePassword {
+.theme-brome body .changePassword,
+.theme-brome html .changePassword {
   color: #fff;
 }
-.theme-peachesncream body .changePassword, .theme-peachesncream html .changePassword {
+.theme-peachesncream body .changePassword,
+.theme-peachesncream html .changePassword {
   color: #f67e7d;
 }
-body .changePassword form, html .changePassword form {
+body .changePassword form,
+html .changePassword form {
   display: flex;
   width: 100%;
   height: 100%;
@@ -924,64 +1138,93 @@ body .changePassword form, html .changePassword form {
   justify-content: space-evenly;
   align-items: center;
 }
-body .changePassword form .loginFormDiv, html .changePassword form .loginFormDiv {
+body .changePassword form .loginFormDiv,
+html .changePassword form .loginFormDiv {
   max-width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin-left: 2.5em;
 }
-body .changePassword form .loginFormDiv input[type=password], html .changePassword form .loginFormDiv input[type=password] {
+body .changePassword form .loginFormDiv input[type='password'],
+html .changePassword form .loginFormDiv input[type='password'] {
   font-size: 1.5em;
   max-width: 85%;
   border-radius: 0.125em;
   border: none;
   margin-top: 0.25em;
 }
-.theme-nightly body .changePassword form .loginFormDiv input[type=password], .theme-nightly html .changePassword form .loginFormDiv input[type=password] {
+.theme-nightly body .changePassword form .loginFormDiv input[type='password'],
+.theme-nightly html .changePassword form .loginFormDiv input[type='password'] {
   background-color: #958bca;
 }
-.theme-brome body .changePassword form .loginFormDiv input[type=password], .theme-brome html .changePassword form .loginFormDiv input[type=password] {
+.theme-brome body .changePassword form .loginFormDiv input[type='password'],
+.theme-brome html .changePassword form .loginFormDiv input[type='password'] {
   background-color: #d77a61;
 }
-.theme-peachesncream body .changePassword form .loginFormDiv input[type=password], .theme-peachesncream html .changePassword form .loginFormDiv input[type=password] {
+.theme-peachesncream
+  body
+  .changePassword
+  form
+  .loginFormDiv
+  input[type='password'],
+.theme-peachesncream
+  html
+  .changePassword
+  form
+  .loginFormDiv
+  input[type='password'] {
   background-color: #fffdd0;
 }
-body .changePassword form .loginFormDiv .pwIcon, html .changePassword form .loginFormDiv .pwIcon {
+body .changePassword form .loginFormDiv .pwIcon,
+html .changePassword form .loginFormDiv .pwIcon {
   position: relative;
   left: 78%;
   bottom: 20%;
 }
-body .changePassword form .loginFormDiv .pwIcon:hover, html .changePassword form .loginFormDiv .pwIcon:hover {
+body .changePassword form .loginFormDiv .pwIcon:hover,
+html .changePassword form .loginFormDiv .pwIcon:hover {
   filter: brightness(1.2);
   cursor: pointer;
 }
-body .changePassword form .loginFormDiv input[type=text], html .changePassword form .loginFormDiv input[type=text] {
+body .changePassword form .loginFormDiv input[type='text'],
+html .changePassword form .loginFormDiv input[type='text'] {
   font-size: 1.5em;
   max-width: 85%;
   border-radius: 0.125em;
   border: none;
   margin-top: 0.25em;
 }
-.theme-nightly body .changePassword form .loginFormDiv input[type=text], .theme-nightly html .changePassword form .loginFormDiv input[type=text] {
+.theme-nightly body .changePassword form .loginFormDiv input[type='text'],
+.theme-nightly html .changePassword form .loginFormDiv input[type='text'] {
   background-color: #958bca;
 }
-.theme-brome body .changePassword form .loginFormDiv input[type=text], .theme-brome html .changePassword form .loginFormDiv input[type=text] {
+.theme-brome body .changePassword form .loginFormDiv input[type='text'],
+.theme-brome html .changePassword form .loginFormDiv input[type='text'] {
   background-color: #d77a61;
 }
-.theme-peachesncream body .changePassword form .loginFormDiv input[type=text], .theme-peachesncream html .changePassword form .loginFormDiv input[type=text] {
+.theme-peachesncream body .changePassword form .loginFormDiv input[type='text'],
+.theme-peachesncream
+  html
+  .changePassword
+  form
+  .loginFormDiv
+  input[type='text'] {
   background-color: #fffdd0;
 }
-body .changePassword form .loginFormDiv .pwIcon, html .changePassword form .loginFormDiv .pwIcon {
+body .changePassword form .loginFormDiv .pwIcon,
+html .changePassword form .loginFormDiv .pwIcon {
   position: relative;
   left: 78%;
   bottom: 20%;
 }
-body .changePassword form .loginFormDiv .pwIcon:hover, html .changePassword form .loginFormDiv .pwIcon:hover {
+body .changePassword form .loginFormDiv .pwIcon:hover,
+html .changePassword form .loginFormDiv .pwIcon:hover {
   filter: brightness(1.2);
   cursor: pointer;
 }
-body .changePassword form input[type=submit], html .changePassword form input[type=submit] {
+body .changePassword form input[type='submit'],
+html .changePassword form input[type='submit'] {
   font-family: Bevan;
   font-size: 1em;
   border-radius: 0.125em;
@@ -989,29 +1232,37 @@ body .changePassword form input[type=submit], html .changePassword form input[ty
   padding: 0.3em 1em;
   max-width: 90%;
 }
-.theme-nightly body .changePassword form input[type=submit], .theme-nightly html .changePassword form input[type=submit] {
+.theme-nightly body .changePassword form input[type='submit'],
+.theme-nightly html .changePassword form input[type='submit'] {
   background-color: #958bca;
 }
-.theme-brome body .changePassword form input[type=submit], .theme-brome html .changePassword form input[type=submit] {
+.theme-brome body .changePassword form input[type='submit'],
+.theme-brome html .changePassword form input[type='submit'] {
   background-color: #d77a61;
 }
-.theme-peachesncream body .changePassword form input[type=submit], .theme-peachesncream html .changePassword form input[type=submit] {
+.theme-peachesncream body .changePassword form input[type='submit'],
+.theme-peachesncream html .changePassword form input[type='submit'] {
   background-color: #fffdd0;
 }
-.theme-nightly body .changePassword form input[type=submit], .theme-nightly html .changePassword form input[type=submit] {
+.theme-nightly body .changePassword form input[type='submit'],
+.theme-nightly html .changePassword form input[type='submit'] {
   color: #fff;
 }
-.theme-brome body .changePassword form input[type=submit], .theme-brome html .changePassword form input[type=submit] {
+.theme-brome body .changePassword form input[type='submit'],
+.theme-brome html .changePassword form input[type='submit'] {
   color: #2c5784;
 }
-.theme-peachesncream body .changePassword form input[type=submit], .theme-peachesncream html .changePassword form input[type=submit] {
+.theme-peachesncream body .changePassword form input[type='submit'],
+.theme-peachesncream html .changePassword form input[type='submit'] {
   color: #f67e7d;
 }
-body .changePassword form input:hover, html .changePassword form input:hover {
+body .changePassword form input:hover,
+html .changePassword form input:hover {
   filter: brightness(1.2);
   cursor: pointer;
 }
-body .changePassword button, html .changePassword button {
+body .changePassword button,
+html .changePassword button {
   font-family: Bevan;
   font-size: 1em;
   border-radius: 0.125em;
@@ -1020,29 +1271,37 @@ body .changePassword button, html .changePassword button {
   max-width: 90%;
   margin-bottom: 1em;
 }
-.theme-nightly body .changePassword button, .theme-nightly html .changePassword button {
+.theme-nightly body .changePassword button,
+.theme-nightly html .changePassword button {
   background-color: #958bca;
 }
-.theme-brome body .changePassword button, .theme-brome html .changePassword button {
+.theme-brome body .changePassword button,
+.theme-brome html .changePassword button {
   background-color: #d77a61;
 }
-.theme-peachesncream body .changePassword button, .theme-peachesncream html .changePassword button {
+.theme-peachesncream body .changePassword button,
+.theme-peachesncream html .changePassword button {
   background-color: #fffdd0;
 }
-.theme-nightly body .changePassword button, .theme-nightly html .changePassword button {
+.theme-nightly body .changePassword button,
+.theme-nightly html .changePassword button {
   color: #fff;
 }
-.theme-brome body .changePassword button, .theme-brome html .changePassword button {
+.theme-brome body .changePassword button,
+.theme-brome html .changePassword button {
   color: #2c5784;
 }
-.theme-peachesncream body .changePassword button, .theme-peachesncream html .changePassword button {
+.theme-peachesncream body .changePassword button,
+.theme-peachesncream html .changePassword button {
   color: #f67e7d;
 }
-body .changePassword button:hover, html .changePassword button:hover {
+body .changePassword button:hover,
+html .changePassword button:hover {
   filter: brightness(1.2);
   cursor: pointer;
 }
-body .addNewRoom, html .addNewRoom {
+body .addNewRoom,
+html .addNewRoom {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1055,25 +1314,32 @@ body .addNewRoom, html .addNewRoom {
   border: none;
   box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15);
 }
-.theme-nightly body .addNewRoom, .theme-nightly html .addNewRoom {
+.theme-nightly body .addNewRoom,
+.theme-nightly html .addNewRoom {
   background-color: #242e42;
 }
-.theme-brome body .addNewRoom, .theme-brome html .addNewRoom {
+.theme-brome body .addNewRoom,
+.theme-brome html .addNewRoom {
   background-color: #2c5784;
 }
-.theme-peachesncream body .addNewRoom, .theme-peachesncream html .addNewRoom {
+.theme-peachesncream body .addNewRoom,
+.theme-peachesncream html .addNewRoom {
   background-color: #ffcca6;
 }
-.theme-nightly body .addNewRoom, .theme-nightly html .addNewRoom {
+.theme-nightly body .addNewRoom,
+.theme-nightly html .addNewRoom {
   color: #fff;
 }
-.theme-brome body .addNewRoom, .theme-brome html .addNewRoom {
+.theme-brome body .addNewRoom,
+.theme-brome html .addNewRoom {
   color: #2c5784;
 }
-.theme-peachesncream body .addNewRoom, .theme-peachesncream html .addNewRoom {
+.theme-peachesncream body .addNewRoom,
+.theme-peachesncream html .addNewRoom {
   color: #f67e7d;
 }
-body .addNewRoom form, html .addNewRoom form {
+body .addNewRoom form,
+html .addNewRoom form {
   display: flex;
   width: 100%;
   height: 100%;
@@ -1081,30 +1347,36 @@ body .addNewRoom form, html .addNewRoom form {
   justify-content: space-evenly;
   align-items: center;
 }
-body .addNewRoom form .loginFormDiv, html .addNewRoom form .loginFormDiv {
+body .addNewRoom form .loginFormDiv,
+html .addNewRoom form .loginFormDiv {
   max-width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin-left: 2.5em;
 }
-body .addNewRoom form input[type=name], html .addNewRoom form input[type=name] {
+body .addNewRoom form input[type='name'],
+html .addNewRoom form input[type='name'] {
   font-size: 1.8em;
   border-radius: 0.125em;
   border: none;
   margin-top: 0.25em;
   max-width: 90%;
 }
-.theme-nightly body .addNewRoom form input[type=name], .theme-nightly html .addNewRoom form input[type=name] {
+.theme-nightly body .addNewRoom form input[type='name'],
+.theme-nightly html .addNewRoom form input[type='name'] {
   background-color: #958bca;
 }
-.theme-brome body .addNewRoom form input[type=name], .theme-brome html .addNewRoom form input[type=name] {
+.theme-brome body .addNewRoom form input[type='name'],
+.theme-brome html .addNewRoom form input[type='name'] {
   background-color: #f7ede2;
 }
-.theme-peachesncream body .addNewRoom form input[type=name], .theme-peachesncream html .addNewRoom form input[type=name] {
+.theme-peachesncream body .addNewRoom form input[type='name'],
+.theme-peachesncream html .addNewRoom form input[type='name'] {
   background-color: #fffdd0;
 }
-body .addNewRoom form input[type=submit], html .addNewRoom form input[type=submit] {
+body .addNewRoom form input[type='submit'],
+html .addNewRoom form input[type='submit'] {
   font-family: Bevan;
   font-size: 1em;
   border-radius: 0.125em;
@@ -1112,29 +1384,37 @@ body .addNewRoom form input[type=submit], html .addNewRoom form input[type=submi
   padding: 0.3em 1em;
   max-width: 90%;
 }
-.theme-nightly body .addNewRoom form input[type=submit], .theme-nightly html .addNewRoom form input[type=submit] {
+.theme-nightly body .addNewRoom form input[type='submit'],
+.theme-nightly html .addNewRoom form input[type='submit'] {
   background-color: #958bca;
 }
-.theme-brome body .addNewRoom form input[type=submit], .theme-brome html .addNewRoom form input[type=submit] {
+.theme-brome body .addNewRoom form input[type='submit'],
+.theme-brome html .addNewRoom form input[type='submit'] {
   background-color: #f7ede2;
 }
-.theme-peachesncream body .addNewRoom form input[type=submit], .theme-peachesncream html .addNewRoom form input[type=submit] {
+.theme-peachesncream body .addNewRoom form input[type='submit'],
+.theme-peachesncream html .addNewRoom form input[type='submit'] {
   background-color: #fffdd0;
 }
-.theme-nightly body .addNewRoom form input[type=submit], .theme-nightly html .addNewRoom form input[type=submit] {
+.theme-nightly body .addNewRoom form input[type='submit'],
+.theme-nightly html .addNewRoom form input[type='submit'] {
   color: #fff;
 }
-.theme-brome body .addNewRoom form input[type=submit], .theme-brome html .addNewRoom form input[type=submit] {
+.theme-brome body .addNewRoom form input[type='submit'],
+.theme-brome html .addNewRoom form input[type='submit'] {
   color: #2c5784;
 }
-.theme-peachesncream body .addNewRoom form input[type=submit], .theme-peachesncream html .addNewRoom form input[type=submit] {
+.theme-peachesncream body .addNewRoom form input[type='submit'],
+.theme-peachesncream html .addNewRoom form input[type='submit'] {
   color: #f67e7d;
 }
-body .addNewRoom form input:hover, html .addNewRoom form input:hover {
+body .addNewRoom form input:hover,
+html .addNewRoom form input:hover {
   filter: brightness(1.2);
   cursor: pointer;
 }
-body .addNewRoom button, html .addNewRoom button {
+body .addNewRoom button,
+html .addNewRoom button {
   font-family: Bevan;
   font-size: 1em;
   border-radius: 0.125em;
@@ -1143,25 +1423,32 @@ body .addNewRoom button, html .addNewRoom button {
   max-width: 90%;
   margin-bottom: 1em;
 }
-.theme-nightly body .addNewRoom button, .theme-nightly html .addNewRoom button {
+.theme-nightly body .addNewRoom button,
+.theme-nightly html .addNewRoom button {
   background-color: #958bca;
 }
-.theme-brome body .addNewRoom button, .theme-brome html .addNewRoom button {
+.theme-brome body .addNewRoom button,
+.theme-brome html .addNewRoom button {
   background-color: #f7ede2;
 }
-.theme-peachesncream body .addNewRoom button, .theme-peachesncream html .addNewRoom button {
+.theme-peachesncream body .addNewRoom button,
+.theme-peachesncream html .addNewRoom button {
   background-color: #fffdd0;
 }
-.theme-nightly body .addNewRoom button, .theme-nightly html .addNewRoom button {
+.theme-nightly body .addNewRoom button,
+.theme-nightly html .addNewRoom button {
   color: #fff;
 }
-.theme-brome body .addNewRoom button, .theme-brome html .addNewRoom button {
+.theme-brome body .addNewRoom button,
+.theme-brome html .addNewRoom button {
   color: #2c5784;
 }
-.theme-peachesncream body .addNewRoom button, .theme-peachesncream html .addNewRoom button {
+.theme-peachesncream body .addNewRoom button,
+.theme-peachesncream html .addNewRoom button {
   color: #f67e7d;
 }
-body .addNewRoom button:hover, html .addNewRoom button:hover {
+body .addNewRoom button:hover,
+html .addNewRoom button:hover {
   filter: brightness(1.2);
   cursor: pointer;
 }
