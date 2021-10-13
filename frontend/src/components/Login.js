@@ -5,18 +5,12 @@ import { setToken, getUser, handleNotification } from '../utils/utils';
 import { Notification } from './Notification';
 import './stylesheets/login.css';
 
-function Login() {
-  const [user, setUser] = useState(getUser());
+function Login({ setCurrentUser }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [not, setNot] = useState(false);
   const [notContent, setNotContent] = useState('');
   const history = useHistory();
-
-  useEffect(() => {
-    setUser(getUser());
-    if (user) history.push('/rooms');
-  }, [history, user]);
 
   /**
    * Hanldes username field in the login form. Adds username
@@ -48,7 +42,7 @@ function Login() {
     try {
       const loginUser = await logIn({ username, password });
       setToken(loginUser);
-      setUser(loginUser);
+      setCurrentUser(loginUser);
       resetCreds();
       history.push('/rooms');
     } catch (error) {
