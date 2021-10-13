@@ -57,10 +57,6 @@ function Rooms({ socket, handleNotification, setRoomName }) {
 
   const handleNewRoomButton = async (event) => {
     setNewRoomVisible(true);
-
-    //await addNewRoom('asdf');
-    //const newRooms = await getAll();
-    //setRooms(newRooms);
   };
 
   const conditionalRender = () => {
@@ -96,6 +92,8 @@ function Rooms({ socket, handleNotification, setRoomName }) {
           <NewRoom
             isNewRoomVisible={isNewRoomVisible}
             setNewRoomVisible={setNewRoomVisible}
+            rooms={rooms}
+            setRooms={setRooms}
           />
         </div>
       );

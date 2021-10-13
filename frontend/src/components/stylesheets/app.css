@@ -28,6 +28,10 @@
 .theme-peachesncream .newRoomButton .newRoom {
   color: #fff;
 }
+.newRoomButton .newRoom:hover {
+  filter: brightness(1.2);
+  cursor: pointer;
+}
 
 body, html {
   height: 100%;
@@ -146,7 +150,7 @@ body .roomList, html .roomList {
   flex-direction: column;
   padding: 1em 0 0 0;
   height: 75vh;
-  overflow: hidden;
+  overflow: scroll;
   display: flex;
   align-items: center;
   box-shadow: 12.5px 12.5px 12.5px rgba(0, 0, 0, 0.15), 100px 100px 100px rgba(0, 0, 0, 0.075);
@@ -159,6 +163,42 @@ body .roomList, html .roomList {
 }
 .theme-peachesncream body .roomList, .theme-peachesncream html .roomList {
   background-color: #fffdd0;
+}
+body .roomList::-webkit-scrollbar, html .roomList::-webkit-scrollbar {
+  border-radius: 7em;
+  width: 1rem;
+}
+.theme-nightly body .roomList::-webkit-scrollbar, .theme-nightly html .roomList::-webkit-scrollbar {
+  background: #242e42;
+}
+.theme-brome body .roomList::-webkit-scrollbar, .theme-brome html .roomList::-webkit-scrollbar {
+  background: #f7ede2;
+}
+.theme-peachesncream body .roomList::-webkit-scrollbar, .theme-peachesncream html .roomList::-webkit-scrollbar {
+  background: #ffe8b8;
+}
+.theme-nightly body .roomList::-webkit-scrollbar, .theme-nightly html .roomList::-webkit-scrollbar {
+  border: 3px solid #958bca;
+}
+.theme-brome body .roomList::-webkit-scrollbar, .theme-brome html .roomList::-webkit-scrollbar {
+  border: 3px solid #d77a61;
+}
+.theme-peachesncream body .roomList::-webkit-scrollbar, .theme-peachesncream html .roomList::-webkit-scrollbar {
+  border: 3px solid #fffdd0;
+}
+body .roomList::-webkit-scrollbar-thumb, html .roomList::-webkit-scrollbar-thumb {
+  border: 5px solid transparent;
+  border-radius: 7em;
+  background-clip: content-box;
+}
+.theme-nightly body .roomList::-webkit-scrollbar-thumb, .theme-nightly html .roomList::-webkit-scrollbar-thumb {
+  background: #958bca;
+}
+.theme-brome body .roomList::-webkit-scrollbar-thumb, .theme-brome html .roomList::-webkit-scrollbar-thumb {
+  background: #d77a61;
+}
+.theme-peachesncream body .roomList::-webkit-scrollbar-thumb, .theme-peachesncream html .roomList::-webkit-scrollbar-thumb {
+  background: #fffdd0;
 }
 @media (min-width: 800px) {
   body .roomList, html .roomList {

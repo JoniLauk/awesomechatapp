@@ -28,5 +28,9 @@
 .theme-peachesncream .newRoomButton .newRoom {
   color: #fff;
 }
+.newRoomButton .newRoom:hover {
+  filter: brightness(1.2);
+  cursor: pointer;
+}
 
 /*# sourceMappingURL=rooms.css.map */

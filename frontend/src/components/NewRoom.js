@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { unmountComponentAtNode, render } from 'react-dom';
 import { getUser, handleNotification } from '../utils/utils';
-import { addNewRoom } from '../services/roomService';
+import { addNewRoom, getAll } from '../services/roomService';
 import { Notification } from './Notification';
 
-export const NewRoom = ({ isNewRoomVisible, setNewRoomVisible }) => {
+export const NewRoom = ({
+  isNewRoomVisible,
+  setNewRoomVisible,
+  rooms,
+  setRooms,
+}) => {
   const [not, setNot] = useState(false);
   const [notContent, setNotContent] = useState('');
   const [newRoomName, setNewRoomName] = useState('');
@@ -21,6 +26,8 @@ export const NewRoom = ({ isNewRoomVisible, setNewRoomVisible }) => {
         await addNewRoom({
           newRoomName,
         });
+        const newRooms = await getAll();
+        setRooms(newRooms);
         setNewRoomVisible(false);
         setNewRoomName('');
         handleNotification(
