@@ -94,6 +94,7 @@ function Settings({ setRoomName }) {
             >
               <option value="nightly">nightly</option>
               <option value="brome">brome</option>
+              <option value="peachesncream">peachesncream</option>
             </select>
             <button
               className="settingsButton"

@@ -27,6 +27,7 @@
 		flex-direction: row
 		box-shadow: 12.5px 12.5px 12.5px rgba(0, 0, 0, 0.15), 100px 100px 100px rgba(0, 0, 0, 0.075)
 		overflow: hidden
+		text-decoration: none
 
 		&:hover
 			@include buttons-hover-effect
@@ -65,8 +66,8 @@
 		// 		overflow: hidden
 		// 		max-height: 4em
 	.nameMessage
-		flex: 2
 		padding-left: 1rem
+		min-width: 40vw
 
 	.roomLink
 		@include theme-aware('color', 'roomLink-color')
@@ -80,21 +81,22 @@
 		font-family: Bevan
 		font-size: 1em
 
-	.lastMessage
-		@include theme-aware('color', 'roomLink-message-color')
-		font-family: Bevan
-		font-size: 1em
-		margin: 0
-
 	.iconTime
 		@include theme-aware('color', 'roomLink-color')
 		display: flex
-		flex-direction: row
+		flex-direction: column
 		justify-content: center
 		font-family: Bevan
 		font-size: 0.7rem
 		align-items: center
-		flex: 1
+		overflow: hidden
+
+		.lastMessage
+			@include theme-aware('color', 'roomLink-message-color')
+			font-family: Bevan
+			font-size: 1em
+			margin: 0
+			max-width: 100%
 
 .newRoomButton
 	display: flex

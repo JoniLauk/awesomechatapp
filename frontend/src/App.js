@@ -78,10 +78,10 @@ export default function App() {
             )}
           </Route>
           <Route path="/login">
-            <Login setCurrentUser={setCurrentUser} />
+            <Login setCurrentUser={setCurrentUser} setRoomName={setRoomName} />
           </Route>
           <Route path="/signup">
-            <Signup />
+            <Signup setRoomName={setRoomName} />
           </Route>
           <Route path="/">
             {currentUser ? <Redirect to="/rooms" /> : <Redirect to="/login" />}

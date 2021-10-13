@@ -181,12 +181,16 @@ function Room({ roomProps }) {
     messagesEndRef.current.scrollIntoView({ behavior: 'auto' });
   };
 
+  function checkURL(url) {
+    return url.match(/\.(jpeg|jpg|gif|png)$/) != null;
+  }
+
   useEffect(() => {
     const checkIfImageExists = (message) => {
       const image = new Image();
       image.src = message.content;
 
-      if (image.complete) {
+      if (checkURL(message.content) && !image.src.includes('/rooms/')) {
         return <img src={image.src} alt={image.src}></img>;
       }
 

@@ -9,17 +9,24 @@
     margin-top: 0.25em
 
 @mixin login()
+
     @include theme-aware('color', 'loginPage-font-color')
     display: flex
     flex-direction: column
-    justify-content: center
+    justify-content: space-evenly
     align-items: center
     height: 80vh
     font-size: 1.5em
     margin-top: 1.5em
 
+
     input
         @include buttons-hover-effect
+
+    h1
+        @include theme-aware('color', 'loginLink-color')
+        font-family: Bevan
+        font-size: 1.5em
 
     h3
         margin: 0
@@ -38,6 +45,12 @@
 
         input[type="password"]
             @include formTextInput()
+
+        .pwIcon
+            @include buttons-hover-effect
+            position: relative
+            left: 78%
+            bottom: 30%
 
     .loginFormSubmit
         display: flex

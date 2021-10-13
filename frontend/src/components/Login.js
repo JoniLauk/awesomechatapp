@@ -3,14 +3,20 @@ import { useHistory } from 'react-router-dom';
 import { logIn } from '../services/userService';
 import { setToken, getUser, handleNotification } from '../utils/utils';
 import { Notification } from './Notification';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import './stylesheets/login.css';
 
-function Login({ setCurrentUser }) {
+function Login({ setCurrentUser, setRoomName }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [not, setNot] = useState(false);
   const [notContent, setNotContent] = useState('');
+  const [pwIcon, setPWIcon] = useState(false);
   const history = useHistory();
+
+  useEffect(() => {
+    setRoomName('LOGIN');
+  });
 
   /**
    * Hanldes username field in the login form. Adds username
@@ -31,6 +37,17 @@ function Login({ setCurrentUser }) {
     event.preventDefault();
     setPassword(event.target.value);
   };
+
+  function togglePassword() {
+    const x = document.getElementById('password');
+    if (x.type === 'password') {
+      x.type = 'text';
+      setPWIcon(true);
+    } else {
+      x.type = 'password';
+      setPWIcon(false);
+    }
+  }
 
   /**
    * Login forms submit action. Logs user in based on the credentials
@@ -73,6 +90,7 @@ function Login({ setCurrentUser }) {
       {not ? <Notification message={notContent}></Notification> : ''}
       <div>
         <form className="loginForm" onSubmit={handleLogin}>
+          <h1>AWESOMECHATAPP</h1>
           <div className="loginFormDiv">
             <h3>Name</h3>
             <input
@@ -88,9 +106,19 @@ function Login({ setCurrentUser }) {
             <input
               type="password"
               name="password"
+              id="password"
               onChange={handlePassword}
               value={password}
             />
+            {pwIcon ? (
+              <FaEyeSlash
+                id="pwIcon"
+                className="pwIcon"
+                onClick={togglePassword}
+              />
+            ) : (
+              <FaEye id="pwIcon" className="pwIcon" onClick={togglePassword} />
+            )}
           </div>
           <div className="loginFormSubmit">
             <input type="submit" value="LOGIN" />

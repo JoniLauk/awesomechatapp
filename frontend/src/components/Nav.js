@@ -24,6 +24,22 @@ export const Nav = ({ navProps }) => {
         return <FaCog className="button" onClick={goSettings} />;
       case 'SETTINGS':
         return <FaTimes className="button" onClick={goBack} />;
+      case 'LOGIN':
+        return (
+          <FaTimes
+            className="button"
+            onClick={goBack}
+            style={{ visibility: 'hidden' }}
+          />
+        );
+      case 'SIGN UP':
+        return (
+          <FaTimes
+            className="button"
+            onClick={goBack}
+            style={{ visibility: 'hidden' }}
+          />
+        );
       default:
         if (!showInfo) {
           return <FaInfoCircle className="button" onClick={handleInfoButton} />;

@@ -16,10 +16,16 @@
 .theme-brome .newRoomButton .newRoom {
   background-color: #d77a61;
 }
+.theme-peachesncream .newRoomButton .newRoom {
+  background-color: #ffcc99;
+}
 .theme-nightly .newRoomButton .newRoom {
   color: #fff;
 }
 .theme-brome .newRoomButton .newRoom {
+  color: #fff;
+}
+.theme-peachesncream .newRoomButton .newRoom {
   color: #fff;
 }
 

@@ -45,6 +45,7 @@
     img
       margin-top: 0.5em
       border-radius: 1em
+      max-width: 100%
 
     .sentMessage
       @include theme-aware('background-color', 'sent-message-background-color')
@@ -95,10 +96,8 @@
       &:hover
         @include buttons-hover-effect
 
-    .fromUser
-      @include theme-aware('color', 'fromUser-font-color')
-
-    .message
+    .messageContent
+      @include theme-aware('color', 'chat-message-color')
       font-family: Roboto Slab
       font-size: 1em
 

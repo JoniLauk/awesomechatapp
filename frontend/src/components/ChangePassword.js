@@ -3,6 +3,7 @@ import { unmountComponentAtNode, render } from 'react-dom';
 import { getUser, handleNotification } from '../utils/utils';
 import { changeUserpassword } from '../services/userService';
 import { Notification } from './Notification';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 export const ChangePassword = ({
   setIsChangePasswordVisible,
@@ -12,6 +13,8 @@ export const ChangePassword = ({
   const [newPassword, setNewPassword] = useState('');
   const [user, setUser] = useState(getUser());
   const [not, setNot] = useState(false);
+  const [pwIcon, setPWIcon] = useState(false);
+  const [newPwIcon, setNewPWIcon] = useState(false);
   const [notContent, setNotContent] = useState('');
 
   const handlePassword = (event) => {
@@ -57,6 +60,28 @@ export const ChangePassword = ({
     }
   };
 
+  function togglePassword() {
+    const x = document.getElementById('login-form-username-input');
+    if (x.type === 'password') {
+      x.type = 'text';
+      setPWIcon(true);
+    } else {
+      x.type = 'password';
+      setPWIcon(false);
+    }
+  }
+
+  function toggleNewPassword() {
+    const x = document.getElementById('newPassword');
+    if (x.type === 'password') {
+      x.type = 'text';
+      setPWIcon(true);
+    } else {
+      x.type = 'password';
+      setPWIcon(false);
+    }
+  }
+
   const cancelPasswordChange = () => {
     setIsChangePasswordVisible(false);
     setPassword('');
@@ -79,15 +104,42 @@ export const ChangePassword = ({
                 onChange={handlePassword}
                 value={password}
               />
+              {pwIcon ? (
+                <FaEyeSlash
+                  id="pwIcon"
+                  className="pwIcon"
+                  onClick={togglePassword}
+                />
+              ) : (
+                <FaEye
+                  id="pwIcon"
+                  className="pwIcon"
+                  onClick={togglePassword}
+                />
+              )}
             </div>
             <div className="loginFormDiv">
               <h3>New password</h3>
               <input
                 type="password"
                 name="newPassword"
+                id="newPassword"
                 onChange={handleNewPassword}
                 value={newPassword}
               />
+              {pwIcon ? (
+                <FaEyeSlash
+                  id="pwIcon"
+                  className="pwIcon"
+                  onClick={toggleNewPassword}
+                />
+              ) : (
+                <FaEye
+                  id="pwIcon"
+                  className="pwIcon"
+                  onClick={toggleNewPassword}
+                />
+              )}
             </div>
             <input type="submit" value="Confirm" />
           </form>
