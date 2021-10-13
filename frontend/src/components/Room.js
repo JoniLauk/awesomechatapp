@@ -11,16 +11,10 @@ import { getRoomName } from '../services/roomService';
 import { SocketContext } from '../context/socket';
 import { getUserId, getUser, handleNotification } from '../utils/utils';
 import './stylesheets/room.css';
-import {
-  FaChevronLeft,
-  FaInfoCircle,
-  FaPlus,
-  FaTrashAlt,
-} from 'react-icons/fa';
-import { useHistory, useRouteMatch, useParams } from 'react-router-dom';
+import { FaPlus, FaTrashAlt } from 'react-icons/fa';
+import { useHistory, useParams } from 'react-router-dom';
 import { InfoComponent } from './InfoComponent';
 import { Notification } from './Notification';
-import { Nav } from './Nav';
 
 /**
  * Room where users can join and send messages to each other. All communications with the server
@@ -34,6 +28,7 @@ function Room({ roomProps }) {
   const [messageContent, setMessageContent] = useState('');
   const [not, setNot] = useState(false);
   const [notContent, setNotContent] = useState('');
+  const [messageItems, setMessageItems] = useState([]);
   const socket = useContext(SocketContext);
   const history = useHistory();
   const messagesEndRef = useRef(null);
@@ -97,11 +92,6 @@ function Room({ roomProps }) {
       socket.off('message:removed', handleMessageDelete);
     };
   }, [socket, handleNewMessages, handleMessageDelete]);
-
-  const emitMessageDel = (x) => {
-    socket.emit('message:delete', x);
-    setMessages(messages.filter((m) => m._id !== x._id));
-  };
 
   /**
    * When user joins room, fires 'room:join' event which is handled on the server.
@@ -200,42 +190,43 @@ function Room({ roomProps }) {
   //   return url.match(/\.(jpg|jpeg|gif|png)$/) != null;
   // }
 
-  const checkIfImageExists = (message) => {
-    const img = new Image();
-    img.src = message.content;
-    if (img.complete) {
-      return (
-        <img
-          style={{ maxWdith: '100%' }}
-          src={message.content}
-          alt={message.content}
-        />
-      );
-    }
-    return <p className="messageContent">{message.content}</p>;
-  };
+  useEffect(() => {
+    const checkIfImageExists = (message) => {
+      const image = new Image();
+      image.src = message.content;
 
-  const messageItems = messages.map((x) => {
-    return (
-      <li
-        className={x.user === getUser() ? 'sentMessage' : 'receivedMessage'}
-        key={x._id}
-      >
-        <div
-          className="messageMenu"
-          onClick={() => {
-            emitMessageDel(x);
-          }}
-        >
-          <FaTrashAlt />
-        </div>
-        <div className="fromUser">
-          {x.user === getUser() ? '' : <p className="userName">{x.user}</p>}
-          {checkIfImageExists(x)}
-        </div>
-      </li>
+      if (image.complete) {
+        return <img src={image.src} alt={image.src}></img>;
+      }
+
+      return <p className="messageContent">{message.content}</p>;
+    };
+
+    const emitMessageDel = (x) => {
+      socket.emit('message:delete', x);
+      setMessages(messages.filter((m) => m._id !== x._id));
+    };
+
+    setMessageItems(
+      messages.map((x) => {
+        return (
+          <li
+            className={x.user === getUser() ? 'sentMessage' : 'receivedMessage'}
+            key={x._id}
+          >
+            <div className="messageMenu" onClick={() => emitMessageDel(x)}>
+              <FaTrashAlt />
+            </div>
+            <div className="fromUser">
+              {x.user === getUser() ? '' : <p className="userName">{x.user}</p>}
+              {checkIfImageExists(x)}
+            </div>
+          </li>
+        );
+      })
     );
-  });
+  }, [messages, socket]);
+
   return (
     <div className="roomViewContainer">
       <div className="room">
