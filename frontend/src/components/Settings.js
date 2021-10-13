@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, useHistory } from 'react-router-dom';
+import { BrowserRouter as useHistory } from 'react-router-dom';
 import { deleteAccount } from '../services/userService';
 import {
   getUser,

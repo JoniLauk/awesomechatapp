@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { unmountComponentAtNode, render } from 'react-dom';
 import { getUser, handleNotification } from '../utils/utils';
 import { changeUserpassword } from '../services/userService';
 import { Notification } from './Notification';
@@ -75,10 +74,10 @@ export const ChangePassword = ({
     const x = document.getElementById('newPassword');
     if (x.type === 'password') {
       x.type = 'text';
-      setPWIcon(true);
+      setNewPWIcon(true);
     } else {
       x.type = 'password';
-      setPWIcon(false);
+      setNewPWIcon(false);
     }
   }
 
@@ -127,7 +126,7 @@ export const ChangePassword = ({
                 onChange={handleNewPassword}
                 value={newPassword}
               />
-              {pwIcon ? (
+              {newPwIcon ? (
                 <FaEyeSlash
                   id="pwIcon"
                   className="pwIcon"

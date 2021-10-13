@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { logIn } from '../services/userService';
-import { setToken, getUser, handleNotification } from '../utils/utils';
+import { setToken, handleNotification } from '../utils/utils';
 import { Notification } from './Notification';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import './stylesheets/login.css';

@@ -21,6 +21,14 @@ const { response } = require('express');
 usersRouter.get('/', async (req, res) => {
   // Todennäköisesti ei ole järkevää päästää käyttäjää hakemaan kaikkien muiden
   // käyttäjien käyttäjänimet x)
+
+  const auth = req.headers.authorization;
+  if (auth && auth.toLowerCase().startsWith('bearer ')) {
+    req.token = auth.substring(7);
+  } else {
+    res.status(400).json({ error: 'Token missing' });
+  }
+
   try {
     const users = await User.find({}).populate('room', { users: 0 });
     res.json(users);

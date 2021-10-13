@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { unmountComponentAtNode, render } from 'react-dom';
-import { getUser, handleNotification } from '../utils/utils';
+import React, { useState } from 'react';
+import { handleNotification } from '../utils/utils';
 import { addNewRoom, getAll } from '../services/roomService';
 import { Notification } from './Notification';
 

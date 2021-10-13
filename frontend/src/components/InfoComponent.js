@@ -1,5 +1,4 @@
 import React from 'react';
-import { FaChevronLeft, FaInfoCircle } from 'react-icons/fa';
 import './stylesheets/infocomponent.css';
 
 /**
