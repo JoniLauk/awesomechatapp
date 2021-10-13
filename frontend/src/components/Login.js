@@ -90,7 +90,6 @@ function Login({ setCurrentUser, setRoomName }) {
       {not ? <Notification message={notContent}></Notification> : ''}
       <div>
         <form className="loginForm" onSubmit={handleLogin}>
-          <h1>AWESOMECHATAPP</h1>
           <div className="loginFormDiv">
             <h3>Name</h3>
             <input

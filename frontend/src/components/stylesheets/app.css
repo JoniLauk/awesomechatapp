@@ -150,7 +150,8 @@ body .roomList, html .roomList {
   flex-direction: column;
   padding: 1em 0 0 0;
   height: 75vh;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: auto;
   display: flex;
   align-items: center;
   box-shadow: 12.5px 12.5px 12.5px rgba(0, 0, 0, 0.15), 100px 100px 100px rgba(0, 0, 0, 0.075);
@@ -588,17 +589,17 @@ body .loginForm input:hover, html .loginForm input:hover {
   filter: brightness(1.2);
   cursor: pointer;
 }
-body .loginForm h1, html .loginForm h1 {
+body .loginForm h2, html .loginForm h2 {
   font-family: Bevan;
   font-size: 1.5em;
 }
-.theme-nightly body .loginForm h1, .theme-nightly html .loginForm h1 {
+.theme-nightly body .loginForm h2, .theme-nightly html .loginForm h2 {
   color: #8bb7ca;
 }
-.theme-brome body .loginForm h1, .theme-brome html .loginForm h1 {
+.theme-brome body .loginForm h2, .theme-brome html .loginForm h2 {
   color: #2c5784;
 }
-.theme-peachesncream body .loginForm h1, .theme-peachesncream html .loginForm h1 {
+.theme-peachesncream body .loginForm h2, .theme-peachesncream html .loginForm h2 {
   color: #f67e7d;
 }
 body .loginForm h3, html .loginForm h3 {
