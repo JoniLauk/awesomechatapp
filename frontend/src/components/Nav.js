@@ -23,7 +23,7 @@ export const Nav = ({ navProps }) => {
       case 'AWESOMECHATAPP':
         return <FaCog className="button" onClick={goSettings} />;
       case 'SETTINGS':
-        return '';
+        return <FaTimes className="button" onClick={goBack} />;
       default:
         if (!showInfo) {
           return <FaInfoCircle className="button" onClick={handleInfoButton} />;

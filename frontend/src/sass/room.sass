@@ -22,9 +22,15 @@
     margin: 0
     width: 100vw
     &::-webkit-scrollbar
-      border-radius: 100px
-      background: #8070D4
-      border: 3px solid rgba(0,0,0,0.2)
+      @include theme-aware('background', 'body-background-color')
+      @include theme-aware('border', 'scrollbar-border')
+      border-radius: 7em
+      width: 1rem
+    &::-webkit-scrollbar-thumb
+      @include theme-aware('background', 'roomList-background-color')
+      border: 5px solid transparent
+      border-radius: 7em
+      background-clip: content-box
     @media (min-width: 800px)
       max-width: 1100px
 
@@ -89,12 +95,12 @@
       &:hover
         @include buttons-hover-effect
 
-      .fromUser
-        @include theme-aware('color', 'fromUser-font-color')
+    .fromUser
+      @include theme-aware('color', 'fromUser-font-color')
 
-      .message
-        font-family: Roboto Slab
-        font-size: 1em
+    .message
+      font-family: Roboto Slab
+      font-size: 1em
 
   .submitMessageForm
     display: flex

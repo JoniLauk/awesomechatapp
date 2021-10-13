@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const roomSchema = new mongoose.Schema({
   room: String,
   roomName: String,
+  name: String,
   messages: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Message' }],
 });
 

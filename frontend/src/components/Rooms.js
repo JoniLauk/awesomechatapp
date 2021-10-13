@@ -8,17 +8,18 @@ import {
   useHistory,
   useLocation,
 } from 'react-router-dom';
-import { unmountComponentAtNode } from 'react-dom';
 import Room from './Room';
 import { getUser } from '../utils/utils';
 import { getAll } from '../services/roomService';
 import './stylesheets/rooms.css';
+import { NewRoom } from './NewRoom';
 
 function Rooms({ socket, handleNotification, setRoomName }) {
   const [rooms, setRooms] = useState([]);
   const match = useRouteMatch();
   const history = useHistory();
   const location = useLocation();
+  const [isNewRoomVisible, setNewRoomVisible] = useState(false);
 
   const getRooms = async () => {
     const newRooms = await getAll();
@@ -29,18 +30,6 @@ function Rooms({ socket, handleNotification, setRoomName }) {
     setRoomName('AWESOMECHATAPP');
     getRooms();
   }, [location, setRoomName]);
-
-  const goBack = () => {
-    history.push('/rooms');
-  };
-
-  const goSettings = () => {
-    history.push('/settings');
-  };
-
-  const handleClick = () => {
-    unmountComponentAtNode(document.getElementById('roomList'));
-  };
 
   const getRoutes = rooms.map((x) => (
     <Route key={x.id} exact path={`${match.url}/${x.id}`}>
@@ -66,13 +55,12 @@ function Rooms({ socket, handleNotification, setRoomName }) {
     } else return '';
   };
 
-  const handleNewRoomButton = (event) => {
-    event.preventDefault();
-    const newRoom = {
-      name: 'Skiggelssköggels',
-      messages: [],
-    };
-    setRooms([...rooms, newRoom]);
+  const handleNewRoomButton = async (event) => {
+    setNewRoomVisible(true);
+
+    //await addNewRoom('asdf');
+    //const newRooms = await getAll();
+    //setRooms(newRooms);
   };
 
   const conditionalRender = () => {
@@ -105,6 +93,10 @@ function Rooms({ socket, handleNotification, setRoomName }) {
             </button>
           </div>
           <Switch>{getRoutes}</Switch>
+          <NewRoom
+            isNewRoomVisible={isNewRoomVisible}
+            setNewRoomVisible={setNewRoomVisible}
+          />
         </div>
       );
     } else {

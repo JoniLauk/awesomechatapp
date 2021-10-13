@@ -72,16 +72,18 @@ body .topBar, html .topBar {
 }
 body .topBar :nth-child(1), html .topBar :nth-child(1) {
   padding-left: 1em;
+  padding-right: 0;
 }
 body .topBar :nth-child(3), html .topBar :nth-child(3) {
   padding-right: 1em;
+  padding-left: 0;
 }
 body .notification, html .notification {
   font-family: Roboto Slab;
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 45vh;
+  top: 50%;
   justify-content: center;
   padding: 0;
   list-style: none;
@@ -142,7 +144,7 @@ body .roomList, html .roomList {
 body .roomList .roomListItem, html .roomList .roomListItem {
   border-radius: 0.25em;
   padding: 0.5em 0.5em 0.25em 0;
-  margin-top: 1em;
+  margin: 1em;
   min-height: 5em;
   width: 70vw;
   display: flex;
@@ -259,9 +261,31 @@ body .room .chat, html .room .chat {
   color: #fff;
 }
 body .room .chat::-webkit-scrollbar, html .room .chat::-webkit-scrollbar {
-  border-radius: 100px;
-  background: #8070D4;
-  border: 3px solid rgba(0, 0, 0, 0.2);
+  border-radius: 7em;
+  width: 1rem;
+}
+.theme-nightly body .room .chat::-webkit-scrollbar, .theme-nightly html .room .chat::-webkit-scrollbar {
+  background: #242e42;
+}
+.theme-brome body .room .chat::-webkit-scrollbar, .theme-brome html .room .chat::-webkit-scrollbar {
+  background: #f7ede2;
+}
+.theme-nightly body .room .chat::-webkit-scrollbar, .theme-nightly html .room .chat::-webkit-scrollbar {
+  border: 3px solid #958bca;
+}
+.theme-brome body .room .chat::-webkit-scrollbar, .theme-brome html .room .chat::-webkit-scrollbar {
+  border: 3px solid #d77a61;
+}
+body .room .chat::-webkit-scrollbar-thumb, html .room .chat::-webkit-scrollbar-thumb {
+  border: 5px solid transparent;
+  border-radius: 7em;
+  background-clip: content-box;
+}
+.theme-nightly body .room .chat::-webkit-scrollbar-thumb, .theme-nightly html .room .chat::-webkit-scrollbar-thumb {
+  background: #958bca;
+}
+.theme-brome body .room .chat::-webkit-scrollbar-thumb, .theme-brome html .room .chat::-webkit-scrollbar-thumb {
+  background: #d77a61;
 }
 @media (min-width: 800px) {
   body .room .chat, html .room .chat {
@@ -352,13 +376,13 @@ body .room .chat .messageMenu:hover:hover, html .room .chat .messageMenu:hover:h
   filter: brightness(1.2);
   cursor: pointer;
 }
-.theme-nightly body .room .chat .messageMenu .fromUser, .theme-nightly html .room .chat .messageMenu .fromUser {
+.theme-nightly body .room .chat .fromUser, .theme-nightly html .room .chat .fromUser {
   color: #8bb7ca;
 }
-.theme-brome body .room .chat .messageMenu .fromUser, .theme-brome html .room .chat .messageMenu .fromUser {
+.theme-brome body .room .chat .fromUser, .theme-brome html .room .chat .fromUser {
   color: #d77a61;
 }
-body .room .chat .messageMenu .message, html .room .chat .messageMenu .message {
+body .room .chat .message, html .room .chat .message {
   font-family: Roboto Slab;
   font-size: 1em;
 }
@@ -572,7 +596,7 @@ body .settings select, html .settings select {
   position: relative;
   background-image: none;
   display: block;
-  min-width: 150px;
+  min-width: 10em;
   outline: none;
   cursor: pointer;
   border: none;
@@ -665,6 +689,210 @@ body .infoContainer li, html .infoContainer li {
 }
 .theme-brome body .infoContainer li, .theme-brome html .infoContainer li {
   background-color: #d77a61;
+}
+body .changePassword, html .changePassword {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 15vh;
+  left: 20vw;
+  height: 65vh;
+  width: 60vw;
+  border-radius: 1em;
+  border: none;
+  box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15);
+}
+.theme-nightly body .changePassword, .theme-nightly html .changePassword {
+  background-color: #434f66;
+}
+.theme-brome body .changePassword, .theme-brome html .changePassword {
+  background-color: #2c5784;
+}
+.theme-nightly body .changePassword, .theme-nightly html .changePassword {
+  color: #8bb7ca;
+}
+.theme-brome body .changePassword, .theme-brome html .changePassword {
+  color: #fff;
+}
+body .changePassword form, html .changePassword form {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+body .changePassword form .loginFormDiv, html .changePassword form .loginFormDiv {
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 2.5em;
+}
+body .changePassword form .loginFormDiv input[type=password], html .changePassword form .loginFormDiv input[type=password] {
+  font-size: 1.5em;
+  max-width: 85%;
+  border-radius: 0.125em;
+  border: none;
+  margin-top: 0.25em;
+}
+.theme-nightly body .changePassword form .loginFormDiv input[type=password], .theme-nightly html .changePassword form .loginFormDiv input[type=password] {
+  background-color: #958bca;
+}
+.theme-brome body .changePassword form .loginFormDiv input[type=password], .theme-brome html .changePassword form .loginFormDiv input[type=password] {
+  background-color: #d77a61;
+}
+body .changePassword form input[type=submit], html .changePassword form input[type=submit] {
+  font-family: Bevan;
+  font-size: 1em;
+  border-radius: 0.125em;
+  border: none;
+  padding: 0.3em 1em;
+  max-width: 90%;
+}
+.theme-nightly body .changePassword form input[type=submit], .theme-nightly html .changePassword form input[type=submit] {
+  background-color: #958bca;
+}
+.theme-brome body .changePassword form input[type=submit], .theme-brome html .changePassword form input[type=submit] {
+  background-color: #d77a61;
+}
+.theme-nightly body .changePassword form input[type=submit], .theme-nightly html .changePassword form input[type=submit] {
+  color: #fff;
+}
+.theme-brome body .changePassword form input[type=submit], .theme-brome html .changePassword form input[type=submit] {
+  color: #2c5784;
+}
+body .changePassword form input:hover, html .changePassword form input:hover {
+  filter: brightness(1.2);
+  cursor: pointer;
+}
+body .changePassword button, html .changePassword button {
+  font-family: Bevan;
+  font-size: 1em;
+  border-radius: 0.125em;
+  border: none;
+  padding: 0.3em 1em;
+  max-width: 90%;
+  margin-bottom: 1em;
+}
+.theme-nightly body .changePassword button, .theme-nightly html .changePassword button {
+  background-color: #958bca;
+}
+.theme-brome body .changePassword button, .theme-brome html .changePassword button {
+  background-color: #d77a61;
+}
+.theme-nightly body .changePassword button, .theme-nightly html .changePassword button {
+  color: #fff;
+}
+.theme-brome body .changePassword button, .theme-brome html .changePassword button {
+  color: #2c5784;
+}
+body .changePassword button:hover, html .changePassword button:hover {
+  filter: brightness(1.2);
+  cursor: pointer;
+}
+body .addNewRoom, html .addNewRoom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 30vh;
+  left: 20vw;
+  height: 30vh;
+  width: 60vw;
+  border-radius: 1em;
+  border: none;
+  box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15);
+}
+.theme-nightly body .addNewRoom, .theme-nightly html .addNewRoom {
+  background-color: #242e42;
+}
+.theme-brome body .addNewRoom, .theme-brome html .addNewRoom {
+  background-color: #2c5784;
+}
+.theme-nightly body .addNewRoom, .theme-nightly html .addNewRoom {
+  color: #fff;
+}
+.theme-brome body .addNewRoom, .theme-brome html .addNewRoom {
+  color: #2c5784;
+}
+body .addNewRoom form, html .addNewRoom form {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+body .addNewRoom form .loginFormDiv, html .addNewRoom form .loginFormDiv {
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 2.5em;
+}
+body .addNewRoom form input[type=name], html .addNewRoom form input[type=name] {
+  font-size: 1.8em;
+  border-radius: 0.125em;
+  border: none;
+  margin-top: 0.25em;
+  max-width: 90%;
+}
+.theme-nightly body .addNewRoom form input[type=name], .theme-nightly html .addNewRoom form input[type=name] {
+  background-color: #958bca;
+}
+.theme-brome body .addNewRoom form input[type=name], .theme-brome html .addNewRoom form input[type=name] {
+  background-color: #f7ede2;
+}
+body .addNewRoom form input[type=submit], html .addNewRoom form input[type=submit] {
+  font-family: Bevan;
+  font-size: 1em;
+  border-radius: 0.125em;
+  border: none;
+  padding: 0.3em 1em;
+  max-width: 90%;
+}
+.theme-nightly body .addNewRoom form input[type=submit], .theme-nightly html .addNewRoom form input[type=submit] {
+  background-color: #958bca;
+}
+.theme-brome body .addNewRoom form input[type=submit], .theme-brome html .addNewRoom form input[type=submit] {
+  background-color: #f7ede2;
+}
+.theme-nightly body .addNewRoom form input[type=submit], .theme-nightly html .addNewRoom form input[type=submit] {
+  color: #fff;
+}
+.theme-brome body .addNewRoom form input[type=submit], .theme-brome html .addNewRoom form input[type=submit] {
+  color: #2c5784;
+}
+body .addNewRoom form input:hover, html .addNewRoom form input:hover {
+  filter: brightness(1.2);
+  cursor: pointer;
+}
+body .addNewRoom button, html .addNewRoom button {
+  font-family: Bevan;
+  font-size: 1em;
+  border-radius: 0.125em;
+  border: none;
+  padding: 0.3em 1em;
+  max-width: 90%;
+  margin-bottom: 1em;
+}
+.theme-nightly body .addNewRoom button, .theme-nightly html .addNewRoom button {
+  background-color: #958bca;
+}
+.theme-brome body .addNewRoom button, .theme-brome html .addNewRoom button {
+  background-color: #f7ede2;
+}
+.theme-nightly body .addNewRoom button, .theme-nightly html .addNewRoom button {
+  color: #fff;
+}
+.theme-brome body .addNewRoom button, .theme-brome html .addNewRoom button {
+  color: #2c5784;
+}
+body .addNewRoom button:hover, html .addNewRoom button:hover {
+  filter: brightness(1.2);
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=app.css.map */

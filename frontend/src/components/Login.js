@@ -69,7 +69,7 @@ function Login({ setCurrentUser }) {
   };
 
   return (
-    <div className="viewContainer">
+    <div>
       {not ? <Notification message={notContent}></Notification> : ''}
       <div>
         <form className="loginForm" onSubmit={handleLogin}>

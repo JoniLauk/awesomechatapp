@@ -4,6 +4,8 @@
 @use 'settings'
 @use 'infocomponent'
 @use 'notification'
+@use 'changePassword'
+@use 'newRoom'
 @import '_mixins'
 
 @mixin topBar()
@@ -19,8 +21,10 @@
   justify-content: space-between
   :nth-child(1)
     padding-left: 1em
+    padding-right: 0
   :nth-child(3)
     padding-right: 1em
+    padding-left: 0
 
 @mixin viewContainer()
   display: flex
@@ -75,3 +79,9 @@ body, html
 
   .infoContainer
     @include infocomponent.info()
+
+  .changePassword
+    @include changePassword.changePassword()
+  
+  .addNewRoom
+    @include newRoom.newRoom()

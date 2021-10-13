@@ -60,7 +60,7 @@ function Signup() {
   };
 
   return (
-    <div className="viewContainer">
+    <div>
       {not ? <Notification message={notContent} /> : ''}
       <div>
         <form className="loginForm" onSubmit={handleSignup}>
