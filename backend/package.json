@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
-    "publish": "cd ../frontend && npm run build && cp build ../backend/ && cd ../backend && git add . && git commit -m 'publish to heroku' && git push heroku master "
+    "publish": "git add . && git commit -m 'publish to heroku' && git push heroku master "
   },
   "keywords": [],
   "author": "",
