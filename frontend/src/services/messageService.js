@@ -8,9 +8,9 @@ export const getAll = async () => {
   return response.data;
 };
 
-export const getAllMessagesForRoom = async (roomName) => {
+export const getAllMessagesForRoom = async (roomId) => {
   const response = await axios.get(url, {
-    params: { roomName },
+    params: { roomId },
     headers: { authorization: `bearer ${getToken()}` },
   });
   return response.data;

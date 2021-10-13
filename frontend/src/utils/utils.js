@@ -34,11 +34,11 @@ export const removeToken = () => {
 };
 
 export const setColorScheme = (scheme) => {
-  window.localStorage.setItem('colorScheme', scheme);
+  window.localStorage.setItem('currentTheme', scheme);
 };
 
 export const getColorScheme = () => {
-  return window.localStorage.getItem('colorScheme');
+  return window.localStorage.getItem('currentTheme');
 };
 
 export const handleNotification = (data, setNot, setNotContent) => {

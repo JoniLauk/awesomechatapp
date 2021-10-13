@@ -5,20 +5,12 @@ import { setToken, getUser, handleNotification } from '../utils/utils';
 import { Notification } from './Notification';
 import './stylesheets/login.css';
 
-function Login() {
-  const [user, setUser] = useState(getUser());
+function Login({ setCurrentUser }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [not, setNot] = useState(false);
   const [notContent, setNotContent] = useState('');
   const history = useHistory();
-
-  /**
-   * If user is logged in redirect to /rooms.
-   */
-  useEffect(() => {
-    if (user) history.push('/rooms');
-  });
 
   /**
    * Hanldes username field in the login form. Adds username
@@ -50,7 +42,7 @@ function Login() {
     try {
       const loginUser = await logIn({ username, password });
       setToken(loginUser);
-      setUser(loginUser);
+      setCurrentUser(loginUser);
       resetCreds();
       history.push('/rooms');
     } catch (error) {
@@ -77,13 +69,8 @@ function Login() {
   };
 
   return (
-    <div className="viewContainer">
+    <div>
       {not ? <Notification message={notContent}></Notification> : ''}
-      <div className="topBar">
-        <div></div>
-        <div>AWESOMECHATAPP</div>
-        <div className="rightIcon"></div>
-      </div>
       <div>
         <form className="loginForm" onSubmit={handleLogin}>
           <div className="loginFormDiv">

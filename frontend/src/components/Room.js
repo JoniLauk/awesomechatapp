@@ -7,16 +7,12 @@ import React, {
 } from 'react';
 import { ObjectId } from 'bson';
 import { getAllMessagesForRoom } from '../services/messageService';
+import { getRoomName } from '../services/roomService';
 import { SocketContext } from '../context/socket';
 import { getUserId, getUser, handleNotification } from '../utils/utils';
 import './stylesheets/room.css';
-import {
-  FaChevronLeft,
-  FaInfoCircle,
-  FaPlus,
-  FaTrashAlt,
-} from 'react-icons/fa';
-import { useHistory } from 'react-router-dom';
+import { FaPlus, FaTrashAlt } from 'react-icons/fa';
+import { useHistory, useParams } from 'react-router-dom';
 import { InfoComponent } from './InfoComponent';
 import { Notification } from './Notification';
 
@@ -26,25 +22,31 @@ import { Notification } from './Notification';
  * @param {*} param0
  * @returns Room component
  */
-function Room({ roomName, roomId }) {
+function Room({ roomProps }) {
   const [messages, setMessages] = useState([]);
   const [connectedUsers, setConnectedUsers] = useState([]);
   const [messageContent, setMessageContent] = useState('');
-  const [showInfo, setShowInfo] = useState(false);
   const [not, setNot] = useState(false);
   const [notContent, setNotContent] = useState('');
+  const [messageItems, setMessageItems] = useState([]);
   const socket = useContext(SocketContext);
   const history = useHistory();
   const messagesEndRef = useRef(null);
+
+  const { setRoomName, setShowInfo, showInfo } = roomProps;
+
+  const roomId = useParams();
 
   /**
    * Appends new messages to the messages state array.
    */
   const handleNewMessages = useCallback(
     (data) => {
+      console.log('hnm');
       setMessages([...messages, data]);
+      socket.off('message:received');
     },
-    [messages]
+    [messages, socket]
   );
 
   /**
@@ -53,8 +55,9 @@ function Room({ roomName, roomId }) {
   const handleMessageDelete = useCallback(
     (data) => {
       setMessages(messages.filter((m) => m._id !== data._id));
+      socket.off('message:removed');
     },
-    [messages]
+    [messages, socket]
   );
 
   /**
@@ -63,7 +66,9 @@ function Room({ roomName, roomId }) {
    */
   useEffect(() => {
     const getMessages = async () => {
-      const response = await getAllMessagesForRoom(roomName);
+      const response = await getAllMessagesForRoom(roomId.id);
+      const roomName = await getRoomName(roomId.id);
+      setRoomName(roomName.name);
       setMessages(response);
       return () => {
         setMessages([]);
@@ -71,13 +76,15 @@ function Room({ roomName, roomId }) {
     };
 
     getMessages();
-  }, [roomName]);
+  }, [roomId, setRoomName]);
 
   /**
    * Listens for events fired from the server. Calls either handleNewMessage or
    * handleMessageDelete callback functions based on the event received.
    */
   useEffect(() => {
+    socket.off('message:received');
+    socket.off('message:removed');
     socket.once('message:received', (data) => handleNewMessages(data));
     socket.once('message:removed', (data) => handleMessageDelete(data));
     return () => {
@@ -85,11 +92,6 @@ function Room({ roomName, roomId }) {
       socket.off('message:removed', handleMessageDelete);
     };
   }, [socket, handleNewMessages, handleMessageDelete]);
-
-  const emitMessageDel = (x) => {
-    socket.emit('message:delete', x);
-    setMessages(messages.filter((m) => m._id !== x._id));
-  };
 
   /**
    * When user joins room, fires 'room:join' event which is handled on the server.
@@ -99,23 +101,22 @@ function Room({ roomName, roomId }) {
    */
   useEffect(() => {
     socket.emit('room:join', {
-      roomName,
+      roomId,
       user: getUserId(),
       username: getUser(),
     });
     socket.on('connected:users', (data) => {
-      console.log(data);
       setConnectedUsers(data);
     });
     return () => {
       socket.emit('room:leave', {
-        roomName,
+        roomId,
         user: getUserId(),
         username: getUser(),
       });
       setConnectedUsers([]);
     };
-  }, [socket, roomName]);
+  }, [socket, roomId]);
 
   /**
    * When messages array changes, scroll down.
@@ -134,15 +135,14 @@ function Room({ roomName, roomId }) {
     if (messageContent !== '') {
       const newMessage = {
         _id: new ObjectId().toString(),
-        roomName: roomName,
-        room: roomId,
+        roomName: roomId.id,
+        room: roomId.id,
         user: getUser(),
         content: messageContent,
       };
 
       setMessageContent('');
       socket.emit('message:create', newMessage);
-      // setMessages([...messages, newMessage]);
       setTimeout(() => {
         scrollToBottom();
       }, 10);
@@ -179,67 +179,47 @@ function Room({ roomName, roomId }) {
    */
   const scrollToBottom = () => {
     messagesEndRef.current.scrollIntoView({ behavior: 'auto' });
-    console.log('scroll');
   };
 
-  const handleUserArray = () => {
-    setShowInfo(!showInfo);
-  };
+  useEffect(() => {
+    const checkIfImageExists = (message) => {
+      const image = new Image();
+      image.src = message.content;
 
-  function checkURL(url) {
-    if (typeof url !== 'string') return false;
-    return url.match(/\.(jpg|jpeg|gif|png)$/) != null;
-  }
+      if (image.complete) {
+        return <img src={image.src} alt={image.src}></img>;
+      }
 
-  const messageItems = messages.map((x) => {
-    if (checkURL(x.content)) {
-      console.log(getUser());
-      return (
-        <li
-          className={x.user === getUser() ? 'sentMessage' : 'receivedMessage'}
-          key={x._id}
-        >
-          <div
-            className="messageMenu"
-            onClick={() => {
-              emitMessageDel(x);
-            }}
+      return <p className="messageContent">{message.content}</p>;
+    };
+
+    const emitMessageDel = (x) => {
+      socket.emit('message:delete', x);
+      setMessages(messages.filter((m) => m._id !== x._id));
+    };
+
+    setMessageItems(
+      messages.map((x) => {
+        return (
+          <li
+            className={x.user === getUser() ? 'sentMessage' : 'receivedMessage'}
+            key={x._id}
           >
-            <FaTrashAlt />
-          </div>
-          <div className="fromUser">
-            <p>{x.user === getUser() ? '' : x.user}</p>
-            <img style={{ maxWidth: '100%' }} alt="" src={x.content}></img>
-          </div>
-        </li>
-      );
-    } else {
-      return (
-        <li
-          className={x.user === getUser() ? 'sentMessage' : 'receivedMessage'}
-          key={x._id}
-        >
-          <div className="messageMenu" onClick={() => emitMessageDel(x)}>
-            <FaTrashAlt />
-          </div>
-          <div className="fromUser">{x.user === getUser() ? '' : x.user}</div>
-          <div>{x.content}</div>
-        </li>
-      );
-    }
-  });
+            <div className="messageMenu" onClick={() => emitMessageDel(x)}>
+              <FaTrashAlt />
+            </div>
+            <div className="fromUser">
+              {x.user === getUser() ? '' : <p className="userName">{x.user}</p>}
+              {checkIfImageExists(x)}
+            </div>
+          </li>
+        );
+      })
+    );
+  }, [messages, socket]);
 
   return (
-    <div className="viewContainer">
-      <div className="topBar">
-        <div onClick={goBack}>
-          <FaChevronLeft />
-        </div>
-        <div className="roomName">{roomName}</div>
-        <div className="rightIcon">
-          <FaInfoCircle onClick={() => handleUserArray()} />
-        </div>
-      </div>
+    <div className="roomViewContainer">
       <div className="room">
         <ul className="chat">
           {messageItems}
@@ -254,7 +234,7 @@ function Room({ roomName, roomId }) {
       </div>
       {showInfo ? (
         <InfoComponent
-          roomName={roomName}
+          roomName={roomId}
           connectedUsers={connectedUsers}
           setShowInfo={setShowInfo}
         />

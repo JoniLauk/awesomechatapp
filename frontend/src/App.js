@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
 } from 'react-router-dom';
-import { Settings, Rooms, Login, Signup } from './index';
+import { Settings, Rooms, Room, Login, Signup } from './index';
 import { SocketContext, socket } from './context/socket';
 import { getUser } from './utils/utils';
+import { Nav } from './components/Nav';
 import './components/stylesheets/app.css';
 
 /**
@@ -15,6 +16,9 @@ import './components/stylesheets/app.css';
  * @returns Router component.
  */
 export default function App() {
+  const [roomName, setRoomName] = useState('');
+  const [currentUser, setCurrentUser] = useState({});
+  const [showInfo, setShowInfo] = useState(false);
   const myStorage = window.localStorage;
 
   /**
@@ -30,29 +34,60 @@ export default function App() {
     );
   });
 
+  useEffect(() => {
+    setCurrentUser(getUser());
+  }, []);
+
+  useEffect(() => {
+    setRoomName('AWESOMECHATAPP');
+  }, [setRoomName]);
+
+  const roomProps = {
+    setRoomName,
+    showInfo,
+    setShowInfo,
+  };
+
+  const navProps = {
+    roomName,
+    setRoomName,
+    setShowInfo,
+    showInfo,
+  };
+
   return (
     <SocketContext.Provider value={socket}>
-      <div>
-        <Router>
-          <Switch>
-            <Route path="/settings">
-              {getUser() ? <Settings /> : <Redirect to="/login" />}
-            </Route>
-            <Route path="/rooms">
-              {getUser() ? <Rooms /> : <Redirect to="/login" />}
-            </Route>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/signup">
-              <Signup />
-            </Route>
-            <Route path="/">
-              {getUser() ? <Redirect to="/rooms" /> : <Redirect to="/login" />}
-            </Route>
-          </Switch>
-        </Router>
-      </div>
+      <Router>
+        <Nav navProps={navProps} />
+        <Switch>
+          <Route path="/settings">
+            {currentUser ? (
+              <Settings setRoomName={setRoomName} />
+            ) : (
+              <Redirect to="/login" />
+            )}
+          </Route>
+          <Route path="/rooms/:id">
+            <Room roomProps={roomProps} />
+          </Route>
+          <Route path="/rooms">
+            {currentUser ? (
+              <Rooms setRoomName={setRoomName} />
+            ) : (
+              <Redirect to="/login" />
+            )}
+          </Route>
+          <Route path="/login">
+            <Login setCurrentUser={setCurrentUser} />
+          </Route>
+          <Route path="/signup">
+            <Signup />
+          </Route>
+          <Route path="/">
+            {currentUser ? <Redirect to="/rooms" /> : <Redirect to="/login" />}
+          </Route>
+        </Switch>
+      </Router>
     </SocketContext.Provider>
   );
 }

@@ -37,9 +37,10 @@ let users = [];
 io.on('connection', (socket) => {
   // On connection event add user to room which comes from the client side.
   socket.on('room:join', (data) => {
-    socket.join(data.roomName);
+    // console.log(data);
+    socket.join(data.roomId.id);
     // If user doesn't exist in users array add him/her.
-    const user = users.find((obj) => obj.user === data.user);
+    const user = users.find((obj) => obj.user === data.username);
     if (!user) {
       users.push({
         username: data.username,
@@ -49,8 +50,10 @@ io.on('connection', (socket) => {
       });
     }
 
+    console.log(users);
+
     // Emit users array to all connected clients in specific room.
-    io.to(data.roomName).emit('connected:users', users);
+    io.to(data.roomId.id).emit('connected:users', users);
   });
 
   // On room leave event remove user from array and emit new array to all other
@@ -66,6 +69,7 @@ io.on('connection', (socket) => {
   // clients.
   socket.on('message:create', (data) => {
     createMessage(socket, data);
+    console.log(data.roomName);
     io.to(data.roomName).emit('message:received', data);
   });
 

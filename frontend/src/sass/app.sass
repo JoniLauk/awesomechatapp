@@ -4,6 +4,8 @@
 @use 'settings'
 @use 'infocomponent'
 @use 'notification'
+@use 'changePassword'
+@use 'newRoom'
 @import '_mixins'
 
 @mixin topBar()
@@ -19,18 +21,10 @@
   justify-content: space-between
   :nth-child(1)
     padding-left: 1em
-    svg
-      padding: 0
-    &:hover
-      cursor: pointer
-      filter: brightness(1.2)
+    padding-right: 0
   :nth-child(3)
     padding-right: 1em
-    svg
-      padding: 0
-    &:hover
-      cursor: pointer
-      filter: brightness(1.2)
+    padding-left: 0
 
 @mixin viewContainer()
   display: flex
@@ -38,44 +32,56 @@
   min-height: 100vh
   overflow: auto
 
-body
+body, html
   @include theme-aware('background-color', 'body-background-color')
+  height: 100%
 
-  .notification
-    @include notification.notification()
+  #root
+    // position: absolute
+    // top: 0
+    // bottom: 0
+    height: 100%
+    display: flex
+    flex-direction: column
 
-  button
+    .roomViewContainer
+      display: flex
+      flex: 1
+      height: 80%
+      flex-direction: column
+      align-items: center
+
+  .button
     @include buttons-hover-effect
 
   .topBar
     @include topBar()
 
-  .viewContainer
-    @include theme-aware('background-color', 'body-background-color')
+  .notification
+    @include notification.notification()
+
+  .roomListContainer
     display: flex
     flex-direction: column
-    position: absolute
-    top: 0
-    right: 0
-    left: 0
-    bottom: 0
-    min-height: 100vh
-    overflow: auto
     align-items: center
 
-    .roomList
-      @include rooms.roomList()
+  .roomList
+    @include rooms.roomList()
 
-    .room
-      @include room.room()
+  .room
+    @include room.room()
 
-    .loginForm
-      @include login.login()
+  .loginForm
+    @include login.login()
 
-    .settings
-      @include settings.settings()
+  .settings
+    @include settings.settings()
 
-    .infoContainer
-      @include infocomponent.info()
+  .infoContainer
+    @include infocomponent.info()
 
-    
+  .changePassword
+    @include changePassword.changePassword()
+  
+  .addNewRoom
+    @include newRoom.newRoom()

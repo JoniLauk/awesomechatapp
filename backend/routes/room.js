@@ -46,7 +46,8 @@ roomRouter.get('/:id', async (req, res, next) => {
  * @example roomRouter.post('/',
  */
 roomRouter.post('/', function (req, res, next) {
-  Room.create(req.body, function (err, post) {
+  console.log(req.body);
+  Room.create({ name: req.body.name }, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });

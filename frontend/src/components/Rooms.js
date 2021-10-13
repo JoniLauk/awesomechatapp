@@ -8,18 +8,18 @@ import {
   useHistory,
   useLocation,
 } from 'react-router-dom';
-import { unmountComponentAtNode } from 'react-dom';
 import Room from './Room';
 import { getUser } from '../utils/utils';
 import { getAll } from '../services/roomService';
-import { FaChevronLeft, FaCog } from 'react-icons/fa';
 import './stylesheets/rooms.css';
+import { NewRoom } from './NewRoom';
 
-function Rooms({ socket, handleNotification }) {
+function Rooms({ socket, handleNotification, setRoomName }) {
   const [rooms, setRooms] = useState([]);
   const match = useRouteMatch();
   const history = useHistory();
   const location = useLocation();
+  const [isNewRoomVisible, setNewRoomVisible] = useState(false);
 
   const getRooms = async () => {
     const newRooms = await getAll();
@@ -27,20 +27,9 @@ function Rooms({ socket, handleNotification }) {
   };
 
   useEffect(() => {
+    setRoomName('AWESOMECHATAPP');
     getRooms();
-  }, [location]);
-
-  const goBack = () => {
-    history.push('/rooms');
-  };
-
-  const goSettings = () => {
-    history.push('/settings');
-  };
-
-  const handleClick = () => {
-    unmountComponentAtNode(document.getElementById('roomList'));
-  };
+  }, [location, setRoomName]);
 
   const getRoutes = rooms.map((x) => (
     <Route key={x.id} exact path={`${match.url}/${x.id}`}>
@@ -66,60 +55,49 @@ function Rooms({ socket, handleNotification }) {
     } else return '';
   };
 
-  const handleNewRoomButton = (event) => {
-    event.preventDefault();
-    const newRoom = {
-      name: 'Skiggelssköggels',
-      messages: [],
-    };
-    setRooms([...rooms, newRoom]);
+  const handleNewRoomButton = async (event) => {
+    setNewRoomVisible(true);
+
+    //await addNewRoom('asdf');
+    //const newRooms = await getAll();
+    //setRooms(newRooms);
   };
 
   const conditionalRender = () => {
     if (getUser()) {
       return (
-        <Router>
-          <div id="roomList">
-            <div className="viewContainer">
-              <div className="topBar">
-                <div onClick={goBack}>
-                  <FaChevronLeft />
+        <div className="roomListContainer">
+          <ul className="roomList">
+            {rooms.map((room) => (
+              <Link
+                className="roomListItem"
+                to={`${match.url}/${room.id}`}
+                key={room.id}
+                onClick={() => setRoomName(room.name)}
+              >
+                <div className="nameMessage">
+                  <h2 className="roomLink" to={`${match.url}/${room.id}`}>
+                    {room.name}
+                  </h2>
                 </div>
-                <div>AWESOMECHATAPP</div>
-                <div className="rightIcon" onClick={goSettings}>
-                  <FaCog />
+                <div className="iconTime">
+                  <p className="lastMessage">{getNewestMessageForRoom(room)}</p>
+                  <p>{getNewesMessagesDateForRoom(room)}</p>
                 </div>
-              </div>
-              <ul className="roomList">
-                {rooms.map((room) => (
-                  <Link
-                    className="roomListItem"
-                    to={`${match.url}/${room.id}`}
-                    key={room.id}
-                  >
-                    <div className="nameMessage">
-                      <Link className="roomLink" to={`${match.url}/${room.id}`}>
-                        {room.name}
-                      </Link>
-                    </div>
-                    <div className="iconTime">
-                      <p className="lastMessage">
-                        {getNewestMessageForRoom(room)}
-                      </p>
-                      <p>{getNewesMessagesDateForRoom(room)}</p>
-                    </div>
-                  </Link>
-                ))}
-              </ul>
-              <div className="newRoomButton">
-                <button className="newRoom" onClick={handleNewRoomButton}>
-                  New Room
-                </button>
-              </div>
-            </div>
+              </Link>
+            ))}
+          </ul>
+          <div className="newRoomButton">
+            <button className="newRoom" onClick={handleNewRoomButton}>
+              New Room
+            </button>
           </div>
           <Switch>{getRoutes}</Switch>
-        </Router>
+          <NewRoom
+            isNewRoomVisible={isNewRoomVisible}
+            setNewRoomVisible={setNewRoomVisible}
+          />
+        </div>
       );
     } else {
       return (

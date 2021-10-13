@@ -9,3 +9,22 @@ export const getAll = async () => {
   });
   return response.data;
 };
+
+export const getRoomName = async (id) => {
+  const response = await axios.get(`${url}/${id}`, {
+    headers: { authorization: `bearer ${getToken()}` },
+  });
+  return response.data;
+};
+
+export const addNewRoom = async (name) => {
+  console.log(name);
+  const response = await axios.post(
+    `${url}/`,
+    { name: name.newRoomName },
+    {
+      headers: { authorization: `bearer ${getToken()}` },
+    }
+  );
+  return response.data;
+};

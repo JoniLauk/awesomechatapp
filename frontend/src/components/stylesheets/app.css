@@ -23,29 +23,78 @@
   color: #fff;
 }
 
-.theme-nightly body {
+body, html {
+  height: 100%;
+}
+.theme-nightly body, .theme-nightly html {
   background-color: #242e42;
 }
-.theme-brome body {
+.theme-brome body, .theme-brome html {
   background-color: #f7ede2;
 }
-body .notification {
+body #root, html #root {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+body #root .roomViewContainer, html #root .roomViewContainer {
+  display: flex;
+  flex: 1;
+  height: 80%;
+  flex-direction: column;
+  align-items: center;
+}
+body .button:hover, html .button:hover {
+  filter: brightness(1.2);
+  cursor: pointer;
+}
+body .topBar, html .topBar {
+  font-family: Bevan;
+  font-size: 1.5em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100vw;
+  min-height: 3em;
+  justify-content: space-between;
+}
+.theme-nightly body .topBar, .theme-nightly html .topBar {
+  background-color: #434f66;
+}
+.theme-brome body .topBar, .theme-brome html .topBar {
+  background-color: #2c5784;
+}
+.theme-nightly body .topBar, .theme-nightly html .topBar {
+  color: #8bb7ca;
+}
+.theme-brome body .topBar, .theme-brome html .topBar {
+  color: #d77a61;
+}
+body .topBar :nth-child(1), html .topBar :nth-child(1) {
+  padding-left: 1em;
+  padding-right: 0;
+}
+body .topBar :nth-child(3), html .topBar :nth-child(3) {
+  padding-right: 1em;
+  padding-left: 0;
+}
+body .notification, html .notification {
   font-family: Roboto Slab;
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 45vh;
+  top: 50%;
   justify-content: center;
   padding: 0;
   list-style: none;
 }
-.theme-nightly body .notification {
+.theme-nightly body .notification, .theme-nightly html .notification {
   color: #fff;
 }
-.theme-brome body .notification {
+.theme-brome body .notification, .theme-brome html .notification {
   color: #fff;
 }
-body .notification li {
+body .notification li, html .notification li {
   display: flex;
   justify-content: center;
   border-radius: 1em 1em 1em 1em;
@@ -58,77 +107,18 @@ body .notification li {
   height: fit-content;
   box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15);
 }
-.theme-nightly body .notification li {
+.theme-nightly body .notification li, .theme-nightly html .notification li {
   background-color: #434f66;
 }
-.theme-brome body .notification li {
+.theme-brome body .notification li, .theme-brome html .notification li {
   background-color: #2c5784;
 }
-body button:hover {
-  filter: brightness(1.2);
-  cursor: pointer;
-}
-body .topBar {
-  font-family: Bevan;
-  font-size: 1.5em;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 100vw;
-  min-height: 3em;
-  justify-content: space-between;
-}
-.theme-nightly body .topBar {
-  background-color: #434f66;
-}
-.theme-brome body .topBar {
-  background-color: #2c5784;
-}
-.theme-nightly body .topBar {
-  color: #8bb7ca;
-}
-.theme-brome body .topBar {
-  color: #d77a61;
-}
-body .topBar :nth-child(1) {
-  padding-left: 1em;
-}
-body .topBar :nth-child(1) svg {
-  padding: 0;
-}
-body .topBar :nth-child(1):hover {
-  cursor: pointer;
-  filter: brightness(1.2);
-}
-body .topBar :nth-child(3) {
-  padding-right: 1em;
-}
-body .topBar :nth-child(3) svg {
-  padding: 0;
-}
-body .topBar :nth-child(3):hover {
-  cursor: pointer;
-  filter: brightness(1.2);
-}
-body .viewContainer {
+body .roomListContainer, html .roomListContainer {
   display: flex;
   flex-direction: column;
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  min-height: 100vh;
-  overflow: auto;
   align-items: center;
 }
-.theme-nightly body .viewContainer {
-  background-color: #242e42;
-}
-.theme-brome body .viewContainer {
-  background-color: #f7ede2;
-}
-body .viewContainer .roomList {
+body .roomList, html .roomList {
   margin: 1.5em 2em;
   border-radius: 0.25em;
   list-style-type: none;
@@ -140,109 +130,121 @@ body .viewContainer .roomList {
   align-items: center;
   box-shadow: 12.5px 12.5px 12.5px rgba(0, 0, 0, 0.15), 100px 100px 100px rgba(0, 0, 0, 0.075);
 }
-.theme-nightly body .viewContainer .roomList {
+.theme-nightly body .roomList, .theme-nightly html .roomList {
   background-color: #958bca;
 }
-.theme-brome body .viewContainer .roomList {
+.theme-brome body .roomList, .theme-brome html .roomList {
   background-color: #d77a61;
 }
 @media (min-width: 800px) {
-  body .viewContainer .roomList {
+  body .roomList, html .roomList {
     max-width: 1100px;
   }
 }
-body .viewContainer .roomList .roomListItem {
+body .roomList .roomListItem, html .roomList .roomListItem {
   border-radius: 0.25em;
-  padding: 1em;
-  margin-top: 1em;
-  height: 5em;
-  width: 80vw;
+  padding: 0.5em 0.5em 0.25em 0;
+  margin: 1em;
+  min-height: 5em;
+  width: 70vw;
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 90%;
   box-shadow: 12.5px 12.5px 12.5px rgba(0, 0, 0, 0.15), 100px 100px 100px rgba(0, 0, 0, 0.075);
   overflow: hidden;
 }
-.theme-nightly body .viewContainer .roomList .roomListItem {
+.theme-nightly body .roomList .roomListItem, .theme-nightly html .roomList .roomListItem {
   background-color: #242e42;
 }
-.theme-brome body .viewContainer .roomList .roomListItem {
+.theme-brome body .roomList .roomListItem, .theme-brome html .roomList .roomListItem {
   background-color: #2c5784;
 }
-body .viewContainer .roomList .roomListItem:hover {
-  transform: scale(1.05);
-  filter: brightness(1.1);
-}
-body .viewContainer .roomList .roomListItem:hover {
+body .roomList .roomListItem:hover, html .roomList .roomListItem:hover {
   filter: brightness(1.2);
-  transform: scale(1.02);
+  cursor: pointer;
 }
-body .viewContainer .roomList .roomListItem .nameMessage {
-  padding-left: 0.5rem;
-  text-decoration: none;
-  flex: 60%;
+body .roomList .roomListItem:hover, html .roomList .roomListItem:hover {
+  transform: scale(1.05);
 }
-body .viewContainer .roomList .roomListItem .nameMessage .roomLink {
+body .roomList .roomListItem:hover:hover, html .roomList .roomListItem:hover:hover {
+  filter: brightness(1.2);
+  cursor: pointer;
+}
+@media (min-width: 800px) {
+  body .roomList .roomListItem, html .roomList .roomListItem {
+    max-width: 70%;
+  }
+}
+body .roomList .nameMessage, html .roomList .nameMessage {
+  flex: 2;
+  padding-left: 1rem;
+}
+body .roomList .roomLink, html .roomList .roomLink {
   text-decoration: none;
   font-family: Bevan;
   font-size: 1em;
 }
-.theme-nightly body .viewContainer .roomList .roomListItem .nameMessage .roomLink {
+.theme-nightly body .roomList .roomLink, .theme-nightly html .roomList .roomLink {
   color: #958bca;
 }
-.theme-brome body .viewContainer .roomList .roomListItem .nameMessage .roomLink {
+.theme-brome body .roomList .roomLink, .theme-brome html .roomList .roomLink {
   color: #d77a61;
 }
-body .viewContainer .roomList .roomListItem .iconTime {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: start;
+body .roomList .roomList:visited, html .roomList .roomList:visited {
+  text-decoration: none;
   font-family: Bevan;
-  font-size: 0.7rem;
-  flex: 40%;
+  font-size: 1em;
 }
-.theme-nightly body .viewContainer .roomList .roomListItem .iconTime {
+.theme-nightly body .roomList .roomList:visited, .theme-nightly html .roomList .roomList:visited {
   color: #958bca;
 }
-.theme-brome body .viewContainer .roomList .roomListItem .iconTime {
+.theme-brome body .roomList .roomList:visited, .theme-brome html .roomList .roomList:visited {
   color: #d77a61;
 }
-body .viewContainer .roomList .roomListItem .iconTime .lastMessage {
+body .roomList .lastMessage, html .roomList .lastMessage {
   font-family: Bevan;
   font-size: 1em;
   margin: 0;
-  padding-top: 0.5em;
-  overflow: hidden;
-  max-height: 5em;
 }
-.theme-nightly body .viewContainer .roomList .roomListItem .iconTime .lastMessage {
+.theme-nightly body .roomList .lastMessage, .theme-nightly html .roomList .lastMessage {
   color: #8bb7ca;
 }
-.theme-brome body .viewContainer .roomList .roomListItem .iconTime .lastMessage {
+.theme-brome body .roomList .lastMessage, .theme-brome html .roomList .lastMessage {
   color: #fff;
 }
-body .viewContainer .room {
+body .roomList .iconTime, html .roomList .iconTime {
   display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-family: Bevan;
+  font-size: 0.7rem;
+  align-items: center;
+  flex: 1;
+}
+.theme-nightly body .roomList .iconTime, .theme-nightly html .roomList .iconTime {
+  color: #958bca;
+}
+.theme-brome body .roomList .iconTime, .theme-brome html .roomList .iconTime {
+  color: #d77a61;
+}
+body .room, html .room {
+  display: flex;
+  flex: 1;
   flex-direction: column;
-  height: 100vh;
   overflow: hidden;
 }
-.theme-nightly body .viewContainer .room {
+.theme-nightly body .room, .theme-nightly html .room {
   background-color: #242e42;
 }
-.theme-brome body .viewContainer .room {
+.theme-brome body .room, .theme-brome html .room {
   background-color: #f7ede2;
 }
-@media (min-width: 1100px) {
-  body .viewContainer .room {
+@media (min-width: 800px) {
+  body .room, html .room {
     display: flex;
     max-width: 1100px;
   }
 }
-body .viewContainer .room .chat {
+body .room .chat, html .room .chat {
   list-style-type: none;
   display: flex;
   flex-direction: column;
@@ -252,75 +254,109 @@ body .viewContainer .room .chat {
   margin: 0;
   width: 100vw;
 }
-.theme-nightly body .viewContainer .room .chat {
+.theme-nightly body .room .chat, .theme-nightly html .room .chat {
   color: #fff;
 }
-.theme-brome body .viewContainer .room .chat {
+.theme-brome body .room .chat, .theme-brome html .room .chat {
   color: #fff;
 }
-body .viewContainer .room .chat::-webkit-scrollbar {
+body .room .chat::-webkit-scrollbar, html .room .chat::-webkit-scrollbar {
   border-radius: 7em;
   width: 1rem;
 }
-.theme-nightly body .viewContainer .room .chat::-webkit-scrollbar {
+.theme-nightly body .room .chat::-webkit-scrollbar, .theme-nightly html .room .chat::-webkit-scrollbar {
   background: #242e42;
 }
-.theme-brome body .viewContainer .room .chat::-webkit-scrollbar {
+.theme-brome body .room .chat::-webkit-scrollbar, .theme-brome html .room .chat::-webkit-scrollbar {
   background: #f7ede2;
 }
-.theme-nightly body .viewContainer .room .chat::-webkit-scrollbar {
+.theme-nightly body .room .chat::-webkit-scrollbar, .theme-nightly html .room .chat::-webkit-scrollbar {
   border: 3px solid #958bca;
 }
-.theme-brome body .viewContainer .room .chat::-webkit-scrollbar {
+.theme-brome body .room .chat::-webkit-scrollbar, .theme-brome html .room .chat::-webkit-scrollbar {
   border: 3px solid #d77a61;
 }
-body .viewContainer .room .chat::-webkit-scrollbar-thumb {
+body .room .chat::-webkit-scrollbar-thumb, html .room .chat::-webkit-scrollbar-thumb {
   border: 5px solid transparent;
   border-radius: 7em;
   background-clip: content-box;
 }
-.theme-nightly body .viewContainer .room .chat::-webkit-scrollbar-thumb {
+.theme-nightly body .room .chat::-webkit-scrollbar-thumb, .theme-nightly html .room .chat::-webkit-scrollbar-thumb {
   background: #958bca;
 }
-.theme-brome body .viewContainer .room .chat::-webkit-scrollbar-thumb {
+.theme-brome body .room .chat::-webkit-scrollbar-thumb, .theme-brome html .room .chat::-webkit-scrollbar-thumb {
   background: #d77a61;
 }
-@media (min-width: 1100px) {
-  body .viewContainer .room .chat {
+@media (min-width: 800px) {
+  body .room .chat, html .room .chat {
     max-width: 1100px;
   }
 }
-body .viewContainer .room .chat img {
+body .room .chat .messageContent, html .room .chat .messageContent {
+  margin: 0;
+}
+body .room .chat .userName, html .room .chat .userName {
+  margin: 0 0 0.5em 0;
+  font-size: 0.9em;
+}
+.theme-nightly body .room .chat .userName, .theme-nightly html .room .chat .userName {
+  color: #8bb7ca;
+}
+.theme-brome body .room .chat .userName, .theme-brome html .room .chat .userName {
+  color: #d77a61;
+}
+body .room .chat img, html .room .chat img {
+  margin-top: 0.5em;
   border-radius: 1em;
 }
-body .viewContainer .room .chat .sentMessage {
+body .room .chat .sentMessage, html .room .chat .sentMessage {
   border-radius: 1em 1em 0.25em 1em;
   padding: 0.5em 1em 0.5em 1em;
   margin-top: 0.8125em;
   margin-right: 1.125em;
-  margin-left: 3.125em;
-  min-height: fit-content;
+  margin-left: 1.125em;
+  min-height: 2em;
   min-width: 3em;
   height: fit-content;
+  min-height: fit-content;
   align-self: flex-end;
   font-family: Roboto Slab;
   box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15);
   position: relative;
 }
-.theme-nightly body .viewContainer .room .chat .sentMessage {
+.theme-nightly body .room .chat .sentMessage, .theme-nightly html .room .chat .sentMessage {
   background-color: #958bca;
 }
-.theme-brome body .viewContainer .room .chat .sentMessage {
+.theme-brome body .room .chat .sentMessage, .theme-brome html .room .chat .sentMessage {
   background-color: #d77a61;
 }
-body .viewContainer .room .chat .sentMessage:hover:hover {
+body .room .chat .sentMessage:hover:hover, html .room .chat .sentMessage:hover:hover {
   filter: brightness(1.2);
   cursor: pointer;
 }
-body .viewContainer .room .chat .sentMessage:hover > .messageMenu {
+body .room .chat .sentMessage:hover > .messageMenu, html .room .chat .sentMessage:hover > .messageMenu {
   display: block;
 }
-body .viewContainer .room .chat .messageMenu {
+body .room .chat .receivedMessage, html .room .chat .receivedMessage {
+  border-radius: 1em 1em 1em 0.25em;
+  padding: 0.5em 1em 0.5em 1em;
+  margin-top: 0.8125em;
+  margin-left: 1.125em;
+  margin-right: 1.125em;
+  min-height: 2em;
+  width: fit-content;
+  min-height: fit-content;
+  align-self: flex-start;
+  font-family: Roboto Slab;
+  box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15);
+}
+.theme-nightly body .room .chat .receivedMessage, .theme-nightly html .room .chat .receivedMessage {
+  background-color: #434f66;
+}
+.theme-brome body .room .chat .receivedMessage, .theme-brome html .room .chat .receivedMessage {
+  background-color: #2c5784;
+}
+body .room .chat .messageMenu, html .room .chat .messageMenu {
   display: none;
   z-index: 1000000;
   padding: 1em;
@@ -330,54 +366,35 @@ body .viewContainer .room .chat .messageMenu {
   box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15);
   position: absolute;
 }
-.theme-nightly body .viewContainer .room .chat .messageMenu {
+.theme-nightly body .room .chat .messageMenu, .theme-nightly html .room .chat .messageMenu {
   background-color: #434f66;
 }
-.theme-brome body .viewContainer .room .chat .messageMenu {
+.theme-brome body .room .chat .messageMenu, .theme-brome html .room .chat .messageMenu {
   background-color: #2c5784;
 }
-body .viewContainer .room .chat .messageMenu:hover:hover {
+body .room .chat .messageMenu:hover:hover, html .room .chat .messageMenu:hover:hover {
   filter: brightness(1.2);
   cursor: pointer;
 }
-body .viewContainer .room .chat .receivedMessage {
-  border-radius: 1em 1em 1em 0.25em;
-  padding: 0.5em 1em 0.5em 1em;
-  margin-top: 0.8125em;
-  margin-left: 1.125em;
-  margin-right: 1.125em;
-  width: fit-content;
-  min-height: fit-content;
-  align-self: flex-start;
-  font-family: Roboto Slab;
-  box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15);
-}
-.theme-nightly body .viewContainer .room .chat .receivedMessage {
-  background-color: #434f66;
-}
-.theme-brome body .viewContainer .room .chat .receivedMessage {
-  background-color: #2c5784;
-}
-.theme-nightly body .viewContainer .room .chat .receivedMessage .fromUser {
+.theme-nightly body .room .chat .fromUser, .theme-nightly html .room .chat .fromUser {
   color: #8bb7ca;
 }
-.theme-brome body .viewContainer .room .chat .receivedMessage .fromUser {
+.theme-brome body .room .chat .fromUser, .theme-brome html .room .chat .fromUser {
   color: #d77a61;
 }
-body .viewContainer .room .chat .receivedMessage .message {
+body .room .chat .message, html .room .chat .message {
   font-family: Roboto Slab;
   font-size: 1em;
 }
-body .viewContainer .room .submitMessageForm {
+body .room .submitMessageForm, html .room .submitMessageForm {
   display: flex;
   flex-direction: row;
   padding-bottom: 0.5em;
   padding-top: 0.3em;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0);
 }
-body .viewContainer .room .submitMessageForm input {
+body .room .submitMessageForm input, html .room .submitMessageForm input {
   margin-left: 1.125em;
   margin-right: 1.125em;
   height: 2.625em;
@@ -388,25 +405,25 @@ body .viewContainer .room .submitMessageForm input {
   text-indent: 1em;
   box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15);
 }
-.theme-nightly body .viewContainer .room .submitMessageForm input {
+.theme-nightly body .room .submitMessageForm input, .theme-nightly html .room .submitMessageForm input {
   background-color: #434f66;
 }
-.theme-brome body .viewContainer .room .submitMessageForm input {
+.theme-brome body .room .submitMessageForm input, .theme-brome html .room .submitMessageForm input {
   background-color: #2c5784;
 }
-.theme-nightly body .viewContainer .room .submitMessageForm input {
+.theme-nightly body .room .submitMessageForm input, .theme-nightly html .room .submitMessageForm input {
   color: #fff;
 }
-.theme-brome body .viewContainer .room .submitMessageForm input {
+.theme-brome body .room .submitMessageForm input, .theme-brome html .room .submitMessageForm input {
   color: #fff;
 }
-.theme-nightly body .viewContainer .room .submitMessageForm input:focus {
+.theme-nightly body .room .submitMessageForm input:focus, .theme-nightly html .room .submitMessageForm input:focus {
   outline-color: #958bca;
 }
-.theme-brome body .viewContainer .room .submitMessageForm input:focus {
+.theme-brome body .room .submitMessageForm input:focus, .theme-brome html .room .submitMessageForm input:focus {
   outline-color: #d77a61;
 }
-body .viewContainer .room .submitMessageForm button {
+body .room .submitMessageForm button, html .room .submitMessageForm button {
   margin-right: 1.125em;
   flex: 1;
   border: none;
@@ -419,13 +436,13 @@ body .viewContainer .room .submitMessageForm button {
   align-items: center;
   box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15);
 }
-.theme-nightly body .viewContainer .room .submitMessageForm button {
+.theme-nightly body .room .submitMessageForm button, .theme-nightly html .room .submitMessageForm button {
   background-color: #958bca;
 }
-.theme-brome body .viewContainer .room .submitMessageForm button {
+.theme-brome body .room .submitMessageForm button, .theme-brome html .room .submitMessageForm button {
   background-color: #d77a61;
 }
-body .viewContainer .loginForm {
+body .loginForm, html .loginForm {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -434,21 +451,21 @@ body .viewContainer .loginForm {
   font-size: 1.5em;
   margin-top: 1.5em;
 }
-.theme-nightly body .viewContainer .loginForm {
+.theme-nightly body .loginForm, .theme-nightly html .loginForm {
   color: #fff;
 }
-.theme-brome body .viewContainer .loginForm {
+.theme-brome body .loginForm, .theme-brome html .loginForm {
   color: #2c5784;
 }
-body .viewContainer .loginForm input:hover {
+body .loginForm input:hover, html .loginForm input:hover {
   filter: brightness(1.2);
   cursor: pointer;
 }
-body .viewContainer .loginForm h3 {
+body .loginForm h3, html .loginForm h3 {
   margin: 0;
   padding: 0;
 }
-body .viewContainer .loginForm .loginFormDiv {
+body .loginForm .loginFormDiv, html .loginForm .loginFormDiv {
   margin-top: 2em;
   max-width: 100%;
   display: flex;
@@ -456,33 +473,33 @@ body .viewContainer .loginForm .loginFormDiv {
   justify-content: center;
   margin-left: 2.5em;
 }
-body .viewContainer .loginForm .loginFormDiv input[type=text] {
+body .loginForm .loginFormDiv input[type=text], html .loginForm .loginFormDiv input[type=text] {
   font-size: 1.5em;
   max-width: 85%;
   border-radius: 0.125em;
   border: none;
   margin-top: 0.25em;
 }
-.theme-nightly body .viewContainer .loginForm .loginFormDiv input[type=text] {
+.theme-nightly body .loginForm .loginFormDiv input[type=text], .theme-nightly html .loginForm .loginFormDiv input[type=text] {
   background-color: #958bca;
 }
-.theme-brome body .viewContainer .loginForm .loginFormDiv input[type=text] {
+.theme-brome body .loginForm .loginFormDiv input[type=text], .theme-brome html .loginForm .loginFormDiv input[type=text] {
   background-color: #d77a61;
 }
-body .viewContainer .loginForm .loginFormDiv input[type=password] {
+body .loginForm .loginFormDiv input[type=password], html .loginForm .loginFormDiv input[type=password] {
   font-size: 1.5em;
   max-width: 85%;
   border-radius: 0.125em;
   border: none;
   margin-top: 0.25em;
 }
-.theme-nightly body .viewContainer .loginForm .loginFormDiv input[type=password] {
+.theme-nightly body .loginForm .loginFormDiv input[type=password], .theme-nightly html .loginForm .loginFormDiv input[type=password] {
   background-color: #958bca;
 }
-.theme-brome body .viewContainer .loginForm .loginFormDiv input[type=password] {
+.theme-brome body .loginForm .loginFormDiv input[type=password], .theme-brome html .loginForm .loginFormDiv input[type=password] {
   background-color: #d77a61;
 }
-body .viewContainer .loginForm .loginFormSubmit {
+body .loginForm .loginFormSubmit, html .loginForm .loginFormSubmit {
   display: flex;
   flex-direction: column;
   position: relative;
@@ -490,7 +507,7 @@ body .viewContainer .loginForm .loginFormSubmit {
   align-items: center;
   justify-content: center;
 }
-body .viewContainer .loginForm .loginFormSubmit input[type=submit] {
+body .loginForm .loginFormSubmit input[type=submit], html .loginForm .loginFormSubmit input[type=submit] {
   font-family: Bevan;
   font-size: 1em;
   border-radius: 0.125em;
@@ -498,19 +515,19 @@ body .viewContainer .loginForm .loginFormSubmit input[type=submit] {
   padding: 0.3em 1em;
   max-width: 90%;
 }
-.theme-nightly body .viewContainer .loginForm .loginFormSubmit input[type=submit] {
+.theme-nightly body .loginForm .loginFormSubmit input[type=submit], .theme-nightly html .loginForm .loginFormSubmit input[type=submit] {
   background-color: #958bca;
 }
-.theme-brome body .viewContainer .loginForm .loginFormSubmit input[type=submit] {
+.theme-brome body .loginForm .loginFormSubmit input[type=submit], .theme-brome html .loginForm .loginFormSubmit input[type=submit] {
   background-color: #d77a61;
 }
-.theme-nightly body .viewContainer .loginForm .loginFormSubmit input[type=submit] {
+.theme-nightly body .loginForm .loginFormSubmit input[type=submit], .theme-nightly html .loginForm .loginFormSubmit input[type=submit] {
   color: #fff;
 }
-.theme-brome body .viewContainer .loginForm .loginFormSubmit input[type=submit] {
+.theme-brome body .loginForm .loginFormSubmit input[type=submit], .theme-brome html .loginForm .loginFormSubmit input[type=submit] {
   color: #2c5784;
 }
-body .viewContainer .loginForm .formInstructions {
+body .loginForm .formInstructions, html .loginForm .formInstructions {
   display: flex;
   flex-direction: column;
   position: relative;
@@ -518,37 +535,37 @@ body .viewContainer .loginForm .formInstructions {
   justify-content: center;
   font-size: 0.6em;
 }
-body .viewContainer .loginForm .formInstructions .formLink {
+body .loginForm .formInstructions .formLink, html .loginForm .formInstructions .formLink {
   text-decoration: none;
 }
-.theme-nightly body .viewContainer .loginForm .formInstructions .formLink {
+.theme-nightly body .loginForm .formInstructions .formLink, .theme-nightly html .loginForm .formInstructions .formLink {
   color: #8bb7ca;
 }
-.theme-brome body .viewContainer .loginForm .formInstructions .formLink {
+.theme-brome body .loginForm .formInstructions .formLink, .theme-brome html .loginForm .formInstructions .formLink {
   color: #2c5784;
 }
-body .viewContainer .settings {
+body .settings, html .settings {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 80vh;
 }
-.theme-nightly body .viewContainer .settings {
+.theme-nightly body .settings, .theme-nightly html .settings {
   background-color: #242e42;
 }
-.theme-brome body .viewContainer .settings {
+.theme-brome body .settings, .theme-brome html .settings {
   background-color: #f7ede2;
 }
 @media (min-width: 800px) {
-  .theme-nightly body .viewContainer .settings {
+  .theme-nightly body .settings, .theme-nightly html .settings {
     background-color: #242e42;
   }
-  .theme-brome body .viewContainer .settings {
+  .theme-brome body .settings, .theme-brome html .settings {
     background-color: #f7ede2;
   }
 }
-body .viewContainer .settings button {
+body .settings button, html .settings button {
   font-size: 1.5em;
   border-radius: 0.125em;
   border: none;
@@ -557,29 +574,29 @@ body .viewContainer .settings button {
   margin-top: 5em;
   box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15);
 }
-.theme-nightly body .viewContainer .settings button {
+.theme-nightly body .settings button, .theme-nightly html .settings button {
   background-color: #958bca;
 }
-.theme-brome body .viewContainer .settings button {
+.theme-brome body .settings button, .theme-brome html .settings button {
   background-color: #d77a61;
 }
-.theme-nightly body .viewContainer .settings button {
+.theme-nightly body .settings button, .theme-nightly html .settings button {
   color: #fff;
 }
-.theme-brome body .viewContainer .settings button {
+.theme-brome body .settings button, .theme-brome html .settings button {
   color: #fff;
 }
-body .viewContainer .settings button:hover {
+body .settings button:hover, html .settings button:hover {
   transform: scale(1.05);
   filter: brightness(1.1);
 }
-body .viewContainer .settings select {
+body .settings select, html .settings select {
   font-size: 1.5em;
   border-radius: 0.125em;
   position: relative;
   background-image: none;
   display: block;
-  min-width: 150px;
+  min-width: 10em;
   outline: none;
   cursor: pointer;
   border: none;
@@ -588,60 +605,74 @@ body .viewContainer .settings select {
   text-indent: 1em;
   box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15);
 }
-.theme-nightly body .viewContainer .settings select {
+.theme-nightly body .settings select, .theme-nightly html .settings select {
   background-color: #958bca;
 }
-.theme-brome body .viewContainer .settings select {
+.theme-brome body .settings select, .theme-brome html .settings select {
   background-color: #d77a61;
 }
-.theme-nightly body .viewContainer .settings select {
+.theme-nightly body .settings select, .theme-nightly html .settings select {
   color: #fff;
 }
-.theme-brome body .viewContainer .settings select {
+.theme-brome body .settings select, .theme-brome html .settings select {
   color: #fff;
 }
-body .viewContainer .settings select:hover {
+body .settings select:hover, html .settings select:hover {
   transform: scale(1.05);
   filter: brightness(1.1);
 }
 @media (min-width: 800px) {
-  body .viewContainer .settings select {
+  body .settings select, html .settings select {
     max-width: 300px;
   }
 }
-body .viewContainer .settings select:-moz-focusring {
+body .settings select:-moz-focusring, html .settings select:-moz-focusring {
   color: transparent;
   text-shadow: 0 0 0 #888888;
 }
-body .viewContainer .settings select::-ms-expand {
+body .settings select::-ms-expand, html .settings select::-ms-expand {
   display: none;
 }
-body .viewContainer .settings h2 {
+body .settings h2, html .settings h2 {
   text-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15);
 }
-.theme-nightly body .viewContainer .settings h2 {
+.theme-nightly body .settings h2, .theme-nightly html .settings h2 {
   color: #fff;
 }
-.theme-brome body .viewContainer .settings h2 {
+.theme-brome body .settings h2, .theme-brome html .settings h2 {
   color: #2c5784;
 }
-body .viewContainer .infoContainer {
+body .infoContainer, html .infoContainer {
+  background-color: pink;
   font-family: Roboto Slab;
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: absolute;
+  right: 0;
+  width: 30vw;
+  border-radius: 0em 0em 1em 1em;
+  max-height: 50vh;
+  overflow: auto;
+  padding-bottom: 2em;
 }
-.theme-nightly body .viewContainer .infoContainer {
+.theme-nightly body .infoContainer, .theme-nightly html .infoContainer {
   color: #fff;
 }
-.theme-brome body .viewContainer .infoContainer {
-  color: #2c5784;
+.theme-brome body .infoContainer, .theme-brome html .infoContainer {
+  color: #fff;
 }
-body .viewContainer .infoContainer ul {
+.theme-nightly body .infoContainer, .theme-nightly html .infoContainer {
+  background-color: #434f66;
+}
+.theme-brome body .infoContainer, .theme-brome html .infoContainer {
+  background-color: #2c5784;
+}
+body .infoContainer ul, html .infoContainer ul {
   padding: 0;
   list-style: none;
 }
-body .viewContainer .infoContainer li {
+body .infoContainer li, html .infoContainer li {
   display: flex;
   justify-content: center;
   border-radius: 1em 1em 1em 1em;
@@ -653,11 +684,215 @@ body .viewContainer .infoContainer li {
   min-width: 3em;
   height: fit-content;
 }
-.theme-nightly body .viewContainer .infoContainer li {
+.theme-nightly body .infoContainer li, .theme-nightly html .infoContainer li {
   background-color: #958bca;
 }
-.theme-brome body .viewContainer .infoContainer li {
+.theme-brome body .infoContainer li, .theme-brome html .infoContainer li {
   background-color: #d77a61;
+}
+body .changePassword, html .changePassword {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 15vh;
+  left: 20vw;
+  height: 65vh;
+  width: 60vw;
+  border-radius: 1em;
+  border: none;
+  box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15);
+}
+.theme-nightly body .changePassword, .theme-nightly html .changePassword {
+  background-color: #434f66;
+}
+.theme-brome body .changePassword, .theme-brome html .changePassword {
+  background-color: #2c5784;
+}
+.theme-nightly body .changePassword, .theme-nightly html .changePassword {
+  color: #8bb7ca;
+}
+.theme-brome body .changePassword, .theme-brome html .changePassword {
+  color: #fff;
+}
+body .changePassword form, html .changePassword form {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+body .changePassword form .loginFormDiv, html .changePassword form .loginFormDiv {
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 2.5em;
+}
+body .changePassword form .loginFormDiv input[type=password], html .changePassword form .loginFormDiv input[type=password] {
+  font-size: 1.5em;
+  max-width: 85%;
+  border-radius: 0.125em;
+  border: none;
+  margin-top: 0.25em;
+}
+.theme-nightly body .changePassword form .loginFormDiv input[type=password], .theme-nightly html .changePassword form .loginFormDiv input[type=password] {
+  background-color: #958bca;
+}
+.theme-brome body .changePassword form .loginFormDiv input[type=password], .theme-brome html .changePassword form .loginFormDiv input[type=password] {
+  background-color: #d77a61;
+}
+body .changePassword form input[type=submit], html .changePassword form input[type=submit] {
+  font-family: Bevan;
+  font-size: 1em;
+  border-radius: 0.125em;
+  border: none;
+  padding: 0.3em 1em;
+  max-width: 90%;
+}
+.theme-nightly body .changePassword form input[type=submit], .theme-nightly html .changePassword form input[type=submit] {
+  background-color: #958bca;
+}
+.theme-brome body .changePassword form input[type=submit], .theme-brome html .changePassword form input[type=submit] {
+  background-color: #d77a61;
+}
+.theme-nightly body .changePassword form input[type=submit], .theme-nightly html .changePassword form input[type=submit] {
+  color: #fff;
+}
+.theme-brome body .changePassword form input[type=submit], .theme-brome html .changePassword form input[type=submit] {
+  color: #2c5784;
+}
+body .changePassword form input:hover, html .changePassword form input:hover {
+  filter: brightness(1.2);
+  cursor: pointer;
+}
+body .changePassword button, html .changePassword button {
+  font-family: Bevan;
+  font-size: 1em;
+  border-radius: 0.125em;
+  border: none;
+  padding: 0.3em 1em;
+  max-width: 90%;
+  margin-bottom: 1em;
+}
+.theme-nightly body .changePassword button, .theme-nightly html .changePassword button {
+  background-color: #958bca;
+}
+.theme-brome body .changePassword button, .theme-brome html .changePassword button {
+  background-color: #d77a61;
+}
+.theme-nightly body .changePassword button, .theme-nightly html .changePassword button {
+  color: #fff;
+}
+.theme-brome body .changePassword button, .theme-brome html .changePassword button {
+  color: #2c5784;
+}
+body .changePassword button:hover, html .changePassword button:hover {
+  filter: brightness(1.2);
+  cursor: pointer;
+}
+body .addNewRoom, html .addNewRoom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 30vh;
+  left: 20vw;
+  height: 30vh;
+  width: 60vw;
+  border-radius: 1em;
+  border: none;
+  box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.15);
+}
+.theme-nightly body .addNewRoom, .theme-nightly html .addNewRoom {
+  background-color: #242e42;
+}
+.theme-brome body .addNewRoom, .theme-brome html .addNewRoom {
+  background-color: #2c5784;
+}
+.theme-nightly body .addNewRoom, .theme-nightly html .addNewRoom {
+  color: #fff;
+}
+.theme-brome body .addNewRoom, .theme-brome html .addNewRoom {
+  color: #2c5784;
+}
+body .addNewRoom form, html .addNewRoom form {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+body .addNewRoom form .loginFormDiv, html .addNewRoom form .loginFormDiv {
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 2.5em;
+}
+body .addNewRoom form input[type=name], html .addNewRoom form input[type=name] {
+  font-size: 1.8em;
+  border-radius: 0.125em;
+  border: none;
+  margin-top: 0.25em;
+  max-width: 90%;
+}
+.theme-nightly body .addNewRoom form input[type=name], .theme-nightly html .addNewRoom form input[type=name] {
+  background-color: #958bca;
+}
+.theme-brome body .addNewRoom form input[type=name], .theme-brome html .addNewRoom form input[type=name] {
+  background-color: #f7ede2;
+}
+body .addNewRoom form input[type=submit], html .addNewRoom form input[type=submit] {
+  font-family: Bevan;
+  font-size: 1em;
+  border-radius: 0.125em;
+  border: none;
+  padding: 0.3em 1em;
+  max-width: 90%;
+}
+.theme-nightly body .addNewRoom form input[type=submit], .theme-nightly html .addNewRoom form input[type=submit] {
+  background-color: #958bca;
+}
+.theme-brome body .addNewRoom form input[type=submit], .theme-brome html .addNewRoom form input[type=submit] {
+  background-color: #f7ede2;
+}
+.theme-nightly body .addNewRoom form input[type=submit], .theme-nightly html .addNewRoom form input[type=submit] {
+  color: #fff;
+}
+.theme-brome body .addNewRoom form input[type=submit], .theme-brome html .addNewRoom form input[type=submit] {
+  color: #2c5784;
+}
+body .addNewRoom form input:hover, html .addNewRoom form input:hover {
+  filter: brightness(1.2);
+  cursor: pointer;
+}
+body .addNewRoom button, html .addNewRoom button {
+  font-family: Bevan;
+  font-size: 1em;
+  border-radius: 0.125em;
+  border: none;
+  padding: 0.3em 1em;
+  max-width: 90%;
+  margin-bottom: 1em;
+}
+.theme-nightly body .addNewRoom button, .theme-nightly html .addNewRoom button {
+  background-color: #958bca;
+}
+.theme-brome body .addNewRoom button, .theme-brome html .addNewRoom button {
+  background-color: #f7ede2;
+}
+.theme-nightly body .addNewRoom button, .theme-nightly html .addNewRoom button {
+  color: #fff;
+}
+.theme-brome body .addNewRoom button, .theme-brome html .addNewRoom button {
+  color: #2c5784;
+}
+body .addNewRoom button:hover, html .addNewRoom button:hover {
+  filter: brightness(1.2);
+  cursor: pointer;
 }
 
 /*# sourceMappingURL=app.css.map */

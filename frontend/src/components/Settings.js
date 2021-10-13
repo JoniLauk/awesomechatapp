@@ -1,26 +1,69 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, useHistory } from 'react-router-dom';
-import { FaChevronLeft, FaMoon, FaUser } from 'react-icons/fa';
-import { logIn } from '../services/userService';
-import { setToken, getUser, removeToken } from '../utils/utils';
-import { ReactDOM } from 'react';
+import { deleteAccount } from '../services/userService';
+import {
+  getUser,
+  removeToken,
+  getUserId,
+  handleNotification,
+  setColorScheme,
+} from '../utils/utils';
+import { ChangePassword } from './ChangePassword';
+import { Notification } from './Notification';
 
-function Settings(props) {
+function Settings({ setRoomName }) {
   const history = useHistory();
   const [user, setUser] = useState(getUser());
+  const [userId, setUserId] = useState(getUserId());
+  const [not, setNot] = useState(false);
+  const [notContent, setNotContent] = useState('');
   const myStorage = window.localStorage;
+  const [isChangePasswordVisible, setIsChangePasswordVisible] = useState(false);
   const [currentTheme, setCurrentTheme] = useState(
     myStorage.getItem('currentTheme')
   );
 
-  const goBack = () => {
-    history.push('/rooms');
-  };
+  useEffect(() => {
+    setRoomName('SETTINGS');
+  });
 
   const logout = () => {
     setUser(null);
     removeToken();
+    setRoomName('AWESOMECHATAPP');
+    setColorScheme('nightly');
     history.push('/login');
+  };
+
+  const deleteCurrentAccount = async (event) => {
+    if (window.confirm('Are you sure you wish to delete this item?')) {
+      try {
+        await deleteAccount({ userId });
+        setUser(null);
+        removeToken();
+        setColorScheme('nightly');
+        history.push('/login');
+        handleNotification(
+          {
+            message: `Account deleted successfully.`,
+            type: 'success',
+          },
+          setNot,
+          setNotContent
+        );
+      } catch (error) {
+        if (error.response.data.errors) {
+          handleNotification(
+            {
+              message: 'Error',
+              type: 'error',
+            },
+            setNot,
+            setNotContent
+          );
+        }
+      }
+    }
   };
 
   const handleTheme = (event) => {
@@ -32,17 +75,15 @@ function Settings(props) {
     );
   };
 
+  const handlePasswordChangeButton = () => {
+    setIsChangePasswordVisible(true);
+  };
+
   const conditionalRender = () => {
     if (user) {
       return (
-        <div className="viewContainer">
-          <div className="topBar">
-            <div onClick={goBack}>
-              <FaChevronLeft />
-            </div>
-            <div>SETTINGS</div>
-            <div style={{ marginRight: '24px' }}></div>
-          </div>
+        <div>
+          {not ? <Notification message={notContent} /> : ''}
           <div className="settings">
             <h2>Choose a theme</h2>
             <select
@@ -54,11 +95,23 @@ function Settings(props) {
               <option value="nightly">nightly</option>
               <option value="brome">brome</option>
             </select>
-            <button className="settingsButton">Change password</button>
+            <button
+              className="settingsButton"
+              onClick={handlePasswordChangeButton}
+            >
+              Change password
+            </button>
             <button className="settingsButton" onClick={logout}>
               Logout
             </button>
+            <button className="settingsButton" onClick={deleteCurrentAccount}>
+              Delete account
+            </button>
           </div>
+          <ChangePassword
+            setIsChangePasswordVisible={setIsChangePasswordVisible}
+            isChangePasswordVisible={isChangePasswordVisible}
+          />
         </div>
       );
     } else {

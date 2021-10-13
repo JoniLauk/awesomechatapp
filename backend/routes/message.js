@@ -12,7 +12,7 @@ const messageRouter = express.Router();
 messageRouter.get('/', async (req, res, next) => {
   try {
     const messages = await Message.find({
-      roomName: req.query.roomName,
+      roomName: req.query.roomId,
     }).populate('room', { name: 1 });
     res.status(200).json(messages);
   } catch (err) {
