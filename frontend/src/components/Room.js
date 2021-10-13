@@ -181,15 +181,6 @@ function Room({ roomProps }) {
     messagesEndRef.current.scrollIntoView({ behavior: 'auto' });
   };
 
-  // const handleUserArray = () => {
-  //   setShowInfo(!showInfo);
-  // };
-
-  // function checkURL(url) {
-  //   if (typeof url !== 'string') return false;
-  //   return url.match(/\.(jpg|jpeg|gif|png)$/) != null;
-  // }
-
   useEffect(() => {
     const checkIfImageExists = (message) => {
       const image = new Image();
