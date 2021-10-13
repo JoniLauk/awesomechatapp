@@ -1,6 +1,10 @@
 import axios from 'axios';
 
-const url = 'http://localhost:4000/api/';
+let url = 'http://localhost:4000/api/';
+
+if (process.env.NODE_ENV === 'production') {
+  url = '/api/';
+}
 
 export const logIn = async (user) => {
   const response = await axios.post(`${url}login`, user);

@@ -1,7 +1,11 @@
 import axios from 'axios';
 import { getToken } from '../utils/utils';
 
-const url = 'http://localhost:4000/api/rooms';
+let url = 'http://localhost:4000/api/rooms';
+
+if (process.env.NODE_ENV === 'production') {
+  url = '/api/rooms';
+}
 
 export const getAll = async () => {
   const response = await axios.get(url, {
