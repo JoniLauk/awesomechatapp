@@ -10,6 +10,7 @@ const userRouter = require('./routes/user');
 const roomRouter = require('./routes/room');
 const Message = require('./models/message');
 const Room = require('./models/room');
+const path = require('path');
 const { tokenExtractor, authenticator } = require('./middleware/middleware');
 require('dotenv').config();
 
