@@ -78,13 +78,13 @@ export default function App() {
             )}
           </Route>
           <Route path="/login">
-            <Login />
+            <Login setCurrentUser={setCurrentUser} />
           </Route>
           <Route path="/signup">
             <Signup />
           </Route>
           <Route path="/">
-            {getUser() ? <Redirect to="/rooms" /> : <Redirect to="/login" />}
+            {currentUser ? <Redirect to="/rooms" /> : <Redirect to="/login" />}
           </Route>
         </Switch>
       </Router>
