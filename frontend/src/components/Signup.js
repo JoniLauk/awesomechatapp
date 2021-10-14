@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { signUp } from '../services/userService';
-import { setToken, handleNotification } from '../utils/utils';
+import { setToken, handleNotification, getUser } from '../utils/utils';
 import { Notification } from './Notification';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-function Signup({ setRoomName }) {
+function Signup({ setRoomName, setCurrentUser }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [not, setNot] = useState(false);
@@ -53,7 +53,8 @@ function Signup({ setRoomName }) {
       );
       setUsername('');
       setPassword('');
-      history.push('/rooms');
+      setCurrentUser(user);
+      history.push('/');
     } catch (err) {
       if (err.response.data.error) {
         handleNotification(
