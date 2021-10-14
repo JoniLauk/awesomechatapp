@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { signUp } from '../services/userService';
 import { setToken, handleNotification } from '../utils/utils';
 import { Notification } from './Notification';
@@ -10,6 +11,7 @@ function Signup({ setRoomName }) {
   const [not, setNot] = useState(false);
   const [notContent, setNotContent] = useState('');
   const [pwIcon, setPWIcon] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     setRoomName('SIGN UP');
@@ -51,6 +53,7 @@ function Signup({ setRoomName }) {
       );
       setUsername('');
       setPassword('');
+      history.push('/rooms');
     } catch (err) {
       if (err.response.data.error) {
         handleNotification(
