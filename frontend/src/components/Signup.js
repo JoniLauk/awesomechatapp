@@ -81,7 +81,6 @@ function Signup({ setRoomName }) {
       {not ? <Notification message={notContent} /> : ''}
       <div>
         <form className="loginForm" onSubmit={handleSignup}>
-          <h1>AWESOMECHATAPP</h1>
           <div className="loginFormDiv">
             <h3>Name</h3>
             <input
