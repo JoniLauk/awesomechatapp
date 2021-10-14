@@ -1,49 +1,61 @@
-### Palauttaa objectin joka sisältää tokenin, usernamen ja id:n
+### Login POST, used in login. Requires username and password. Returns object including token, username and userid
 POST https://awesomechatappbeta.herokuapp.com/api/login/
 Content-Type: application/json
 
-{ 
-  "username": "username",
-  "password": "password"
-}
-
-### Messages GET 
+### Messages GET, returs messages for specific room with roomid using query. Requires token
 
 GET https://awesomechatappbeta.herokuapp.com/api/messages?roomId=615bf8f991eccc3e0e235ec4
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvbmkiLCJpZCI6IjYxNjVkOWUwMGMyNDAyYmM4OTBmNWQxNSIsImlhdCI6MTYzNDA2NDg2NH0.DLe0i-tt-SWX7xgGLYihKsA5WMFYt_6z7m2vci3Ix0w
+### Messages GET, returs specific message with messageid. Requires token
 
-###
+GET https://awesomechatappbeta.herokuapp.com/api/messages/6167d2b58300fe3422f6b886
+Content-Type: application/json
 
-GET https://awesomechatappbeta.herokuapp.com/api/messages/:id
-
-
-### Messages post (ei käytössä)
+### Messages POST, not in use in project. Could be used to send messages. Requires token and parameters for message ("_id:", "roomName", "room", "user", "content")
 
 POST https://awesomechatappbeta.herokuapp.com/api/messages/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvbmkiLCJpZCI6IjYxNjVkOWUwMGMyNDAyYmM4OTBmNWQxNSIsImlhdCI6MTYzNDA2NDg2NH0.DLe0i-tt-SWX7xgGLYihKsA5WMFYt_6z7m2vci3Ix0w
 
-{
-  "_id:" new ObjectId().toString(),
-  "roomName": roomId.id,
-  "room": roomId.id,
-  "user": getUser(),
-  "content": messageContent,
-};
+### Rooms GET, returs all the rooms and populates them with messages. Requires token.
 
-###
-GET https://awesomechatappbeta.herokuapp.com/api/users/
+GET https://awesomechatappbeta.herokuapp.com/api/rooms/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvbmkiLCJpZCI6IjYxNjVkOWUwMGMyNDAyYmM4OTBmNWQxNSIsImlhdCI6MTYzNDA2NDg2NH0.DLe0i-tt-SWX7xgGLYihKsA5WMFYt_6z7m2vci3Ix0w
 
-###
+
+
+### Rooms GET, returs room and all message id in room (even deleted once). Requires token
+GET https://awesomechatappbeta.herokuapp.com/api/rooms/6165f02e97a6f2d2289fca26
+Content-Type: application/json
+
+### Rooms POST, used for room creation. Requires token and roomname
 
 POST  https://awesomechatappbeta.herokuapp.com/api/rooms/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvbmkiLCJpZCI6IjYxNjVkOWUwMGMyNDAyYmM4OTBmNWQxNSIsImlhdCI6MTYzNDA2NDg2NH0.DLe0i-tt-SWX7xgGLYihKsA5WMFYt_6z7m2vci3Ix0w
 
-{ 
-  "name": "asdfasf"
-}
+### Rooms PUT, not in use in project. Could be used to update room. Requires token and roomid
 
+PUT https://awesomechatappbeta.herokuapp.com/api/rooms/6165f02e97a6f2d2289fca26
+Content-Type: application/json
+
+### Rooms DELETE, used for deleting a specific room. Requires token and roomid
+
+DELETE  https://awesomechatappbeta.herokuapp.com/api/rooms/6165f02e97a6f2d2289fca26
+Content-Type: application/json
+
+###
+
+GET https://awesomechatappbeta.herokuapp.com/api/users/61689357fa0840904d1813d9
+Content-Type: application/json
+### used for creating a new user. Requires username and token
+
+POST https://awesomechatappbeta.herokuapp.com/api/users/
+Content-Type: application/application/json
+
+###
+PUT  https://awesomechatappbeta.herokuapp.com/api/users/
+Content-Type: application/json
+
+### used for deleting a specific user. Requires token and userid
+
+DELETE  https://awesomechatappbeta.herokuapp.com/api/users/61689357fa0840904d1813d9
+Content-Type: application/json
