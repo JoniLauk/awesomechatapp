@@ -23,9 +23,9 @@ function Settings({ setRoomName }) {
     myStorage.getItem('currentTheme')
   );
 
-  /*useEffect(() => {
+  useEffect(() => {
     setRoomName('SETTINGS');
-  });*/
+  });
 
   const logout = () => {
     setUser(null);
