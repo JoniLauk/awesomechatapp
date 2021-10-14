@@ -1,7 +1,7 @@
 # Awesome-chat-app-beta
 
 Awesome-chat-app-beta is a (school)project which combains Node.js® Express REST API and React frontend. REST API can be used as a stand alone API but it requires API key (jwt).
-Version deployd to [HEROKU](https://awesomechatappbeta.herokuapp.com/) is the API configurated to serve the static React app.
+Version in main and [HEROKU](https://awesomechatappbeta.herokuapp.com/) is the API configurated to serve the static React app.
 
 ![awesomechatappbeta](awesomechatappbeta.png)
 ![awesomechatappbeta_rooms](awesomechatappbeta_rooms.png)
