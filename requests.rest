@@ -1,13 +1,49 @@
-###
-GET http://localhost:4000/api/users/
+### Palauttaa objectin joka sisältää tokenin, usernamen ja id:n
+POST https://awesomechatappbeta.herokuapp.com/api/login/
 Content-Type: application/json
 
+{ 
+  "username": "username",
+  "password": "password"
+}
+
+### Messages GET 
+
+GET https://awesomechatappbeta.herokuapp.com/api/messages?roomId=615bf8f991eccc3e0e235ec4
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvbmkiLCJpZCI6IjYxNjVkOWUwMGMyNDAyYmM4OTBmNWQxNSIsImlhdCI6MTYzNDA2NDg2NH0.DLe0i-tt-SWX7xgGLYihKsA5WMFYt_6z7m2vci3Ix0w
+
 ###
 
-POST  http://localhost:4000/api/rooms/
+GET https://awesomechatappbeta.herokuapp.com/api/messages/:id
+
+
+### Messages post (ei käytössä)
+
+POST https://awesomechatappbeta.herokuapp.com/api/messages/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvbmkiLCJpZCI6IjYxNjVkOWUwMGMyNDAyYmM4OTBmNWQxNSIsImlhdCI6MTYzNDA2NDg2NH0.DLe0i-tt-SWX7xgGLYihKsA5WMFYt_6z7m2vci3Ix0w
+
+{
+  "_id:" new ObjectId().toString(),
+  "roomName": roomId.id,
+  "room": roomId.id,
+  "user": getUser(),
+  "content": messageContent,
+};
+
+###
+GET https://awesomechatappbeta.herokuapp.com/api/users/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvbmkiLCJpZCI6IjYxNjVkOWUwMGMyNDAyYmM4OTBmNWQxNSIsImlhdCI6MTYzNDA2NDg2NH0.DLe0i-tt-SWX7xgGLYihKsA5WMFYt_6z7m2vci3Ix0w
+
+###
+
+POST  https://awesomechatappbeta.herokuapp.com/api/rooms/
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvbmkiLCJpZCI6IjYxNjVkOWUwMGMyNDAyYmM4OTBmNWQxNSIsImlhdCI6MTYzNDA2NDg2NH0.DLe0i-tt-SWX7xgGLYihKsA5WMFYt_6z7m2vci3Ix0w
 
 { 
   "name": "asdfasf"
 }
+
