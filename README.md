@@ -513,4 +513,4 @@ The REST API is described below.
 
 ## Contributing
 
-Pull requests are welcome. Please don't do trickeries.
+Please don't do trickeries.
