@@ -388,7 +388,7 @@ The REST API is described below.
 
 ### Request
 
-`GET /users/:id
+`GET /users/:id`
 
     GET https://awesomechatappbeta.herokuapp.com/api/users/{userid}
     Content-Type: application/json
